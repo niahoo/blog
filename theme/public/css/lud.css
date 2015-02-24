@@ -17,11 +17,7 @@ div.footnotes-sep2 { width:170px; border-top:1px solid #222; margin:0 0 1em;}
 div.footnotes ol { padding-left:2em; }
 div.footnotes ol li { list-style-position: outside; }
 /*div.footnotes ol li::marker { margin-left: -3em; }*/
-body { padding-bottom: 2em; }
 @media (min-width:768px){
-	.content {
-		padding:0 50px;
-	}
 	.content p ,
 	.content li {
 		text-align:justify;
@@ -67,4 +63,48 @@ pre {
     line-height: 70px;
     height: 70px;
     padding-top: 0;
+}
+
+/** typo & colors **/
+
+html{
+	font-size: 62.5%;
+	background: #fcfcfa;
+}
+body{
+	padding-bottom: 2em;
+	font-size: 1.8rem;
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.5555555555555556;
+}
+h1{
+	font-family: 'Raleway', sans-serif;
+	line-height: 0.9333333333333333;
+	font-size: 6.0rem;
+	font-weight: 100;
+	font-style: normal;
+	padding:0;
+	margin: 0.4666666666666667em 0;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+h2{
+	font-family: 'Merriweather', serif;
+	line-height: 1.8666666666666667;
+	margin: 0.9333333333333333em 0 0;
+	padding:0;
+	font-size: 3rem;
+	font-weight: 900;
+	font-style: italic;
+}
+h3{
+	line-height: 2.24;
+	margin: 0;
+	padding:0;
+	font-size: 2.5rem;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+}
+ul, p{
+	font-style: normal;
+	margin: 0 0 1.5555555555555556em;
 }
