@@ -1,17 +1,13 @@
-@extends ('press::layouts.base')
-
-@section('top')
-	<div id="navbar-wrapper" data-offset-top="360">
-		@include('press::pressParts.navbar')
-	</div>
-@stop
+@extends('lud::collection')
 
 @section('content')
-	@foreach ($articles as $article)
-		<a href="{{ $article->url() }}">
-			{{ $article->get('title', $article->id) }}
-		</a>
-		<br/>
-	@endforeach
-	{!! $paginator->render() !!}
+	<h1>Hello !</h1>
+	<p>
+		Je suis un développeur web basé dans le sud de la France. Ici je parle essentiellement de mes projets personnels : des applis web et notamment des jeux vidéo que je développe avec Erlang, PHP, et Javascript.
+	</p>
+	<p>
+		J'essaie aussi d'être drôle mais sans succès jusqu'à présent …
+	</p>
+	<h2>Blog Posts</h2>
+	@parent
 @stop

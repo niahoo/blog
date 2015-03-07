@@ -1,9 +1,8 @@
-@extends('press::layouts.base')
+@extends('lud::layouts.base')
 
 @section('content')
 
-	<div class="content row">
-		<div class="col-md-8">
+
 			{!! $content['html'] !!}
 
 			<p class="published-date">
@@ -13,13 +12,11 @@
 			@if($content['footnotes_html'])
 				{!! $content['footnotes_html'] !!}
 			@endif
-		</div>
+		{{--
 		<div class="col-md-4">
 			<h3>Archives</h3>
 			@include('lud::partials.archive')
-		</div>
-	</div>
-
+		</div> --}}
 @stop
 
 @section('assets_scripts')

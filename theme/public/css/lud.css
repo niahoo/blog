@@ -1,14 +1,51 @@
-#navbar-wrapper {
+.navbar-inverse {
+	border:none;
+	border-radius: 0;
+	background:#333;
 }
-#navbar-wrapper.affix {
+.navbar, .navbar .navbar-brand {
+    line-height: 70px;
+    height: 70px;
+    padding-top: 0;
+}
+.navbar.affix {
 	top:0;
+	/*bottom:0;margin-bottom:0;*/
+	z-index:1000;
 	width:100%;
-	position:fixed;
-	z-index: 1000;
+	background:transparent;
+	border:none;
 }
-#navbar-wrapper.affix + .container {
-	padding-top:156px;
+.navbar-inverse.affix:hover {
+	box-shadow: 0 0 3px #aaa;
+	background: #fcfcfc;
 }
+.navbar.affix .navbar-collapse {
+	opacity:0;
+}
+.navbar.affix:hover .navbar-collapse {
+	transition: opacity 0.4s ease-in-out;
+	opacity:1;
+}
+.navbar.affix + .container {
+	padding-top:90px;
+}
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+	color:#fcfcfc;
+}
+.navbar-inverse.affix .navbar-brand,
+.navbar-inverse.affix .navbar-nav > li > a {
+	color:#666;
+}
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus,
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+}
+*/
+
+
 div.footnotes { font-size: 0.9em;}
 div.footnotes hr { display:none; }
 div.footnotes hr { display:none; }
@@ -17,7 +54,7 @@ div.footnotes-sep2 { width:170px; border-top:1px solid #222; margin:0 0 1em;}
 div.footnotes ol { padding-left:2em; }
 div.footnotes ol li { list-style-position: outside; }
 /*div.footnotes ol li::marker { margin-left: -3em; }*/
-@media (min-width:768px){
+@media (min-width : 480px){
 	.content p ,
 	.content li {
 		text-align:justify;
@@ -41,40 +78,17 @@ pre {
 	border-radius: 0px;
 }
 
-.press .navbar-default {
-	background-color: #F0F0F0;
-}
-
-.press .navbar-default .navbar-brand,
-.press .navbar-default .navbar-nav > li > a {
-	color: #313131;
-}
-
-.press .navbar-default .navbar-brand:hover,
-.press .navbar-default .navbar-brand:focus,
-.press .navbar-default .navbar-nav > li > a:hover,
-.press .navbar-default .navbar-nav > li > a:focus {
-	color: #aaa;
-	background-color: #F0F0F0;
-}
-
-.press .navbar-brand,
-.press .navbar-nav li a {
-    line-height: 70px;
-    height: 70px;
-    padding-top: 0;
-}
 
 /** typo & colors **/
 
 html{
 	font-size: 62.5%;
-	background: #fcfcfa;
 }
 body{
+	background: #fcfcfc;
 	padding-bottom: 2em;
 	font-size: 1.8rem;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	line-height: 1.5555555555555556;
 }
 h1{
@@ -104,7 +118,17 @@ h3{
 	font-family: 'Raleway', sans-serif;
 	font-weight: 300;
 }
+.collection-date {
+	line-height: 2.5454545454545454;
+	font-size: 2.2rem;
+	color:#ccc;
+	font-weight: bold;
+}
 ul, p{
 	font-style: normal;
 	margin: 0 0 1.5555555555555556em;
+}
+.press-cache-info {
+	font-size: 0.8em;
+	color:#aaa;
 }

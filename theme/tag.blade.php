@@ -1,4 +1,4 @@
-@extends ('press::layouts.base')
+@extends('lud::layouts.base')
 
 @section('content')
 	@foreach ($articles as $article)
