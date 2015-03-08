@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse" data-spy="affix" data-offset-top="70" role="navigation">
+<div class="navbar navbar-inverse" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
