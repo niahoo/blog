@@ -4,7 +4,7 @@
 	@foreach ($articles as $article)
 		<div class="row collection-item">
 			<div class="col-lg-2 collection-date">
-				{{ $article->get('date', new DateTime())->format('m/d/Y') }}
+				{{ $article->get('date', new DateTime())->format('d/m/Y') }}
 			</div>
 			<div class="col-lg-10">
 				<h3>
