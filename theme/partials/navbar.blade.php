@@ -14,7 +14,7 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<!-- <li><a href="#about">About</a></li> -->
-				<!-- <li><a href="#contact">Contact</a></li> -->
+				<li><a href="https://github.com/lud/blog">Source</a></li>
 			</ul>
 			@include('press::pressParts.edit_actions')
 

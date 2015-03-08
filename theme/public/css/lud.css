@@ -3,7 +3,7 @@
 	border-radius: 0;
 	background:#333;
 }
-.navbar, .navbar .navbar-brand {
+.navbar, .navbar .navbar-brand, .navbar li a {
     line-height: 70px;
     height: 70px;
     padding-top: 0;
@@ -42,8 +42,8 @@
 .navbar-inverse .navbar-brand:focus,
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
+	color:#31b0d5;
 }
-*/
 
 
 div.footnotes { font-size: 0.9em;}
