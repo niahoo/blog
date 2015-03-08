@@ -21,7 +21,7 @@
 @section('full_content')
 	<div class="container press-container">
 		<div class="row">
-			<div class="content col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+			<div class="content col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
 				@yield('content')
 				@include('press::pressParts.cache_infos')
 			</div>
