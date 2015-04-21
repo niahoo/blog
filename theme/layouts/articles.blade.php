@@ -10,7 +10,11 @@
 			</p>
 
 			@if($content['footnotes_html'])
-				{!! $content['footnotes_html'] !!}
+				<div class="footnotes">
+					<div class="footnotes-sep1"></div>
+					<div class="footnotes-sep2"></div>
+					{!! $content['footnotes_html'] !!}
+				</div>
 			@endif
 		{{--
 		<div class="col-md-4">
@@ -23,11 +27,5 @@
 	@parent
 	<script>
 		hljs.initHighlightingOnLoad();
-		$(function(){
-			$('.footnotes').prepend([
-				$('<div class="footnotes-sep1"></div>'),
-				$('<div class="footnotes-sep2"></div>'),
-			])
-		});
 	</script>
 @stop
