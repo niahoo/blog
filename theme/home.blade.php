@@ -5,7 +5,7 @@
 	<p>
 		Je suis un développeur web basé dans le sud de la France. Ici je parle
 		essentiellement de mes projets personnels : des applis web et notamment
-		des jeux vidéo que je développe avec Erlang, PHP, et  Javascript.
+		des jeux vidéo que je développe avec Elixir, Erlang, PHP, et Javascript.
 	</p>
 	<p>
 		Je développe également le moteur qui est derrière ce blog. <br/> Pour

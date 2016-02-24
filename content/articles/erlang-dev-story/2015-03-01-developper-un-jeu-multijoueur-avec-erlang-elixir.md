@@ -1,7 +1,8 @@
 title: "Développer un jeu multijoueur avec Erlang et Elixir"
 toc_title: "Introduction"
 layout: layouts.articles
-description: "Introduction au développement de jeux multijoueurs avec Erlang/OPT"
+disqus_identifier: eds.apps
+description: "Introduction au développement de jeux multijoueurs avec Erlang/OTP"
 ****
 
 # {{ article.title }}
