@@ -8,13 +8,21 @@
   "dependencies": {
     "highlighter": "0.0.3",
     "metalsmith": "^2.1.0",
+    "metalsmith-assets": "^0.1.0",
     "metalsmith-collections": "^0.7.0",
     "metalsmith-define": "^1.0.0",
+    "metalsmith-in-place": "^1.4.3",
     "metalsmith-layouts": "^1.6.4",
     "metalsmith-markdown": "^0.2.1",
     "metalsmith-permalinks": "^0.4.1",
+    "metalsmith-prism": "^2.1.1",
     "metalsmith-serve": "0.0.7",
+    "metalsmith-slug": "0.0.5",
+    "metalsmith-urls": "^1.0.1",
     "metalsmith-watch": "^1.0.1",
     "swig": "^1.4.2"
+  },
+  "scripts": {
+    "dev": "rm build -rvf && node run-dev.js"
   }
 }

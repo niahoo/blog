@@ -1,15 +1,17 @@
+---
 title: "Architecture serveur d'un jeu web Elixir/Erlang"
 toc_title: "*Frameworks* et librairies"
-layout: layouts.articles
+layout: article.swig
 disqus_identifier: eds.apps
 description: "Présentation des applications Elixir/Erlang utiles au développement d'un jeu web"
-****
+date: 2015-03-01
+---
 
-# {{ article.title }}
+# {{ title }}
 
 *Cet article fait partie d'une série traitant du développement d'un jeu multijoueur avec Erlang/OTP et Elixir. Retrouvez les autres articles dans ce sommaire :*
 
-{{ press.file('erlang-dev-story-toc').import }}
+press.file('erlang-dev-story-toc').import
 
 Voici une petite présentation des outils que je souhaite mettre en place pour mon jeu. À titre de comparaison, voyons en premier lieu une *stack* typique pour un jeu PHP :
 
@@ -35,7 +37,7 @@ Pour info, Erlang et Elixir se compilent tous les deux dans le même *bytecode*,
 
 Comme mon jeu traite de potions et que pour commencer à coder il faut bien nommer un fichier, j'ai décidé d'appeler mon application `popos`. Ce sera le serveur de jeu qui gèrera les joueurs, les parties et l'intelligence artificielle. Je dispose d'un protoype en Erlang, que je réécrirai petit à petit en Elixir.
 
-Ensuite, je me base sur le *framework* web [Phoenix](http://www.phoenixframework.org/) pour écrire la partie web. Phoenix se charge également du serveur web en embarquant [cowboy](https://github.com/ninenines/cowboy), qui gère au passage les *websockets*. 
+Ensuite, je me base sur le *framework* web [Phoenix](http://www.phoenixframework.org/) pour écrire la partie web. Phoenix se charge également du serveur web en embarquant [cowboy](https://github.com/ninenines/cowboy), qui gère au passage les *websockets*.
 
 L'application basée sur Phoenix contiendra donc les controlleurs, les templates HTML, et le code gérant les *websockets* (des controlleurs spécifiques). Ici également il me fallait un nom rapidement quand j'ai démarré donc ce sera `xpose`, car ce projet expose mon jeu au monde entier \o/.
 

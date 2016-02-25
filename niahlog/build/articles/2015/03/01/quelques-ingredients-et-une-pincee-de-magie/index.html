@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Quelques ingrédients et une pincée de magie …</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="//localhost:8080/lib/css/prism-coy.css" />
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<body>
+<div class="container">
+ 
+	<h1 id="quelques-ingr-dients-et-une-pinc-e-de-magie-">Quelques ingrédients et une pincée de magie …</h1>
+<p><em>Cet article fait partie d&#39;une série traitant du développement d&#39;un jeu multijoueur avec Erlang/OTP et Elixir. Retrouvez les autres articles dans ce sommaire :</em></p>
+<p>press.file(&#39;erlang-dev-story-toc&#39;).import</p>
+<p>Si vous avez lu le chapitre d&#39;introduction, vous avez compris que cette série d&#39;articles sera essentiellement technique, centrée sur la programmation et surtout l&#39;architecture logicielle d&#39;un jeu multijoueur par navigateur. Mais toutes les décisions que je prendrai devront suivre un objectif principal : que le jeu fonctionne, et qu&#39;il soit fun. Voici donc une présentation de ce que je souhaite créer.</p>
+<p>Deux joueurs s&#39;affrontent à travers leurs équipes de magiciens, cuisiniers ou autres gobelins sorciers. Chaque équipe compte trois personnages et dispose d&#39;une réserve d&#39;ingrédients tels que des « essences de magie », du « poivre moulu » ou du « poil-à-gratter-inflammable ». Pour gagner la partie, il faut simplement se débarrasser de ses adversaires en leur lançant les potions les plus dangereuses. Chaque personnage dispose de quelques points de vie qui disparaissent rapidement sous les brûlures, poisons et maladies infligées par les potions. Heureusement, il est également possible de soigner son équipe avec certaines potions.</p>
+<p>En termes de <em>gameplay</em>, le jeu s&#39;apparente à un jeu de cartes comme on en trouve beaucoup sur internet. Certes, ce n&#39;est pas très original mais j&#39;ai envie de faire quelque chose de simple, pour apprendre. Les potions ont des effets directs ou sur la durée, des effets ciblés ou de groupe et des effets de « diffusion ».</p>
+<p>Par exemple, une potion de flammes inflige directement une brûlure à sa cible qui perd quelques points de vie. Une potion d&#39;explosion inflige des dommages des groupe : chaque personnage adverse perd de la vie. Un poison ou une maladie va infecter sa cible et lui faire perdres quelques points de vie à chaque tour. Mélanger des ingrédients pour faire une explosion avec du poison permet d&#39;envoyer un nuage toxique qui va activer des dégâts sur la durée à plusieurs cibles.</p>
+<p>Enfin, les effets de diffusion n&#39;infligent pas obligatoirement de dégâts mais rajoutent une dimension tactique. Par exemple, j&#39;envoie une maladie à l&#39;un des personnages adverses. Je sais que la maladie dure au moins deux tours (sauf si elle est soignée). Au tour suivant, je lui envoie une potion contenant du poivre qui le fera éternuer, diffusant ainsi la maladie à ses compagnons.</p>
+<p>À chaque tour, on doit sélectionner trois ingrédients, ni plus ni moins. Et à chaque tour, trois nouveaux ingrédients tirés aléatoirement viennent remplacer ceux utilisés. Je me demande s&#39;il serait intéressant que les deux joueurs commencent avec les mêmes ingrédients et reçoivent les mêmes ingrédients ensuite. Cela permet d&#39;avoir plus de vision stratégique, mais confère un avantage trop important au joueur qui commence à mon goût.</p>
+<p>Je n&#39;ai pas vraiment décidé du <em>background</em> du jeu. Je pense à une vague histoire de championnat de sorcellerie mais je cherche toujours ce que des scientifiques et des cuisiniers pourraient bien avoir à faire là dedans.</p>
+
+
+</div>
+
+
+	<script src="http://localhost:35729/livereload.js"></script>
+	<script>
+		console.log('Development mode, livereload on')
+	</script>
+
+
+</body>

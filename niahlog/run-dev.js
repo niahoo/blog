@@ -1,5 +1,7 @@
+var assets = require('metalsmith-assets')
 var collections = require('metalsmith-collections')
 var define = require('metalsmith-define')
+var inPlace = require('metalsmith-in-place')
 var layouts = require('metalsmith-layouts')
 var livereload = true
 var markdown = require('metalsmith-markdown')
@@ -7,6 +9,7 @@ var metalsmith = require('metalsmith')
 var permalinks = require('metalsmith-permalinks')
 var prism = require('metalsmith-prism')
 var serve = require('metalsmith-serve')
+var slug = require('metalsmith-slug')
 var urls = require('metalsmith-urls')
 var watch = require('metalsmith-watch')
 
@@ -31,8 +34,9 @@ var registry = function(prop) {
         Object.keys(files).forEach(function(k){
             file = files[k]
             ref = file[prop]
+            console.log(file.title, file.collection)
             if (ref) {
-                registry[ref] = file                
+                registry[ref] = file
             }
         })
         meta.refs = registry
@@ -52,13 +56,22 @@ metalsmith(__dirname)
             sortBy: 'date',
             reverse: true,
         },
+        // 'story-elixir-game': {
+        //     pattern: 'articles/story-elixir-game/**/*.md',
+        // },
         pages: {
             pattern: 'pages/**/*.md',
         },
     }))
-    .use(serve())
-    .use(watcher())
+    .use(serve()).use(watcher())
     .use(registry())
+    .use(slug({
+        patterns: ['*.md'],
+        replacement: '__',
+    }))
+    .use(inPlace({
+        engine: 'swig'
+    }))
     .use(markdown({
         gfm: true,
         tables: true,
@@ -71,7 +84,8 @@ metalsmith(__dirname)
                 match: {
                     collection: 'articles'
                 },
-                pattern: 'articles/:date/:title'
+                // Use the slug here
+                pattern: 'articles/:date/:slug'
             },
             // Pages
             {
@@ -87,6 +101,10 @@ metalsmith(__dirname)
     .use(prism())
     .use(layouts({
         engine: 'swig'
+    }))
+    .use(assets({
+        source: './assets',
+        destination: './lib'
     }))
     .destination('build')
     .build(function(err) {

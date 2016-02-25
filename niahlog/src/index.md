@@ -5,12 +5,12 @@ layout: home.swig
 permalink: false
 ---
 
-# Home
+# slug = "{{ slug }}"
 
 This is the home content.
 
 ``` elixir
-defmodule Chamois
-	def spa(n), do: n + 1
+defmodule Chamois do
+	def spa(n), do: n * n
 end
 ```
