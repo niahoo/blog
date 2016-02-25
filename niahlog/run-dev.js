@@ -56,18 +56,18 @@ metalsmith(__dirname)
             sortBy: 'date',
             reverse: true,
         },
-        // 'story-elixir-game': {
-        //     pattern: 'articles/story-elixir-game/**/*.md',
-        // },
+        'story_elixir_game': {
+            pattern: 'articles/story-elixir-game/*.md',
+            refer: false,
+        },
         pages: {
             pattern: 'pages/**/*.md',
         },
     }))
-    .use(serve()).use(watcher())
+    // .use(serve()).use(watcher())
     .use(registry())
     .use(slug({
         patterns: ['*.md'],
-        replacement: '__',
     }))
     .use(inPlace({
         engine: 'swig'

@@ -5,7 +5,6 @@ layout: article.swig
 disqus_identifier: eds.apps
 description: "Introduction au développement de jeux multijoueurs avec Erlang/OTP"
 date: 2015-03-01
-collection: story-elixir-game
 ---
 
 # {{ title }}
