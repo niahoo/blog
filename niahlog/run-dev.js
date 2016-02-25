@@ -4,7 +4,7 @@ var define = require('metalsmith-define')
 var inPlace = require('metalsmith-in-place')
 var layouts = require('metalsmith-layouts')
 var livereload = true
-var markdown = require('metalsmith-markdown')
+var markdown = require('metalsmith-markdownit')
 var metalsmith = require('metalsmith')
 var permalinks = require('metalsmith-permalinks')
 var prism = require('metalsmith-prism')
@@ -13,11 +13,20 @@ var slug = require('metalsmith-slug')
 var urls = require('metalsmith-urls')
 var watch = require('metalsmith-watch')
 
+var md = markdown({
+    html: true,
+    langPrefix: 'language-',
+    typographer: true,
+    quotes: ['«\xA0', '\xA0»', '‘', '’'],
+})
+md.parser.use(require('markdown-it-footnote'))
+
 var watcher = function() {
     return watch({
         paths: {
             "${source}/**/*": true,
             "layouts/**/*": "**/*.md",
+            "assets/**/*": "**/*.md",
         },
         livereload: livereload,
     })
@@ -58,13 +67,15 @@ metalsmith(__dirname)
         },
         'story_elixir_game': {
             pattern: 'articles/story-elixir-game/*.md',
+            sortBy: 'date',
+            reverse: true,
             refer: false,
         },
         pages: {
             pattern: 'pages/**/*.md',
         },
     }))
-    // .use(serve()).use(watcher())
+    .use(serve()).use(watcher())
     .use(registry())
     .use(slug({
         patterns: ['*.md'],
@@ -72,11 +83,7 @@ metalsmith(__dirname)
     .use(inPlace({
         engine: 'swig'
     }))
-    .use(markdown({
-        gfm: true,
-        tables: true,
-        langPrefix: 'language-',
-    }))
+    .use(md )
     .use(permalinks({
         linksets: [
             // Articles

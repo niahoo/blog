@@ -5,7 +5,7 @@ layout: home.swig
 permalink: false
 ---
 
-# slug = "{{ slug }}"
+# "{{ title }}"
 
 This is the home content.
 

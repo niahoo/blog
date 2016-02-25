@@ -3,26 +3,27 @@
 <title>Développer un jeu multijoueur avec Erlang et Elixir</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="//localhost:8080/lib/css/prism-coy.css" />
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<link rel="stylesheet" href="//localhost:8080/lib/css/main.css" />
+<link rel="stylesheet" href="//localhost:8080/lib/css/prism-coy.css" />
+
 
 <body>
 <div class="container">
 
 	&quot;&quot;
 	&quot;Architecture serveur d&#39;un jeu web Elixir/Erlang&quot;
-	<h1 id="d-velopper-un-jeu-multijoueur-avec-erlang-et-elixir">Développer un jeu multijoueur avec Erlang et Elixir</h1>
-<p>Ceci constitue le premier article d&#39;une courte série qui traitera de la création d&#39;un jeu web multijoueur avec Erlang/OTP et Elixir. Je souhaite donner des pistes pour mettre en place une architecture adaptée à un jeu avec de nombreux joueurs, capable de soutenir un fort traffic et de nombreuses opérations concurrentes. Bien entendu, en utilisant les technologies d&#39;aujourd&#39;hui, notament les <em>websockets</em>, pour proposer une interface de jeu dynamique et fluide.</p>
-<p>Je compte également traiter de la nature d&#39;Erlang, <em>i.e.</em> un langage mettant la programmation concurrente et fonctionnelle au premier plan. Nous verrons que cela apporte des avantages et des inconvénients dans la création d&#39;un jeu, les jeux étant par essence d&#39;interminables successions d&#39;opérations sur un même <em>state</em>.</p>
-<p>Ces articles ne sont pas destinés à vous apprendre Erlang, je m&#39;adresse en premier lieu à ceux qui connaissent déjà le langage, ou qui le découvrent en parallèle. Si vous voulez vous y mettre, il existe plein de tutos et d&#39;articles à ce sujet, à commencer par <a href="http://learnyousomeerlang.com/">Learn You Some Erlang for great good!</a>, un livre (très) complet à lire en ligne gratuitement.</p>
-<p>Si malgré tout Erlang ou Elixir ne vous intéressent pas plus que ça, vous pourrez quand même trouver ici des solutions intéressantes à des problèmes que rencontrent tous les développeurs de jeux <em>online</em>, web ou pas. Ce sont surtout des concepts d&#39;architecture qui seront mis en avant, et ils peuvent dans certains cas être adaptés dans n&#39;importe quel langage. Dans d&#39;autre cas, leur adaptation demandera plus de travail mais ce sera un exercice interessant, au moins pour la forme.</p>
-<h2 id="table-des-mati-res">Table des matières</h2>
-<p>press.file(&#39;erlang-dev-story-toc&#39;).import</p>
+	<h1>Développer un jeu multijoueur avec Erlang et Elixir</h1>
+<p>Ceci constitue le premier article d’une courte série qui traitera de la création d’un jeu web multijoueur avec Erlang/OTP et Elixir. Je souhaite donner des pistes pour mettre en place une architecture adaptée à un jeu avec de nombreux joueurs, capable de soutenir un fort traffic et de nombreuses opérations concurrentes. Bien entendu, en utilisant les technologies d’aujourd’hui, notament les <em>websockets</em>, pour proposer une interface de jeu dynamique et fluide.</p>
+<p>Je compte également traiter de la nature d’Erlang, <em>i.e.</em> un langage mettant la programmation concurrente et fonctionnelle au premier plan. Nous verrons que cela apporte des avantages et des inconvénients dans la création d’un jeu, les jeux étant par essence d’interminables successions d’opérations sur un même <em>state</em>.</p>
+<p>Ces articles ne sont pas destinés à vous apprendre Erlang, je m’adresse en premier lieu à ceux qui connaissent déjà le langage, ou qui le découvrent en parallèle. Si vous voulez vous y mettre, il existe plein de tutos et d’articles à ce sujet, à commencer par <a href="http://learnyousomeerlang.com/">Learn You Some Erlang for great good!</a>, un livre (très) complet à lire en ligne gratuitement.</p>
+<p>Si malgré tout Erlang ou Elixir ne vous intéressent pas plus que ça, vous pourrez quand même trouver ici des solutions intéressantes à des problèmes que rencontrent tous les développeurs de jeux <em>online</em>, web ou pas. Ce sont surtout des concepts d’architecture qui seront mis en avant, et ils peuvent dans certains cas être adaptés dans n’importe quel langage. Dans d’autre cas, leur adaptation demandera plus de travail mais ce sera un exercice interessant, au moins pour la forme.</p>
+<h2>Table des matières</h2>
+<p>press.file(‘erlang-dev-story-toc’).import</p>
 
 
 </div>
