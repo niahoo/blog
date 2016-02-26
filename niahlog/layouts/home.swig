@@ -4,21 +4,21 @@
 {% block content %}
 	{{ contents | safe }}
 
-	<h4>Articles</h4>
+	<h2>Articles</h2>
 	<ul>
 	{% for article in collections.articles %}
 	<li><a href="{{article.path}}">{{article.title}}</a></li>
 	{% endfor %}
 	</ul>
 
-	<h4>Articles about Elixir and a game</h4>
+	<h2>Articles about Elixir and a game</h2>
 	<ul>
 	{% for article in collections.story_elixir_game %}
-	<li><a href="{{article.path}}">{{article.title}}</a></li>
+	<li>{{article.title}} <a href="{{article.path}}">linkTo</a></li>
 	{% endfor %}
 	</ul>
 
-	<h4>Pages</h4>
+	<h2>Pages</h2>
 	<ul>
 	{% for page in collections.pages %}
 	<li><a href="{{page.path}}">{{page.title}}</a></li>
