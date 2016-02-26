@@ -29,7 +29,7 @@ body {
 }
 h1, h2, h3 {
 	font-family: 'Lato', sans-serif;
-	color: #556;
+	color: #445;
 	font-weight: 700;
 }
 
@@ -51,7 +51,6 @@ h1{
 	text-align: center;
 	line-height: 0.9333333333333333;
 	font-size: 6.0rem;
-	font-weight: 100;
 	font-style: normal;
 	padding:0;
 	margin: 0.4666666666666667em 0;

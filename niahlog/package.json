@@ -21,6 +21,7 @@
     "metalsmith-slug": "0.0.5",
     "metalsmith-urls": "^1.0.1",
     "metalsmith-watch": "^1.0.1",
+    "slug": "^0.9.1",
     "swig": "^1.4.2"
   },
   "scripts": {
