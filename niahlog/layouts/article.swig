@@ -1,8 +1,7 @@
 {% extends 'base.swig' %}
 
+{% block bodyclass %}article{% endblock %}
 {% block content %}
-	{{ next.title | json(4) }}
-	{{ previous.title | json(4) }}
 	{{ contents | safe }}
 {% endblock %}
 

@@ -1,9 +1,17 @@
-
 @media (min-width : 480px){
 	.content p ,
 	.content li {
 		text-align:justify;
 	}
+}
+
+body.article h1:after {
+    display: block;
+    content: '';
+    width: 6rem;
+    height: 1px;
+    background-color: #e6e6e6;
+    margin: 0.4666666666666667em auto;
 }
 
 pre {
@@ -13,9 +21,11 @@ pre {
 	border-radius: 0;
 	padding:0 1em;
 }
+
 .container {
 	max-width:750px;
 }
+
 footer {
 	min-height: 10em;
 }
@@ -28,9 +38,8 @@ body {
 	font-family: 'Merriweather', monospace;
 }
 h1, h2, h3 {
-	font-family: 'Lato', sans-serif;
+	font-family: 'LatoWebBold', sans-serif;
 	color: #445;
-	font-weight: 700;
 }
 
 /* sizes */
