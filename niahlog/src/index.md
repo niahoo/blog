@@ -1,5 +1,5 @@
 ---
-title:  → The kerning sucks
+title: The kerning sucks
 date: 2016-02-23
 layout: home.swig
 permalink: false

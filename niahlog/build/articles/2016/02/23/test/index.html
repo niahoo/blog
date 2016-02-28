@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <link rel="stylesheet" href="/lib/css/bootstrap-lumen.min.css" />
-<link href='https://fonts.googleapis.com/css?family=Merriweather:300,300italic,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Merriweather:900,700|Merriweather+Sans:300,300italic,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/lib/css/main.css" />
 <link rel="stylesheet" href="/lib/css/latofonts.css" />
 <link rel="stylesheet" href="/lib/css/prism.css" />

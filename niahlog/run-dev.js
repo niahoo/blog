@@ -8,6 +8,7 @@ var markdown = require('metalsmith-markdownit')
 var metalsmith = require('metalsmith')
 var permalinks = require('metalsmith-permalinks')
 var prism = require('metalsmith-prism')
+var textReplace = require('metalsmith-text-replace')
 var serve = require('metalsmith-serve')
 var slug = require('metalsmith-slug')
 var urls = require('metalsmith-urls')
@@ -83,7 +84,13 @@ metalsmith(__dirname)
     .use(inPlace({
         engine: 'swig'
     }))
-    .use(md )
+    .use(md)
+    .use(textReplace({
+        "**/**": [
+            // bootstrap tables classes
+            {find:/<table>/g, replace:'<table class="table table-bordered">'},
+        ]
+    }))
     .use(permalinks({
         linksets: [
             // Articles
