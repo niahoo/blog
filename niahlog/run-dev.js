@@ -3,7 +3,6 @@ var collections = require('metalsmith-collections')
 var define = require('metalsmith-define')
 var inPlace = require('metalsmith-in-place')
 var layouts = require('metalsmith-layouts')
-var livereload = true
 var markdown = require('metalsmith-markdownit')
 var metalsmith = require('metalsmith')
 var permalinks = require('metalsmith-permalinks')
@@ -13,6 +12,8 @@ var serve = require('metalsmith-serve')
 var slug = require('metalsmith-slug')
 var urls = require('metalsmith-urls')
 var watch = require('metalsmith-watch')
+
+var IS_DEV = true
 
 var md = markdown({
     html: true,
@@ -29,7 +30,7 @@ var watcher = function() {
             "layouts/**/*": "**/*.md",
             "assets/**/*": "**/*.md",
         },
-        livereload: livereload,
+        livereload: IS_DEV,
     })
 }
 
@@ -57,7 +58,7 @@ var registry = function(prop) {
 
 metalsmith(__dirname)
     .use(define({
-        livereload: livereload, // @todo use dotenv
+        IS_DEV: IS_DEV, // @todo use dotenv
     }))
     .source('src')
     .use(collections({

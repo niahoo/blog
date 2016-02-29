@@ -1,5 +1,5 @@
 ---
-title: "Quelques ingrédients et une pincée de magie …"
+title: "Quelques ingrédients et une pincée de magie"
 toc_title: "Présentation du jeu"
 disqus_identifier: eds.pres
 layout: article.swig

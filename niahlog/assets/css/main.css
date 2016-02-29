@@ -1,17 +1,74 @@
-@media (min-width : 480px){
-	.content p ,
-	.content li {
-		text-align:justify;
-	}
+
+/* Layout */
+
+
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+    
 }
 
-body.article h1:after {
-    display: block;
-    content: '';
-    width: 6rem;
-    height: 1px;
-    background-color: #e6e6e6;
-    margin: 0.4666666666666667em auto;
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width : 480px) {
+
+}
+
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	/*.container{width:750px}*/
+	.container {
+	 	max-width:750px;
+	 	margin: auto;
+	}	
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	/*.container{width:970px}*/
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+	/*.container{width:1170px}*/
+
+}
+
+/* Type & colors */
+
+
+body {
+	font-family: 'Merriweather', sans-serif;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Merriweather', 'Georgia', serif;
+	color: #444;
+	font-weight: 900;
+}
+h2, h3 {
+	font-family: 'Merriweather Sans', sans-serif;
+	color: #444;
+	font-weight: 700;
+}
+blockquote p {
+	font-family: 'Merriweather', 'Georgia', serif;
+	font-style: italic;		
+}
+pre code[class*="language-"], pre, code {
+	font-family: 'Roboto Mono', monospace;
+}
+
+/* Typography sizes */
+
+html {
+	font: 62.5%/1.6 serif !important;
+}
+
+/* defaults */
+h1{
+	text-align: center;
+	-webkit-font-smoothing: subpixel-antialiased;
 }
 
 pre {
@@ -19,76 +76,79 @@ pre {
 	border:none;
 	border-left:5px solid #eee;
 	border-radius: 0;
-	padding:0 1em;
 }
 
-.container {
-	max-width:750px;
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+    
 }
 
-footer {
-	min-height: 10em;
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width : 480px) {
+
 }
 
-/** Typography **/
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	/*.container{width:750px}*/
+	body, pre code[class*="language-"], pre, blockquote {
+		font-size: 1.8rem;
+		line-height: 2.8rem;
+	}
+	body.dev {
+		background-image: url('http://basehold.it/i/28');
+	    background-position:0 14px;
+	}
+	body.dev:active {
+		background-image: none;
+	}
+	ul, pre, p, blockquote {
+		margin: 0 0 2.8rem 0;
+	}
+	h1 {
+		font-size: 6.2rem; 
+		line-height: 8.4rem; /* 28 * 3 */
+		margin:4.2rem 0 2.6rem;
+	}
+	h1:after {
+		display: block;
+		content: '';
+		width:12.0rem;
+		border-bottom: 2px solid #e3e3e3;
+		height:2.8rem;
+		margin:0.2rem auto 0;
+	}
+	pre {
+		padding:0 0 0 2.3rem ; /* 28px - 5px border */
+	}
+	blockquote{
+		position:relative;
+		padding:0 4.2rem;
+		border:none;
+	}
+	blockquote::before {
+		content: "\201C";
+		position: absolute;
+		left: -5px;
+		top: -4px;
+		font-family: 'Roboto Mono', monospace;
+		font-size: 5em;
+		line-height: .9;
+		color: rgba(0,0,0,.3);	
+	}
+}
 
-/* fonts & colors */
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	/*.container{width:970px}*/
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+	/*.container{width:1170px}*/
+
+}
 
 
 
-body {
-	font-family: 'Merriweather', sans-serif;
-}
-h1 {
-	font-family: 'Merriweather', serif;
-	color: #444;
-	font-weight: 900;
-}
-h2, h3 {
-	font-family: 'Merriweather Sans', serif;
-	color: #444;
-	font-weight: 700;
-}
-blockquote p {
-	font-family: 'Merriweather', serif;
-	font-style: italic;		
-}
-/* sizes */
-
-html {
-	font-size: 62.5%;
-}
-body{
-	background: #fcfcfc;
-	padding-bottom: 2em;
-	font-size: 1.8rem;
-	line-height: 1.5555555555555556;
-}
-pre code[class*="language-"], pre {
-	font-size: 1.8rem;
-}
-h1{
-	text-align: center;
-	line-height: 0.9333333333333333;
-	font-size: 6.0rem;
-	font-style: normal;
-	padding:0;
-	margin: 0.4666666666666667em 0;
-	-webkit-font-smoothing: subpixel-antialiased;
-}
-h2{
-	line-height: 1.8666666666666667;
-	margin: 0.9333333333333333em 0 0;
-	padding:0;
-	font-size: 3rem;
-}
-h3{
-	line-height: 2.24;
-	margin: 0;
-	padding:0;
-	font-size: 2.5rem;
-}
-ul, p, pre {
-	font-style: normal;
-	margin: 0 0 1.5555555555555556em;
-}

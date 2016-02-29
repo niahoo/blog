@@ -3,7 +3,7 @@
 
 {% block content %}
 	{{ contents | safe }}
-
+{# 
 	<h2>Articles</h2>
 	<ul>
 	{% for article in collections.articles %}
@@ -23,6 +23,6 @@
 	{% for page in collections.pages %}
 	<li><a href="{{page.path}}">{{page.title}}</a></li>
 	{% endfor %}
-	</ul>
+	</ul> #}
 
 {% endblock %}
