@@ -17,7 +17,7 @@ body.article h1:after {
 pre {
 	background-color: transparent;
 	border:none;
-	border-left:3px solid #eee;
+	border-left:5px solid #eee;
 	border-radius: 0;
 	padding:0 1em;
 }
@@ -34,20 +34,25 @@ footer {
 
 /* fonts & colors */
 
+
+
 body {
-	font-family: 'Merriweather Sans', sans-serif;
+	font-family: 'Merriweather', sans-serif;
 }
 h1 {
 	font-family: 'Merriweather', serif;
-	color: #445;
+	color: #444;
 	font-weight: 900;
 }
 h2, h3 {
-	font-family: 'Merriweather', serif;
-	color: #445;
+	font-family: 'Merriweather Sans', serif;
+	color: #444;
 	font-weight: 700;
 }
-
+blockquote p {
+	font-family: 'Merriweather', serif;
+	font-style: italic;		
+}
 /* sizes */
 
 html {

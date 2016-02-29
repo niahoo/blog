@@ -1,11 +1,11 @@
 ---
-title: The kerning sucks
+title: This is a Test !
 date: 2016-02-23
 layout: home.swig
 permalink: false
 ---
 
-# "{{ title }}"
+# {{ title }}
 
 Yo ! Bienvenue ici :)
 
@@ -16,4 +16,6 @@ defmodule Chamois do
 end
 ```
 
-Nullam lacinia augue id ornare volutpat. Suspendisse sodales id elit ut elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+Nullam lacinia augue id ornare volutpat. Suspendisse sodales id elit ut elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam lacinia augue id ornare volutpat. Suspendisse sodales id elit ut elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+
+> Nullam lacinia augue id ornare volutpat. Suspendisse sodales id elit ut elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam lacinia augue id ornare volutpat. Suspendisse sodales id elit ut elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
