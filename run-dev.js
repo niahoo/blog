@@ -1,6 +1,7 @@
 var assets = require('metalsmith-assets')
 var collections = require('metalsmith-collections')
 var define = require('metalsmith-define')
+var dotenv = require('dotenv')
 var filter = require('metalsmith-filter')
 var include = require('metalsmith-include-content')
 var inPlace = require('metalsmith-in-place')
@@ -10,6 +11,7 @@ var metalsmith = require('metalsmith')
 var moment = require('moment')
 var permalinks = require('metalsmith-permalinks')
 var prism = require('metalsmith-prism')
+var rimraf = require('rimraf')
 var serve = require('metalsmith-serve')
 var slug = require('metalsmith-slug')
 var swig = require('swig')
@@ -17,10 +19,20 @@ var textReplace = require('metalsmith-text-replace')
 var urls = require('metalsmith-urls')
 var watch = require('metalsmith-watch')
 
+dotenv.load()
+
 var IS_DEV = ~process.argv.indexOf('--watch')
-var destination = IS_DEV ? 'build' : 'build-prod'
+var destination = IS_DEV
+    ? 'build'
+    : (process.env.BUILD_PROD_DIR || 'build-prod')
+console.log('Building into %s', destination)
 // On windows the paths are something\\like\\this.
 // Include plugins are not cross platform.
+
+if (~process.argv.indexOf('--clean')) {
+    console.log('cleaning target directory %s', destination)
+    rimraf.sync(destination, {disableGlob: true})
+}
 
 swig.setFilter('ospath', function(input, idx) {
     var unixPath = input.replace('/\\+/g', '/')
@@ -90,7 +102,7 @@ if (~process.argv.indexOf('--watch')) {
     stream = stream.use(watcher())
 }
 
-    
+
 stream.use(slug({
         patterns: ['*.md'],
     }))

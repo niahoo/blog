@@ -6,6 +6,7 @@
   "author": "Me",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^2.0.0",
     "highlighter": "0.0.3",
     "markdown-it-footnote": "^2.0.0",
     "metalsmith": "^2.1.0",
@@ -28,7 +29,7 @@
     "swig": "^1.4.2"
   },
   "scripts": {
-    "dev": "rm build -rvf && node run-dev.js --watch --serve",
-    "build": "rm build-prod -rvf && node run-dev.js"
+    "dev": "node run-dev.js --clean --watch --serve",
+    "build": "node run-dev.js --clean"
   }
 }
