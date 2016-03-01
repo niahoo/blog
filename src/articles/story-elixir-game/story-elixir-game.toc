@@ -5,6 +5,5 @@ partial: true
 ---
 
 {% for article in collections.story_elixir_game %}
-1. [{{article.title}}]({{article.path}})
-{% endfor %}
- 
+1. [{{article.title}}]({{article.path}}){% endfor %}
+
