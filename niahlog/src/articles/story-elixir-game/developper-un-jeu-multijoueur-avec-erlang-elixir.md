@@ -5,9 +5,8 @@ layout: article.swig
 disqus_identifier: eds.apps
 description: "Introduction au développement de jeux multijoueurs avec Erlang/OTP"
 date: 2015-03-01
+toc: articles/story-elixir-game/story-elixir-game.toc
 ---
-
-# {{ title }}
 
 Ceci constitue le premier article d'une courte série qui traitera de la création d'un jeu web multijoueur avec Erlang/OTP et Elixir. Je souhaite donner des pistes pour mettre en place une architecture adaptée à un jeu avec de nombreux joueurs, capable de soutenir un fort traffic et de nombreuses opérations concurrentes. Bien entendu, en utilisant les technologies d'aujourd'hui, notament les *websockets*, pour proposer une interface de jeu dynamique et fluide.
 
@@ -19,4 +18,4 @@ Si malgré tout Erlang ou Elixir ne vous intéressent pas plus que ça, vous pou
 
 ## Table des matières
 
-press.file('erlang-dev-story-toc').import
+includeSource {{ toc | ospath }}

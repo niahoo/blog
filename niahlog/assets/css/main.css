@@ -1,7 +1,7 @@
 
 /* Layout */
 
-*, pre, ul, li {
+*, pre, ul, ol, li {
 	padding: 0;
 }
 
@@ -59,6 +59,12 @@ blockquote p {
 pre code[class*="language-"], pre, code {
 	font-family: 'Roboto Mono', monospace;
 }
+.article-meta {
+	font-family: 'Merriweather Sans', sans-serif;
+	color:#bbb;
+	font-weight: 300;
+	text-transform: uppercase;
+}
 
 /* Typography sizes */
 
@@ -68,26 +74,30 @@ html {
 
 /* defaults */
 h1 {
-	text-align: center;
+	text-align: left;
 	-webkit-font-smoothing: subpixel-antialiased;
 }
 h1::after {
-	display: block;
+	display: none;
 	content: '';
 }
-
 pre {
-	background-color: trans4.8ent;
+	background-color: transparent;
 	border:none;
 	border-left:5px solid #eee;
 	border-radius: 0;
 }
-
-
-
+blockquote {
+	font-style: italic;
+}
 ul, ol {
 	list-style-position: inside;
 }
+
+li p {
+	margin:0 !important;
+}
+
 /* Custom, iPhone Retina */
 /* @media only screen and (min-width : 320px) { */
 @media only screen and (min-width : 20px) {
@@ -97,13 +107,19 @@ ul, ol {
 		font-size: 1.3rem;
 		line-height: 2rem;
 	}
+	body {
+		padding-bottom: 10rem;
+	}
+	.article-meta {
+		margin:2rem 0;
+	}
 	body.dev {
-		background-image: url('http://basehold.it/i/20');
+		/*background-image: url('http://basehold.it/i/20');*/
 	}
 	body.dev:active {
 		background-image: none;
 	}
-	ul, pre, p, blockquote {
+	ul, ol, pre, p, blockquote {
 		margin: 0 0 2rem 0;
 	}
 	h1 {
@@ -114,8 +130,8 @@ ul, ol {
 	h1::after {
 		width:6.0rem;
 		border-bottom: 1px solid #e3e3e3;
-		heigh4.8rem;
-		margin:0rem auto 0;
+		height:2rem;
+		margin:0 auto;
 	}
 	h2 {
 		font-size: 3rem;
@@ -137,11 +153,12 @@ ul, ol {
 		position:relative;
 		padding:0  0 0 2rem;
 		border:none;5.6
+	}
 	blockquote::before {
 		content: "\201C";
 		position: absolute;
-		left: -6px;
-		top: -4px;
+		left: -2rem;
+		top: -5px;
 		font-family: 'Roboto Mono', monospace;
 		font-size: 5.6rem;
 		line-height: .9;
@@ -156,13 +173,19 @@ ul, ol {
 		font-size: 1.5rem;
 		line-height: 2.4rem;
 	}
+	body {
+		padding-bottom: 12rem;
+	}
+	.article-meta {
+		margin:2.4rem 0;
+	}
 	body.dev {
-		background-image: url('http://basehold.it/i/24');
+		/*background-image: url('http://basehold.it/i/24');*/
 	}
 	body.dev:active {
 		background-image: none;
 	}
-	ul, pre, p, blockquote {
+	ul, ol, pre, p, blockquote {
 		margin: 0 0 2.4rem 0;
 	}
 	h1 {
@@ -173,7 +196,7 @@ ul, ol {
 	h1::after {
 		width:6.0rem;
 		border-bottom: 2px solid #e3e3e3;
-		heigh5.6.8rem;
+		height:4.8rem;
 		margin:0.1rem auto 0;
 	}
 	h2 {
@@ -200,8 +223,8 @@ ul, ol {
 	blockquote::before {
 		content: "\201C";
 		position: absolute;
-		left: -6px;
-		top: -4px;
+		left: -2rem;
+		top: -5px;
 		font-family: 'Roboto Mono', monospace;
 		font-size: 5.6rem;
 		line-height: .9;
@@ -216,13 +239,19 @@ ul, ol {
 		font-size: 1.8rem;
 		line-height: 2.8rem;
 	}
+	body {
+		padding-bottom: 14rem;
+	}
+	.article-meta {
+		margin:2.8rem 0;
+	}
 	body.dev {
-		background-image: url('http://basehold.it/i/28');
+		/*background-image: url('http://basehold.it/i/28');*/
 	}
 	body.dev:active {
 		background-image: none;
 	}
-	ul, pre, p, blockquote {
+	ul, ol, pre, p, blockquote {
 		margin: 0 0 2.8rem 0;
 	}
 	h1 {
@@ -260,8 +289,8 @@ ul, ol {
 	blockquote::before {
 		content: "\201C";
 		position: absolute;
-		left: -5px;
-		top: -4px;
+		left: -2.2rem;
+		top: -5px;
 		font-family: 'Roboto Mono', monospace;
 		font-size: 9rem;
 		line-height: .9;
@@ -280,6 +309,7 @@ ul, ol {
 	/*.container{width:1170px}*/
 
 }
+
 
 
 

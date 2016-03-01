@@ -1,0 +1,10 @@
+---
+title: Elixir Game Story TOC
+ref: story-elixir-game.toc
+partial: true
+---
+
+{% for article in collections.story_elixir_game %}
+1. [{{article.title}}]({{article.path}})
+{% endfor %}
+ 

@@ -26,6 +26,7 @@
     "swig": "^1.4.2"
   },
   "scripts": {
-    "dev": "rm build -rvf && node run-dev.js"
+    "dev": "rm build -rvf && node run-dev.js --watch --serve",
+    "build": "rm build -rvf && node run-dev.js"
   }
 }

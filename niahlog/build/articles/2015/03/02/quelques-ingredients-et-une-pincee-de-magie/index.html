@@ -4,7 +4,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link href='https://fonts.googleapis.com/css?family=Merriweather:300,300italic,700,900|Merriweather+Sans:700|Roboto+Mono' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300,300italic,700,900|Merriweather+Sans:300,700|Roboto+Mono' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/lib/css/bootstrap-lumen.min.css" />
 <link rel="stylesheet" href="/lib/css/prism.css" />
 <link rel="stylesheet" href="/lib/css/main.css" />
@@ -14,8 +14,22 @@
 <div class="container">
 
 	<h1>Quelques ingrédients et une pincée de magie</h1>
-<p><em>Cet article fait partie d’une série traitant du développement d’un jeu multijoueur avec Erlang/OTP et Elixir. Retrouvez les autres articles dans ce sommaire :</em></p>
-<p>press.file(‘erlang-dev-story-toc’).import</p>
+	<div class="article-meta">
+	Publié le <span data-date="2015-03-02">lundi 2 mars 2015</span>
+</div>
+
+	<p><em>Cet article fait partie d’une série traitant du développement d’un jeu multijoueur avec Erlang/OTP et Elixir. Retrouvez les autres articles dans ce sommaire :</em></p>
+<ol>
+<li>
+<p><a href="">Architecture serveur d'un jeu web Elixir</a></p>
+</li>
+<li>
+<p><a href="">Quelques ingrédients et une pincée de magie</a></p>
+</li>
+<li>
+<p><a href="">Développer un jeu multijoueur avec Erlang et Elixir</a></p>
+</li>
+</ol>
 <p>Si vous avez lu le chapitre d’introduction, vous avez compris que cette série d’articles sera essentiellement technique, centrée sur la programmation et surtout l’architecture logicielle d’un jeu multijoueur par navigateur. Mais toutes les décisions que je prendrai devront suivre un objectif principal : que le jeu fonctionne, et qu’il soit fun. Voici donc une présentation de ce que je souhaite créer.</p>
 <p>Deux joueurs s’affrontent à travers leurs équipes de magiciens, cuisiniers ou autres gobelins sorciers. Chaque équipe compte trois personnages et dispose d’une réserve d’ingrédients tels que des « essences de magie », du « poivre moulu » ou du « poil-à-gratter-inflammable ». Pour gagner la partie, il faut simplement se débarrasser de ses adversaires en leur lançant les potions les plus dangereuses. Chaque personnage dispose de quelques points de vie qui disparaissent rapidement sous les brûlures, poisons et maladies infligées par les potions. Heureusement, il est également possible de soigner son équipe avec certaines potions.</p>
 <p>En termes de <em>gameplay</em>, le jeu s’apparente à un jeu de cartes comme on en trouve beaucoup sur internet. Certes, ce n’est pas très original mais j’ai envie de faire quelque chose de simple, pour apprendre. Les potions ont des effets directs ou sur la durée, des effets ciblés ou de groupe et des effets de « diffusion ».</p>

@@ -1,17 +1,16 @@
 ---
-title: "Architecture serveur d'un jeu web Elixir/Erlang"
+title: "Architecture serveur d'un jeu web Elixir"
 toc_title: "*Frameworks* et librairies"
 layout: article.swig
 disqus_identifier: eds.apps
 description: "Présentation des applications Elixir/Erlang utiles au développement d'un jeu web"
-date: 2015-03-01
+date: 2015-03-03
+toc: articles/story-elixir-game/story-elixir-game.toc
 ---
-
-# {{ title }}
 
 *Cet article fait partie d'une série traitant du développement d'un jeu multijoueur avec Erlang/OTP et Elixir. Retrouvez les autres articles dans ce sommaire :*
 
-press.file('erlang-dev-story-toc').import
+includeSource {{ toc | ospath }}
 
 Voici une petite présentation des outils que je souhaite mettre en place pour mon jeu. À titre de comparaison, voyons en premier lieu une *stack* typique pour un jeu PHP :
 

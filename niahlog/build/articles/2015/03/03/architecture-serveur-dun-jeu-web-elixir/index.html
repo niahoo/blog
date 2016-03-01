@@ -1,10 +1,10 @@
 <!doctype html>
 <meta charset="utf-8" />
-<title>Architecture serveur d&#39;un jeu web Elixir/Erlang</title>
+<title>Architecture serveur d&#39;un jeu web Elixir</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link href='https://fonts.googleapis.com/css?family=Merriweather:300,300italic,700,900|Merriweather+Sans:700|Roboto+Mono' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300,300italic,700,900|Merriweather+Sans:300,700|Roboto+Mono' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/lib/css/bootstrap-lumen.min.css" />
 <link rel="stylesheet" href="/lib/css/prism.css" />
 <link rel="stylesheet" href="/lib/css/main.css" />
@@ -13,9 +13,23 @@
 <body class="article dev">
 <div class="container">
 
-	<h1>Architecture serveur d'un jeu web Elixir/Erlang</h1>
-<p><em>Cet article fait partie d’une série traitant du développement d’un jeu multijoueur avec Erlang/OTP et Elixir. Retrouvez les autres articles dans ce sommaire :</em></p>
-<p>press.file(‘erlang-dev-story-toc’).import</p>
+	<h1>Architecture serveur d&#39;un jeu web Elixir</h1>
+	<div class="article-meta">
+	Publié le <span data-date="2015-03-03">mardi 3 mars 2015</span>
+</div>
+
+	<p><em>Cet article fait partie d’une série traitant du développement d’un jeu multijoueur avec Erlang/OTP et Elixir. Retrouvez les autres articles dans ce sommaire :</em></p>
+<ol>
+<li>
+<p><a href="">Architecture serveur d'un jeu web Elixir</a></p>
+</li>
+<li>
+<p><a href="">Quelques ingrédients et une pincée de magie</a></p>
+</li>
+<li>
+<p><a href="">Développer un jeu multijoueur avec Erlang et Elixir</a></p>
+</li>
+</ol>
 <p>Voici une petite présentation des outils que je souhaite mettre en place pour mon jeu. À titre de comparaison, voyons en premier lieu une <em>stack</em> typique pour un jeu PHP :</p>
 <h2>Comparatif : La <em>stack</em> pour un jeu en PHP</h2>
 <p>Concentrons-nous sur les applications qui s’exécutent. Imaginons que l’on veuille créer MorpionOnline avec PHP. On a donc besoin de PHP, idéalement d’un <em>framework</em> qui nous rende la vie plus facile. Ensuite il nous faut un serveur web, par exemple Apache ou nginx. On veut également stocker les données des joueurs et des parties de morpion, donc il nous faut une base de données comme MongoDB, PostgreSQL ou MySQL.</p>
