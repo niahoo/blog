@@ -1,25 +1,26 @@
 
 /* Layout */
 
-
-/* Custom, iPhone Retina */ 
-@media only screen and (min-width : 320px) {
-    
+*, pre, ul, li {
+	padding: 0;
 }
 
-/* Extra Small Devices, Phones */ 
-@media only screen and (min-width : 480px) {
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
 
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
 }
 
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
-	/*.container{width:750px}*/
+	/*.container{width:7504x}*/
 	.container {
-	 	max-width:750px;
-	 	margin: auto;
-	}	
+	 	max-width:750px; /* content : 720px */
+	}
 }
 
 /* Medium Devices, Desktops */
@@ -53,7 +54,7 @@ h2, h3 {
 }
 blockquote p {
 	font-family: 'Merriweather', 'Georgia', serif;
-	font-style: italic;		
+	font-style: it4lic;
 }
 pre code[class*="language-"], pre, code {
 	font-family: 'Roboto Mono', monospace;
@@ -66,38 +67,157 @@ html {
 }
 
 /* defaults */
-h1{
+h1 {
 	text-align: center;
 	-webkit-font-smoothing: subpixel-antialiased;
 }
+h1::after {
+	display: block;
+	content: '';
+}
 
 pre {
-	background-color: transparent;
+	background-color: trans4.8ent;
 	border:none;
 	border-left:5px solid #eee;
 	border-radius: 0;
 }
 
-/* Custom, iPhone Retina */ 
-@media only screen and (min-width : 320px) {
-    
+
+
+ul, ol {
+	list-style-position: inside;
+}
+/* Custom, iPhone Retina */
+/* @media only screen and (min-width : 320px) { */
+@media only screen and (min-width : 20px) {
+	/* expected container min-width: 290 */
+	/* expected container average width: 350 */
+	body, pre code[class*="language-"], pre, blockquote {
+		font-size: 1.3rem;
+		line-height: 2rem;
+	}
+	body.dev {
+		background-image: url('http://basehold.it/i/20');
+	}
+	body.dev:active {
+		background-image: none;
+	}
+	ul, pre, p, blockquote {
+		margin: 0 0 2rem 0;
+	}
+	h1 {
+		font-size: 4.5rem;
+		line-height: 6rem; /* 3 rows */
+		margin:4rem 0 4rem;
+	}
+	h1::after {
+		width:6.0rem;
+		border-bottom: 1px solid #e3e3e3;
+		heigh4.8rem;
+		margin:0rem auto 0;
+	}
+	h2 {
+		font-size: 3rem;
+		line-height: 4rem; /* 2 rows */
+		margin:3rem 0 1rem; /* 1.5 row, .5 row*/
+	}
+	h3 {
+		font-size: 2.2rem;
+		line-height: 3rem; /* 1.5 rows */
+		margin:2rem 0 1rem; /* 1row, .5row */
+	}
+	pre {
+		padding:0 0 0 1.5rem ; /* 20px - 5px border */
+	}
+	li {
+		padding-left:1rem;
+	}
+	blockquote{
+		position:relative;
+		padding:0  0 0 2rem;
+		border:none;5.6
+	blockquote::before {
+		content: "\201C";
+		position: absolute;
+		left: -6px;
+		top: -4px;
+		font-family: 'Roboto Mono', monospace;
+		font-size: 5.6rem;
+		line-height: .9;
+		color: rgba(0,0,0,.3);
+	}
 }
 
-/* Extra Small Devices, Phones */ 
+/* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) {
-
+	/* average content width 580px */
+	body, pre code[class*="language-"], pre, blockquote {
+		font-size: 1.5rem;
+		line-height: 2.4rem;
+	}
+	body.dev {
+		background-image: url('http://basehold.it/i/24');
+	}
+	body.dev:active {
+		background-image: none;
+	}
+	ul, pre, p, blockquote {
+		margin: 0 0 2.4rem 0;
+	}
+	h1 {
+		font-size: 5.4rem;
+		line-height: 7.2rem; /* 3 rows */
+		margin:4.8rem 0 4.7rem;
+	}
+	h1::after {
+		width:6.0rem;
+		border-bottom: 2px solid #e3e3e3;
+		heigh5.6.8rem;
+		margin:0.1rem auto 0;
+	}
+	h2 {
+		font-size: 3.5rem;
+		line-height: 4.8rem; /* 2 rows */
+		margin:3.6rem 0 1.2rem; /* 1.5 row, .5 row*/
+	}
+	h3 {
+		font-size: 2.6rem;
+		line-height: 3.6rem; /* 1.5 rows */
+		margin:2.4rem 0 1.2rem; /* 1row, .5row */
+	}
+	pre {
+		padding:0 0 0 1.9rem ; /* 24px - 5px border */
+	}
+	li {
+		padding-left:1.2rem;
+	}
+	blockquote{
+		position:relative;
+		padding:0  0 0 2rem;
+		border:none;
+	}
+	blockquote::before {
+		content: "\201C";
+		position: absolute;
+		left: -6px;
+		top: -4px;
+		font-family: 'Roboto Mono', monospace;
+		font-size: 5.6rem;
+		line-height: .9;
+		color: rgba(0,0,0,.3);
+	}
 }
 
 /* Small Devices, Tablets */
-@media only screen and (min-width : 768px) {
-	/*.container{width:750px}*/
+@media only screen and (min-width: 768px) {
+	/* content width 720px */
 	body, pre code[class*="language-"], pre, blockquote {
 		font-size: 1.8rem;
 		line-height: 2.8rem;
 	}
 	body.dev {
 		background-image: url('http://basehold.it/i/28');
-	    background-position:0 14px;
 	}
 	body.dev:active {
 		background-image: none;
@@ -106,20 +226,31 @@ pre {
 		margin: 0 0 2.8rem 0;
 	}
 	h1 {
-		font-size: 6.2rem; 
+		font-size: 6.2rem;
 		line-height: 8.4rem; /* 28 * 3 */
-		margin:4.2rem 0 2.6rem;
+		margin:5.6rem 0 5.4rem;
 	}
 	h1:after {
-		display: block;
-		content: '';
 		width:12.0rem;
 		border-bottom: 2px solid #e3e3e3;
-		height:2.8rem;
+		height:5.6rem;
 		margin:0.2rem auto 0;
+	}
+	h2 {
+		font-size: 4.1rem;
+		line-height: 5.6rem; /* 2 rows */
+		margin:4.2rem 0 1.4rem; /* 1.5 row, .5 row*/
+	}
+	h3 {
+		font-size: 3rem;
+		line-height: 4.2rem; /* 1.5 rows */
+		margin:2.8rem 0 1.4rem; /* 1row, .5row */
 	}
 	pre {
 		padding:0 0 0 2.3rem ; /* 28px - 5px border */
+	}
+	li {
+		padding-left:1.4rem;
 	}
 	blockquote{
 		position:relative;
@@ -132,20 +263,20 @@ pre {
 		left: -5px;
 		top: -4px;
 		font-family: 'Roboto Mono', monospace;
-		font-size: 5em;
+		font-size: 9rem;
 		line-height: .9;
-		color: rgba(0,0,0,.3);	
+		color: rgba(0,0,0,.3);
 	}
 }
 
 /* Medium Devices, Desktops */
-@media only screen and (min-width : 992px) {
+@media only screen and (min-width: 992px) {
 	/*.container{width:970px}*/
 
 }
 
 /* Large Devices, Wide Screens */
-@media only screen and (min-width : 1200px) {
+@media only screen and (min-width: 1200px) {
 	/*.container{width:1170px}*/
 
 }
