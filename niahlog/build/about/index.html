@@ -5,12 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <link href='https://fonts.googleapis.com/css?family=Merriweather:300,300italic,700,900|Merriweather+Sans:300,700|Roboto+Mono' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="/lib/css/bootstrap-lumen.min.css" />
+<link rel="stylesheet" href="/lib/css/sanitize.min.css" />
 <link rel="stylesheet" href="/lib/css/prism.css" />
-<link rel="stylesheet" href="/lib/css/main.css" />
+<!--- main css is at the bottom --->
 
 
 <body class="article dev">
+<div class="navbar-wrapper">
+	<input type="checkbox" id="ck-show-menu" />
+	<nav class="navbar">
+		<a href="/">Home</a>
+		<a href="https://github.com/niahoo/blog">Source</a>
+	</nav>
+	<label class="bt-menu" for="ck-show-menu" title="Pin menu">
+		<span class="bt-top"></span>
+		<span class="bt-middle"></span>
+		<span class="bt-bottom"></span>
+	</label>
+</div>
 <div class="container">
 
 	<h1>About</h1>
@@ -31,4 +43,20 @@
 
 <footer>
 </footer>
+<script type="text/javascript">
+(function(){
+	var ckb = document.getElementById('ck-show-menu')
+	if (localStorage) {
+		ckb.addEventListener('change', function(){
+			console.log('changed !', this.checked)
+			localStorage.setItem('menu-vis', this.checked ? '1' : '0')
+		})
+		var checked = Number(localStorage.getItem('menu-vis'))
+		if (checked) ckb.setAttribute('checked', 'checked')
+		// else ckb.removeAttribute('checked') // useless ?
+	}
+}())
+</script>
+<!--- Put the css after the script to diable transition on load --->
+<link rel="stylesheet" href="/lib/css/main.css" />
 </body>
