@@ -29,6 +29,6 @@
   },
   "scripts": {
     "dev": "rm build -rvf && node run-dev.js --watch --serve",
-    "build": "rm build -rvf && node run-dev.js"
+    "build": "rm build-prod -rvf && node run-dev.js"
   }
 }

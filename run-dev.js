@@ -17,8 +17,8 @@ var textReplace = require('metalsmith-text-replace')
 var urls = require('metalsmith-urls')
 var watch = require('metalsmith-watch')
 
-var IS_DEV = true
-
+var IS_DEV = ~process.argv.indexOf('--watch')
+var destination = IS_DEV ? 'build' : 'build-prod'
 // On windows the paths are something\\like\\this.
 // Include plugins are not cross platform.
 
@@ -137,7 +137,7 @@ stream.use(slug({
         destination: './lib'
     }))
     .use(filter(['**/*.html', 'lib/**/*']))
-    .destination('build')
+    .destination(destination)
     .build(function(err) {
         if (err) throw err
     })
