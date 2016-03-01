@@ -63,7 +63,7 @@ var watcher = function() {
             "layouts/**/*": "**/*",
             "assets/**/*": "**/*",
         },
-        livereload: IS_DEV,
+        livereload: IS_DEV ? 35729 : false,
     })
 }
 
