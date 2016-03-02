@@ -4,14 +4,13 @@ toc_title: "Présentation du jeu"
 disqus_identifier: eds.pres
 layout: article.swig
 date: 2015-03-02
-toc: articles/story-elixir-game/story-elixir-game.toc
-
+toc: story_elixir_game
 ---
 
 
 *Cet article fait partie d'une série traitant du développement d'un jeu multijoueur avec Erlang/OTP et Elixir. Retrouvez les autres articles dans ce sommaire :*
 
-includeSource {{ toc | ospath }}
+includeTOC {{ toc }}
 
 Si vous avez lu le chapitre d'introduction, vous avez compris que cette série d'articles sera essentiellement technique, centrée sur la programmation et surtout l'architecture logicielle d'un jeu multijoueur par navigateur. Mais toutes les décisions que je prendrai devront suivre un objectif principal : que le jeu fonctionne, et qu'il soit fun. Voici donc une présentation de ce que je souhaite créer.
 

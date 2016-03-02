@@ -1,5 +1,5 @@
 ---
-title: Hello !
+title: Geobuilder docs
 date: 2016-02-23
 layout: home.swig
 permalink: false

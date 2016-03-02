@@ -5,12 +5,12 @@ layout: article.swig
 disqus_identifier: eds.apps
 description: "Présentation des applications Elixir/Erlang utiles au développement d'un jeu web"
 date: 2015-03-03
-toc: articles/story-elixir-game/story-elixir-game.toc
+toc: story_elixir_game
 ---
 
 *Cet article fait partie d'une série traitant du développement d'un jeu multijoueur avec Erlang/OTP et Elixir. Retrouvez les autres articles dans ce sommaire :*
 
-includeSource {{ toc | ospath }}
+includeTOC {{ toc }}
 
 Voici une petite présentation des outils que je souhaite mettre en place pour mon jeu. À titre de comparaison, voyons en premier lieu une *stack* typique pour un jeu PHP :
 
