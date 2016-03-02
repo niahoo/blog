@@ -35,7 +35,7 @@ body, .bt-menu {
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
-	/*.container{width:7504x}*/	
+	/*.container{width:7504x}*/
 	.container {
 		max-width:750px; /* content : 750 px */
 	}
@@ -68,7 +68,7 @@ label.bt-menu {
 }
 label.bt-menu::after {
 	clear:both;
-}  
+}
 .bt-menu span {
 	position: absolute;
 	background-color: #666;
@@ -217,7 +217,7 @@ a:hover {
 .navbar a:hover, .navbar a:focus {
 	background-color: #00a4db;
 	color: white;
-	text-decoration: none;	
+	text-decoration: none;
 }
 .navbar a:active{
 	background-color: #99DEF5;
@@ -279,7 +279,7 @@ li p {
 
 /****************************************************************
 
-	
+
 
 
 
@@ -315,7 +315,7 @@ li p {
 		margin:2rem 0;
 	}
 	body.dev .container {
-		background: url('http://basehold.it/i/20') left top repeat transparent;
+		// background: url('http://basehold.it/i/20') left top repeat transparent;
 	}
 	body.dev .container:active {
 		background-image: none;
@@ -391,7 +391,7 @@ li p {
 		margin:2.4rem 0;
 	}
 	body.dev .container {
-		background: url('http://basehold.it/i/24') left top repeat transparent;
+		// background: url('http://basehold.it/i/24') left top repeat transparent;
 	}
 	body.dev .container:active {
 		background-image: none;
@@ -467,7 +467,7 @@ li p {
 		margin:2.8rem 0;
 	}
 	body.dev .container {
-		background: url('http://basehold.it/i/28') left top repeat transparent;
+		// background: url('http://basehold.it/i/28') left top repeat transparent;
 	}
 	body.dev .container:active {
 		background-image: none;

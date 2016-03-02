@@ -1,6 +1,6 @@
 ---
 title: "Architecture serveur d'un jeu web Elixir"
-toc_title: "*Frameworks* et librairies"
+toc_title: "Frameworks et librairies"
 layout: article.swig
 disqus_identifier: eds.apps
 description: "Présentation des applications Elixir/Erlang utiles au développement d'un jeu web"
