@@ -12,7 +12,7 @@ var markdown = require('metalsmith-markdownit')
 var metalsmith = require('metalsmith')
 var moment = require('moment')
 var permalinks = require('metalsmith-permalinks')
-var prism = require('metalsmith-prism')
+var codeHighlight = require('metalsmith-code-highlight')
 var rimraf = require('rimraf')
 var serve = require('metalsmith-serve')
 var slug = require('metalsmith-slug')
@@ -73,7 +73,6 @@ function urlPlugin(opts) {
         setImmediate(done);
         Object.keys(files).forEach(function(path){
             var url = basePath + unixpath(path)
-            console.log('set url = %s', url)
             files[path].url = url
         })
     }
@@ -151,7 +150,11 @@ stream = stream.use(slug({
     // .use(include({
     //     pattern: '^includeSource (.*)'
     // }))
-    .use(md)
+    .use(md)    
+    .use(codeHighlight({
+        // languages: ['elixir', 'erlang', 'javascript', 'php'],
+        languages: ['elixir', 'erlang', 'javascript', 'php'],
+    }))
     .use(permalinks({
         linksets: [
             // Articles
@@ -212,7 +215,6 @@ stream = stream.use(slug({
                 return function (match, collectionName, offset, string, done) {
                     var err
                     var collections = metadata.collections
-                    console.log('looking for collection %s', collectionName)
                     var coll = collections[collectionName]
 
                     if (coll === void 0) {
@@ -220,11 +222,8 @@ stream = stream.use(slug({
                     }
 
                     var tplData = extend({}, metadata, {current: file, toc_collection: coll})
-                    console.log('including %s\'s TOC', collectionName)
-                    console.log(Object.keys(metalsmith.metadata().collections))
                     // Here we HOPE that all is sync
                     render(tocTemplate, tplData).then(function(content){
-                        console.log('TOC content : %s', content)
                         done(err = null, content)
                     })
                     .catch(done)
@@ -251,7 +250,6 @@ stream = stream.use(slug({
                     })
                 })
             ).then(function(oks){
-                console.log(oks)
                 metalsmithDone()
             })
             .catch(metalsmithDone)
@@ -260,7 +258,6 @@ stream = stream.use(slug({
         engine: 'swig',
         layout: 'TOC.swig'
     })))
-    .use(prism())
     .use(layouts({
         engine: 'swig'
     }))

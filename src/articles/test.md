@@ -5,7 +5,7 @@ layout: home.swig
 draft: true
 ---
 
-This is a test
+# GeoBuilder Test
 
 This is a paragraph !
 
@@ -20,16 +20,72 @@ This is a paragraph ! with a [link](//qzdqzd/)
 
 This is a paragraph with some `function(lol) -> "Code Right into jpqtl"` it !
 
-This is a paragraph with some `function(lol) -> "Code Right into jpqtl"` it !
+> This is a paragraph with some `def(lol), do: "Code Right into jpqtl"` it !
 
+tis is some **bold gima carto** and some regular gima carto
+
+tis is some *italic gima carto* and some regular gima carto
+
+tis is some *italic gima carto* and some regular gima carto
+
+tis is some *italic gima carto* and some regular gima carto
+
+tis is some *italic gima carto* and some regular gima carto
+
+
+tis is some *italic gima carto* and some **bold gima carto** and some regular gima carto
 
 ### and a h3
 
 
-``` javascript
-defmodule Amoipa do
-  def lol(), do: hihi
+``` erlang	
+lol() -> <<"hihi">>.
+```
+
+``` elixir
+defmodule HelloPhoenix.Router do
+  use HelloPhoenix.Web, :router
+
+  def schalag_samere() do
+    "tg !"
+  end
+
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
+  pipeline :api do
+    plug :accepts, ["json"]
+  end
+
+  scope "/", HelloPhoenix do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", PageController, :index
+  end
+
+  # Other scopes may use custom stacks.
+  # scope "/api", HelloPhoenix do
+  #   pipe_through :api
+  # end
 end
+```
+
+``` javascript
+var watcher = function() {
+    return watch({
+        paths: {
+            "${source}/**/*": "**/*",
+            "layouts/**/*": "**/*",
+            "assets/**/*": "**/*",
+        },
+        livereload: IS_DEV ? 35729 : false,
+    })
+}
 ```
 
 This is a paragraph !
