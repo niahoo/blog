@@ -46,10 +46,10 @@ Voici la liste des principales applications que j'ai retenues. Chacune d'entre-e
 
 | Outil             | Application       | Langage          |
 | ----------------- | ----------------- | ---------------- |
-| *Core*            | popos             | Elixir (réécrit) |
-| *Controllers*     | Xpose             | Elixir           |
+| Core              | popos             | Elixir (réécrit) |
+| Controllers       | Xpose             | Elixir           |
 | Serveur HTTP/WS   | cowboy            | Erlang           |
-| *Framework* web   | Phoenix           | Elixir           |
+| Framework web     | Phoenix           | Elixir           |
 | Base de données   | cowdb             | Erlang           |
 | Logs              | Logger            | Elixir           |
 | Test unitaires    | ExUnit            | Elixir           |

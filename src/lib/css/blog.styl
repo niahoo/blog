@@ -1,0 +1,557 @@
+
+/* vars */
+
+table-border-color = #dfdfdf
+
+/* Layout */
+
+* {
+	box-sizing: border-box;
+}
+
+html, .bt-menu {
+	background: #fcfcfc;
+}
+
+.container {
+	margin:0 auto;
+}
+.container::before,
+ .container::after {
+	content:" ";
+	display:table;
+}
+
+*, pre, ul, ol, li {
+	padding: 0;
+}
+
+li > * {
+	margin-top:0 !important;
+	margin-bottom:0 !important;
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 20px) {
+	.navbar, .container {padding:0 10px;}
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+	.navbar, .container {padding:0 2.4rem;}
+}
+
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	/*.container{width:7504x}*/
+	.container {
+		max-width:750px; /* content : 750 px */
+	}
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	/*.container{width:970px}*/
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+	/*.container{width:1170px}*/
+
+}
+
+/* menu button */
+
+
+label.bt-menu {
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	width: 44px;
+	height: 44px;
+	display: block;
+	cursor:pointer;
+	box-sizing: content-box;
+}
+label.bt-menu::after {
+	clear:both;
+}
+.bt-menu span {
+	position: absolute;
+	background-color: #666;
+	clear: both;
+	display: block;
+	height: 3px;
+	margin: 0 auto 3px;
+	left: 0px;
+	overflow: hidden;
+	text-indent: -9999px;
+	width: 20px;
+	/* reverse transform */
+	transition: bottom .2s ease .1s, opacity .001s linear .3s, transform .2s ease .3s;
+	transition: transform .2s ease .1s, opacity .001s linear .3s, bottom .2s ease .3s;
+}
+
+#ck-show-menu { display: none; }
+
+#ck-show-menu:checked ~ .bt-menu span {
+	transition: bottom .2s ease .1s, opacity .001s linear .3s, transform .2s ease .3s;
+}
+
+.bt-menu .bt-top {
+	bottom: 7px;
+}
+.bt-menu .bt-middle {
+	bottom: 13px;
+}
+.bt-menu .bt-bottom {
+	bottom: 19px;
+}
+
+/** hamburger crossed icon **/
+
+#ck-show-menu:checked ~ .bt-menu .bt-top {
+	transform: rotate(45deg);
+	bottom: 13px; /* 7px + 6 */
+}
+#ck-show-menu:checked ~ .bt-menu .bt-middle {
+	opacity: 0;
+}
+#ck-show-menu:checked ~ .bt-menu .bt-bottom {
+	transform: rotate(-45deg);
+	bottom: 13px; /* 19 - 6 */
+}
+
+
+.navbar-wrapper {
+	position:absolute;
+	top:0;
+	width: 100vw;
+}
+.navbar {
+	width: 100vw;
+	opacity:0;
+	padding-right:70px;
+	transition: opacity .3s ease;
+}
+.navbar-wrapper:hover .navbar {
+	/*box-shadow: 0px 1px 5px #aaa;*/
+}
+.navbar-wrapper::before {
+	content: ' ';
+	display: table-cell;
+}
+.navbar-wrapper::after {
+	content: ' ';
+	display: table-cell;
+	clear: both;
+}
+
+#ck-show-menu:checked ~ .navbar,
+.navbar-wrapper:hover .navbar {
+	opacity:1;
+	background: #fcfcfc;
+	display: block;
+}
+
+.navbar a {
+	display: inline-block;
+	margin:3px;
+}
+
+/* Type & colors */
+
+
+body {
+	font-family: 'merriserif', 'Georgia', serif;
+	font-weight: 300;
+	font-style: normal;
+	color: #333;
+}
+h1 {
+	font-family: 'merriserif', 'Georgia', serif;
+	color: #444;
+	font-weight: 900;
+}
+h2, h3 {
+	font-family: 'merrisans', sans-serif;
+	color: #444;
+	font-weight: 700;
+}
+h4 {
+	font-family: 'merrisans', sans-serif;
+	font-weight: 700;
+	color: #444;
+}
+th {
+	font-family: 'merrisans', sans-serif;
+	font-weight: 700;
+	color: #444;
+	text-align left
+}
+td {
+	font-family: 'merrisans', sans-serif;
+	font-weight: normal;
+	color: #444;
+	text-align left
+}
+th {
+	background table-border-color
+}
+tr:nth-child(2n) td {
+	background #efefef
+}
+em {
+	/**
+	 * This is a way to force merriweather italic to respect my authority
+	 * (respect the line height)
+	*/
+	line-height: 1px;
+}
+blockquote p {
+	font-family: 'merriserif', 'Georgia', serif;
+	font-style: italic;
+}
+blockquote::before {
+	font-family: 'Georgia', serif;
+}
+pre code[class*="language-"], pre, code {
+	font-family: 'oxygen_monoregular', monospace;
+}
+p code {
+	color:#19618C;
+	line-height: 100%;
+	padding:0 3px;
+}
+a:link, a:visited {
+	color: #00a4db;
+}
+a:visited {
+	color: #00a4db;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.article-meta {
+	font-family: 'merrisans', sans-serif;
+	color:#bbb;
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+.navbar a {
+	font-family: 'merrisans';
+	text-transform: uppercase;
+	border:1px solid #00a4db;
+	border-radius: 5px;
+	transition: background-color .3s ease, color .3s ease;
+	-webkit-transition: background-color .3s ease, color .3s ease;
+	-o-transition: background-color .3s ease, color .3s ease;
+	-moz-transition: background-color .3s ease, color .3s ease;
+}
+
+.navbar a:link, .navbar a:visited {
+	background-color: #fcfcfc;
+	color: #00a4db;
+}
+
+.navbar a:hover, .navbar a:focus {
+	background-color: #00a4db;
+	color: white;
+	text-decoration: none;
+}
+.navbar a:active{
+	background-color: #99DEF5;
+	border:1px solid #99DEF5;
+	color: white;
+}
+
+.navbar a {
+	font-family: 'merrisans';
+	border:1px solid #00a4db;
+	border-radius: 5px;
+	color: #00a4db;
+}
+
+pre[class*="language-"]::selection,
+code[class*="language-"]::selection,
+pre[class*="language-"]	::selection,
+code[class*="language-"] ::selection {
+	background-color:#ddd;
+	color:inherit;
+}
+::selection {
+	background-color:#00a4db;
+	color:white;
+}
+
+/* Typography sizes */
+
+html {
+	font: 62.5%/1.6 serif !important;
+}
+
+/* defaults */
+h1 {
+	text-align: left;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+h1::after {
+	display: none;
+	content: '';
+}
+pre {
+	background-color: transparent;
+	border:none;
+	border-left:5px solid #eee;
+	border-radius: 0;
+}
+blockquote {
+	font-style: italic;
+}
+ul, ol {
+	list-style-position: outside;
+}
+
+li p {
+	margin:0 !important;
+}
+
+ol.toc {
+
+}
+ol.toc li span::before {
+	content '→ '
+}
+
+.toc-wrapper
+	background url('img/absurdity.png')
+	border 1px solid #eef // 1px required for vgrid
+	border-radius 2px
+
+.toc-wrapper
+	text-shadow 0px 0px 10px white
+/****************************************************************
+
+
+
+
+
+****************************************************************/
+
+/**
+ * For the typography we define a big mixin that handles only font-sizes
+ * and line-heights, and we pass the base row height
+ */
+
+
+row-m(rows, height)
+	rows * height * 0.1rem
+
+row-1(n)
+	row-m(1, n)
+row-2(n)
+	row-m(2, n)
+row-3(n)
+	row-m(3, n)
+row-4(n)
+	row-m(4, n)
+row-5(n)
+	row-m(5, n)
+
+
+// Small Devices, Tablets
+typography(row)
+typography(row)
+	//* content width 720px
+	/**
+		-- TYPOGRAPHY --------------------
+	 */
+	body, pre code[class*="language-"], pre, blockquote
+		line-height row-1(row)
+	h4
+		height row-1(row)
+		line-height 1px
+	body
+		padding-bottom row-5(row)
+
+	.navbar a
+		font-size 1.2rem
+		line-height 3rem
+		padding:0 2rem
+
+	.article-meta
+		margin row-1(row) 0
+
+	ul, ol, pre, p, blockquote
+		margin 0 0 row-1(row) 0
+
+	h1
+		line-height row-3(row)
+		margin row-2(row) 0 row-2(row)
+
+	h2
+		line-height row-2(row) /* 2 rows */
+		margin row-m(1.5, row) 0 row-m(.5, row) /* 1.5 row, .5 row*/
+
+	h3
+		line-height row-m(1.5, row) /* 1.5 rows */
+		margin row-1(row) 0 row-m(.5, row) /* 1row, .5row */
+
+	pre
+		padding 0 0 0 row-1(row - 0.5) /* 28px - 5px border */
+
+	.toc-wrapper
+		padding row-1(row - 1) row-1(row - 1) 0
+		margin-bottom row-1(row - 1)
+		& li
+			margin-bottom row-m(1, row)
+
+	li
+		margin-left row-1(row)
+
+	table
+		margin 0 auto row-1(row - 1)
+		border-top 1px solid table-border-color
+		border-bottom 1px solid table-border-color
+		table-layout fixed
+		width 100%
+
+		td, th
+			height row-m(2, row)
+			border none
+			padding 0 6px
+
+		// tr
+
+		//	&:last-child
+		//		// &:nth-child(odd)
+		//		td:last-child
+		//			margin-bottom row-1(row)
+		//		// &:nth-child(even)
+		//		td:last-child
+		//			margin-bottom row-m(1.5, row)
+
+	blockquote
+		position relative
+		padding 0 row-m(1.5, row)
+		border none
+
+	blockquote::before
+		content "\201C"
+		position absolute
+		left -1rem
+		top -5px
+		font-size 9rem
+		line-height .9
+		color rgba(0,0,0,.3)
+
+
+
+
+// Custom, iPhone Retina
+// @media only screen and (min-width 320px)
+@media only screen and (min-width 20px)
+	// expected container min-width 290
+	// expected container average width 350
+	body, pre code[class*="language-"], pre, blockquote, h4
+		font-size 1.3rem
+	body
+		padding-top 6rem
+	.navbar
+		height 6rem
+		padding 1rem 30px 0 0
+	h1
+		font-size 4.5rem
+	h2
+		font-size 3rem
+	h3
+		font-size 2.2rem
+	blockquote::before
+		font-size 5.6rem
+		line-height .9
+		color rgba(0,0,0,.3)
+	typography(20)
+
+// Extra Small Devices, Phones
+@media only screen and (min-width 480px)
+	// average content width 580px
+	body, pre code[class*="language-"], pre, blockquote, h4
+		font-size 1.5rem
+	.navbar
+		height 6rem
+		padding 1rem 70px 0 0
+		text-align right
+	h1
+		font-size 5.4rem
+	h2
+		font-size 3.5rem
+	h3
+		font-size 2.6rem
+	blockquote before
+		font-size 5.6rem
+		line-height .9
+		color rgba(0,0,0,.3)
+	typography(24)
+
+// Small Devices, Tablets
+@media only screen and (min-width 768px)
+	// content width 720px
+	body, pre code[class*="language-"], pre, blockquote, h4
+		font-size 1.8rem
+	.navbar
+		height 6rem
+		padding 1rem 70px 0 0
+		text-align right
+	h1
+		font-size 6.2rem
+	h2
+		font-size 4.1rem
+	h3
+		font-size 3rem
+	blockquote before
+		font-size 9rem
+		line-height .9
+		color rgba(0,0,0,.3)
+	typography(28)
+
+
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 992px) {
+	/*.container{width:970px}*/
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 1200px) {
+	/*.container{width:1170px}*/
+
+}
+
+/*
+
+@media only screen and (min-width 20px)
+	body.dev .container
+		background url('http://basehold.it/i/20') left top repeat transparent
+		&:active
+			background-image none
+
+@media only screen and (min-width 480px)
+	body.dev .container
+		background url('http://basehold.it/i/24') left top repeat transparent
+		&:active
+			background-image none
+
+@media only screen and (min-width 768px)
+	body.dev .container
+		background url('http://basehold.it/i/28') left top repeat transparent
+		&:active
+			background-image none
+
+
+//*/

@@ -1,21 +1,20 @@
 var assets = require('metalsmith-assets')
+var codeHighlight = require('metalsmith-code-highlight')
 var collections = require('metalsmith-collections')
 var define = require('metalsmith-define')
 var dotenv = require('dotenv')
 var filter = require('metalsmith-filter')
 var filterDrafts = require('metalsmith-drafts')
-// var include = require('metalsmith-include-content')
-console.info('metalsmith-include-content unused')
 var inPlace = require('metalsmith-in-place')
 var layouts = require('metalsmith-layouts')
 var markdown = require('metalsmith-markdownit')
 var metalsmith = require('metalsmith')
 var moment = require('moment')
 var permalinks = require('metalsmith-permalinks')
-var codeHighlight = require('metalsmith-code-highlight')
 var rimraf = require('rimraf')
 var serve = require('metalsmith-serve')
 var slug = require('metalsmith-slug')
+var stylus = require('metalsmith-stylus')
 var swig = require('swig')
 var textReplace = require('metalsmith-text-replace')
 var watch = require('metalsmith-watch')
@@ -264,6 +263,9 @@ stream = stream.use(slug({
     .use(assets({
         source: './assets',
         destination: './lib'
+    }))
+    .use(stylus({
+        compress: !IS_DEV
     }))
     .use(filter(['**/*.html', 'lib/**/*']))
 

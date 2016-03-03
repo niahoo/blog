@@ -54,5 +54,6 @@
 }())
 </script>
 <!--- Put the css after the script to diable transition on load --->
-<link rel="stylesheet" href="/lib/css/main.css" />
+{# <link rel="stylesheet" href="/lib/css/main.css" /> #}
+<link rel="stylesheet" href="/lib/css/blog.css" />
 </body>

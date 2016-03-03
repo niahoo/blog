@@ -16,6 +16,6 @@ Ces articles ne sont pas destinés à vous apprendre Erlang, je m'adresse en pre
 
 Si malgré tout Erlang ou Elixir ne vous intéressent pas plus que ça, vous pourrez quand même trouver ici des solutions intéressantes à des problèmes que rencontrent tous les développeurs de jeux *online*, web ou pas. Ce sont surtout des concepts d'architecture qui seront mis en avant, et ils peuvent dans certains cas être adaptés dans n'importe quel langage. Dans d'autre cas, leur adaptation demandera plus de travail mais ce sera un exercice interessant, au moins pour la forme.
 
-## Table des matières
+Voici les articles disponibles dans cette série :
 
 includeTOC {{ toc }}
