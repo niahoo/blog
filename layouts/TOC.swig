@@ -1,9 +1,17 @@
-<ol>
+<ol class="toc">
 {% for article in toc_collection %}
+	<li>
 	{% if article.url == current.url %}
-	<li>→ {{article.toc_title}}</li>
+		<h4>{{article.toc_title}}</h4>
+		<span class="current">
+			{{article.title}}
+		</span>
 	{% else %}
-	<li><a href="{{article.url}}" title="{{article.title}}">{{article.toc_title}}</a></li>
+		<h4>{{article.toc_title}}</h4>
+		<a href="{{article.url}}" title="{{article.title}}">
+			{{article.title}}
+		</a>
+	</li>
 	{% endif %}
 {% endfor %}
 </ol>
