@@ -9,6 +9,7 @@
     "async-replace": "^1.0.1",
     "dotenv": "^2.0.0",
     "highlighter": "0.0.3",
+    "markdown-it-anchor": "^2.4.0",
     "markdown-it-footnote": "^2.0.0",
     "metalsmith": "^2.1.0",
     "metalsmith-assets": "^0.1.0",

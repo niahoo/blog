@@ -87,6 +87,12 @@ var md = markdown({
     quotes: ['«\xA0', '\xA0»', '‘', '’'],
 })
 md.parser.use(require('markdown-it-footnote'))
+md.parser.use(require('markdown-it-anchor'), {
+    slugify: function(){return 'HAHAHAHAHAHA'},
+    permalink: true,
+    permalinkClass: 'headref',
+    // permalinkSymbol: '§',
+})
 
 var watcher = function() {
     return watch({
