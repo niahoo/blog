@@ -88,9 +88,10 @@ var md = markdown({
 })
 md.parser.use(require('markdown-it-footnote'))
 md.parser.use(require('markdown-it-anchor'), {
-    slugify: function(){return 'HAHAHAHAHAHA'},
+    slugify: require('slug'),
     permalink: true,
     permalinkClass: 'headref',
+    level: 2, // min h2, not h1
     // permalinkSymbol: '§',
 })
 
