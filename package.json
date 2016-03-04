@@ -24,6 +24,7 @@
     "metalsmith-permalinks": "^0.4.1",
     "metalsmith-serve": "0.0.7",
     "metalsmith-slug": "0.0.5",
+    "metalsmith-stylus": "^2.0.0",
     "metalsmith-text-replace": "^1.0.1",
     "metalsmith-watch": "^1.0.1",
     "slug": "^0.9.1",
