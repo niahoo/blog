@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="/lib/css/sanitize.min.css" />
 <link rel="stylesheet" href="/lib/css/highlight-tomorrow.css" />
-<!--- main css is at the bottom --->
+ {# main css is at the bottom  #}
 
 
 <body class="{% block bodyclass %}body-default{% endblock %}{% if IS_DEV %} dev{% endif %}">
@@ -49,11 +49,9 @@
 		})
 		var checked = Number(localStorage.getItem('menu-vis'))
 		if (checked) ckb.setAttribute('checked', 'checked')
-		// else ckb.removeAttribute('checked') // useless ?
 	}
 }())
 </script>
-<!--- Put the css after the script to diable transition on load --->
-{# <link rel="stylesheet" href="/lib/css/main.css" /> #}
-<link rel="stylesheet" href="/lib/css/blog.css" />
+{# Put the css after the script to disable transition on load #}
+<link rel="stylesheet" type="text/css" href="/lib/css/blog.css" />
 </body>
