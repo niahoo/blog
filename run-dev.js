@@ -59,6 +59,11 @@ swig.setFilter('frdate', function(input, lang) {
     if (lang) m.locale(lang)
     return m.format('dddd Do MMMM YYYY')
 })
+swig.setFilter('frdate_short', function(input, lang) {
+    var m = moment(input)
+    if (lang) m.locale(lang)
+    return m.format('Do MMMM YYYY')
+})
 
 function urlPlugin(opts) {
     var opts = opts || {}
@@ -156,7 +161,7 @@ stream = stream.use(slug({
     // .use(include({
     //     pattern: '^includeSource (.*)'
     // }))
-    .use(md)    
+    .use(md)
     .use(codeHighlight({
         // languages: ['elixir', 'erlang', 'javascript', 'php'],
         languages: ['elixir', 'erlang', 'javascript', 'php'],
@@ -176,7 +181,7 @@ stream = stream.use(slug({
                 match: {
                     collection: 'pages'
                 },
-                pattern: ':title'
+                pattern: ':pageurl'
             }
         ],
         relative: false,
@@ -186,6 +191,13 @@ stream = stream.use(slug({
         "**/**": [
             // bootstrap tables classes
             {find:/<table>/g, replace:'<table class="table table-bordered">'},
+            {find:/— (.+)<\/p>\n<\/blockquote>/g, replace:function(_match, author){
+                console.log('-- content ----------------')
+                // console.log(content)
+                console.log(author)
+                console.log('-- /content ---------------')
+                return '</p><footer><cite>' + author + '</cite></footer></blockquote>'
+            }},
         ]
     }))
     // Set default toc titles

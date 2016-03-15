@@ -9,7 +9,21 @@
 
 <link rel="stylesheet" href="/lib/css/sanitize.min.css" />
 <link rel="stylesheet" href="/lib/css/highlight-tomorrow.css" />
- {# main css is at the bottom  #}
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+	var ckb = document.getElementById('ck-show-menu')
+	if (localStorage) {
+		ckb.addEventListener('change', function(){
+			console.log('changed !', this.checked)
+			localStorage.setItem('menu-vis', this.checked ? '1' : '0')
+		})
+		var checked = Number(localStorage.getItem('menu-vis'))
+		if (checked) ckb.setAttribute('checked', 'checked')
+	}
+});
+</script>
+{# Put the css after the script to disable transition on load #}
+<link rel="stylesheet" type="text/css" href="/lib/css/blog.css" />
 
 
 <body class="{% block bodyclass %}body-default{% endblock %}{% if IS_DEV %} dev{% endif %}">
@@ -39,19 +53,4 @@
 {% endif %}
 <footer>
 </footer>
-<script type="text/javascript">
-(function(){
-	var ckb = document.getElementById('ck-show-menu')
-	if (localStorage) {
-		ckb.addEventListener('change', function(){
-			console.log('changed !', this.checked)
-			localStorage.setItem('menu-vis', this.checked ? '1' : '0')
-		})
-		var checked = Number(localStorage.getItem('menu-vis'))
-		if (checked) ckb.setAttribute('checked', 'checked')
-	}
-}())
-</script>
-{# Put the css after the script to disable transition on load #}
-<link rel="stylesheet" type="text/css" href="/lib/css/blog.css" />
 </body>

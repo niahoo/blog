@@ -164,13 +164,13 @@ label.bt-menu::after {
 /* Type & colors */
 
 
-body {
+body, h1.paragraph {
 	font-family: 'merriserif', 'Georgia', serif;
 	font-weight: 300;
 	font-style: normal;
 	color: #333;
 }
-h1 {
+h1, .h1 {
 	font-family: 'merriserif', 'Georgia', serif;
 	color: heading-color;
 	font-weight: 900;
@@ -215,8 +215,15 @@ blockquote p {
 	font-style: italic;
 }
 blockquote::before {
-	font-family: 'Georgia', serif;
+	font-family: 'georgia', serif;
 }
+
+blockquote footer cite
+	display block
+	margin-left 1em
+	&::before
+		content '— '
+
 pre code[class*="language-"], pre, code {
 	font-family: 'oxygen_monoregular', monospace;
 }
@@ -296,7 +303,7 @@ html {
 }
 
 /* defaults */
-h1 {
+h1, .h1 {
 	text-align: left;
 	-webkit-font-smoothing: subpixel-antialiased;
 }
@@ -332,7 +339,7 @@ ol.toc li span::before {
 .toc-wrapper
 	text-shadow 0px 0px 10px white
 
-h1, h2, h3, h4
+h1, .h1, h2, h3, h4
 	&:hover
 		.headref
 			font-family 'merrisans'
@@ -347,6 +354,8 @@ h1, h2, h3, h4
 		transition opacity .2s ease
 		opacity 0
 
+.toc-date
+	color #aaa
 /****************************************************************
 
 
@@ -378,12 +387,11 @@ row-5(n)
 
 // Small Devices, Tablets
 typography(row)
-typography(row)
 	//* content width 720px
 	/**
 		-- TYPOGRAPHY --------------------
 	 */
-	body, pre code[class*="language-"], pre, blockquote
+	body, pre code[class*="language-"], pre, blockquote, h1.paragraph
 		line-height row-1(row)
 	h4
 		height row-1(row)
@@ -399,10 +407,13 @@ typography(row)
 	.article-meta
 		margin row-1(row) 0
 
-	ul, ol, pre, p, blockquote
+	ul, ol, pre, p, h1.paragraph, blockquote
 		margin 0 0 row-1(row) 0
 
-	h1
+	blockquote p:last-of-type
+		margin 0
+
+	h1, .h1
 		line-height row-3(row)
 		margin row-2(row) 0 row-2(row)
 
@@ -458,9 +469,12 @@ typography(row)
 		position absolute
 		left -1rem
 		top -5px
-		font-size 9rem
 		line-height .9
 		color rgba(0,0,0,.3)
+
+
+
+
 
 
 
@@ -470,14 +484,14 @@ typography(row)
 @media only screen and (min-width 20px)
 	// expected container min-width 290
 	// expected container average width 350
-	body, pre code[class*="language-"], pre, blockquote, h4
+	body, pre code[class*="language-"], pre, blockquote, h4, h1.paragraph
 		font-size 1.3rem
 	body
 		padding-top 6rem
 	.navbar
 		height 6rem
 		padding 1rem 30px 0 0
-	h1
+	h1, .h1
 		font-size 4.5rem
 	h2
 		font-size 3rem
@@ -492,20 +506,20 @@ typography(row)
 // Extra Small Devices, Phones
 @media only screen and (min-width 480px)
 	// average content width 580px
-	body, pre code[class*="language-"], pre, blockquote, h4
+	body, pre code[class*="language-"], pre, blockquote, h4, h1.paragraph
 		font-size 1.5rem
 	.navbar
 		height 6rem
 		padding 1rem 70px 0 0
 		text-align right
-	h1
+	h1, .h1
 		font-size 5.4rem
 	h2
 		font-size 3.5rem
 	h3
 		font-size 2.6rem
-	blockquote before
-		font-size 5.6rem
+	blockquote::before
+		font-size 8rem
 		line-height .9
 		color rgba(0,0,0,.3)
 	typography(24)
@@ -513,19 +527,19 @@ typography(row)
 // Small Devices, Tablets
 @media only screen and (min-width 768px)
 	// content width 720px
-	body, pre code[class*="language-"], pre, blockquote, h4
+	body, pre code[class*="language-"], pre, blockquote, h4, h1.paragraph
 		font-size 1.8rem
 	.navbar
 		height 6rem
 		padding 1rem 70px 0 0
 		text-align right
-	h1
+	h1, .h1
 		font-size 6.2rem
 	h2
 		font-size 4.1rem
 	h3
 		font-size 3rem
-	blockquote before
+	blockquote::before
 		font-size 9rem
 		line-height .9
 		color rgba(0,0,0,.3)
