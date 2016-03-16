@@ -24,7 +24,8 @@ var watch = require('metalsmith-watch')
 
 dotenv.load()
 
-var IS_DEV = ~process.argv.indexOf('--watch')
+var IS_DEV = process.argv.indexOf('--watch') !== -1
+console.log('IS_DEV', IS_DEV)
 var destination = IS_DEV
     ? 'build'
     : (process.env.BUILD_PROD_DIR)

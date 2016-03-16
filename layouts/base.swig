@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	var ckb = document.getElementById('ck-show-menu')
 	if (localStorage) {
 		ckb.addEventListener('change', function(){
-			console.log('changed !', this.checked)
 			localStorage.setItem('menu-vis', this.checked ? '1' : '0')
 		})
 		var checked = Number(localStorage.getItem('menu-vis'))
