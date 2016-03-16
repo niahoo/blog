@@ -17,6 +17,7 @@ var slug = require('metalsmith-slug')
 var stylus = require('metalsmith-stylus')
 var swig = require('swig')
 var textReplace = require('metalsmith-text-replace')
+var url = require('metalsmith-url')
 var watch = require('metalsmith-watch')
 
 // -- Config ------------------------------------------------------------------
@@ -77,6 +78,7 @@ function urlPlugin(opts) {
         setImmediate(done);
         Object.keys(files).forEach(function(path){
             var url = basePath + unixpath(path)
+            url = url.replace(/\/index\.html?$/, '/')
             files[path].url = url
         })
     }
@@ -192,10 +194,6 @@ stream = stream.use(slug({
             // bootstrap tables classes
             {find:/<table>/g, replace:'<table class="table table-bordered">'},
             {find:/— (.+)<\/p>\n<\/blockquote>/g, replace:function(_match, author){
-                console.log('-- content ----------------')
-                // console.log(content)
-                console.log(author)
-                console.log('-- /content ---------------')
                 return '</p><footer><cite>' + author + '</cite></footer></blockquote>'
             }},
         ]
