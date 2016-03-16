@@ -26,6 +26,7 @@
     "metalsmith-slug": "0.0.5",
     "metalsmith-stylus": "^2.0.0",
     "metalsmith-text-replace": "^1.0.1",
+    "metalsmith-url": "^1.0.0",
     "metalsmith-watch": "^1.0.1",
     "slug": "^0.9.1",
     "swig": "^1.4.2"
