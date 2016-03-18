@@ -11,10 +11,19 @@ This is a paragraph !
 
 This is a paragraph ! with a [link](//qzdqzd/)
 
-| This             | Is       | A Table          |
-| ----------------- | ----------------- | ---------------- |
-| With             | some             | rows |
-| and     | some             | columns           |
+| This | Is    | A Table     |
+| ---- | ----- | ----------- |
+| With | some  | rows        |
+| and  | some  | columns     |
+| and  | some  | other cells |
+| and  | cells | again       |
+| and  | some  | columns     |
+|  1   | some  | other cells |
+|  2   | cells | again       |
+|  3   | some  | columns     |
+|  4   | some  | other cells |
+
+This is not a caption !
 
 ## a h2
 
@@ -22,23 +31,23 @@ This is a paragraph with some `function(lol) -> "Code Right into jpqtl"` it !
 
 > This is a paragraph with some `def(lol), do: "Code Right into jpqtl"` it !
 
-tis is some **bold gima carto** and some regular gima carto
+Dis is some **bold gima carto** and some regular gima carto
 
-tis is some *italic gima carto* and some regular gima carto
+Dis is some *italic gima carto* and some regular gima carto
 
-tis is some *italic gima carto* and some regular gima carto
+Dis is some *italic gima carto* and some regular gima carto
 
-tis is some *italic gima carto* and some regular gima carto
+Dis is some *italic gima carto* and some regular gima carto
 
-tis is some *italic gima carto* and some regular gima carto
+Dis is some *italic gima carto* and some regular gima carto
 
 
-tis is some *italic gima carto* and some **bold gima carto** and some regular gima carto
+Dis is some *italic gima carto* and some **bold gima carto** and some regular gima carto
 
 ### and a h3
 
 
-``` erlang	
+``` erlang
 lol() -> <<"hihi">>.
 ```
 

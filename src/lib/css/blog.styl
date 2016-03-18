@@ -2,7 +2,7 @@
 /* vars */
 
 table-border-color = #dfdfdf
-heading-color = #444
+heading-color = #333
 
 /* Layout */
 
@@ -441,16 +441,22 @@ typography(row)
 		margin-left row-1(row)
 
 	table
-		margin 0 auto row-1(row - 1)
+		margin 0 auto row-1(row)
 		border-top 1px solid table-border-color
 		border-bottom 1px solid table-border-color
 		table-layout fixed
 		width 100%
 
 		td, th
-			height row-m(2, row)
+			height row-m(1.5, row)
 			border none
 			padding 0 6px
+
+		tr:last-child td
+			height row-m(1.5, row) - 0.1
+			padding 1px 6px 0
+
+
 
 		// tr
 
@@ -550,6 +556,7 @@ typography(row)
 	/*.container{width:1170px}*/
 
 }
+
 
 /*
 
