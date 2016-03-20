@@ -11,7 +11,7 @@
 	<h3>Articles du blog</h3>
 	<ul>
 	{% for article in collections.articles -%}
-	<li><a href="{{article.url}}">{{article.title}}</a><span class="toc-date"> – {{ date|frdate_short(lang) }}</span></li>
+	<li><a href="{{article.url}}">{{article.title}}</a><span class="toc-date"> – {{ article.date|frdate_short(lang) }}</span></li>
 	{%- endfor %}
 	</ul>
 
