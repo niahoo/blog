@@ -4,9 +4,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="stylesheet" href="/lib/css/font-kit/stylesheet.css" />
-{# <link href='https://fonts.googleapis.com/css?family=Merriweather:300,300italic,700,900|Merriweather+Sans:300,700|Roboto+Mono' rel='stylesheet' type='text/css'> #}
-
 <link rel="stylesheet" href="/lib/css/sanitize.min.css" />
 <link rel="stylesheet" href="/lib/css/highlight-tomorrow.css" />
 <script type="text/javascript">

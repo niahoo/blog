@@ -4,7 +4,7 @@
 {% block content %}
 
 	<p class="h1">Hello !</p>
-	<h1 class="paragraph">Ceci est mon devlog.</h1>
+	<p>Ceci est mon devlog.</p>
 	{{ contents | safe }}
 
 
