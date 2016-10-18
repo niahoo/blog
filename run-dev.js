@@ -1,3 +1,5 @@
+'use strict'
+
 var assets = require('metalsmith-assets')
 var codeHighlight = require('metalsmith-code-highlight')
 var collections = require('metalsmith-collections')
@@ -233,9 +235,17 @@ stream = stream.use(slug({
                     var err
                     var collections = metadata.collections
                     var coll = collections[collectionName]
-
                     if (coll === void 0) {
-                        return done(err = null, ['<p>Collection', collectionName, 'not found for includeTOC, available collections are </p>'].join(' ')) // just erase the marker
+                        var available = Object.keys(collections).reverse()
+                        if (available.length > 1) {
+                            let last = available.pop()
+                            var availColls = 'available collections : ' + (available.reverse().join(', ')) + ' and ' + last
+                        } else if (available.lenght === 1) {
+                            var availColls = 'available collection : ' + available.lenght[1]
+                        } else {
+                            var availColls = 'no available collection found'
+                        }
+                        return done(err = null, ['<p>Collection', collectionName, 'not found for includeTOC, '+availColls+'.</p>'].join(' ')) // just erase the marker
                     }
 
                     var tplData = extend({}, metadata, {current: file, toc_collection: coll})
