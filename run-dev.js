@@ -26,7 +26,7 @@ var watch = require('metalsmith-watch')
 
 dotenv.load()
 
-var IS_DEV = process.argv.indexOf('--watch') !== -1
+var IS_DEV = process.argv.indexOf('--prod') === -1
 console.log('IS_DEV', IS_DEV)
 var destination = IS_DEV
     ? 'build'

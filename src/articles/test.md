@@ -35,11 +35,7 @@ Dis is some **bold gima carto** and some regular gima carto
 
 Dis is some *italic gima carto* and some regular gima carto
 
-Dis is some *italic gima carto* and some regular gima carto
-
-Dis is some *italic gima carto* and some regular gima carto
-
-Dis is some *italic gima carto* and some regular gima carto
+Dis is some *italic **and bold** gima carto* and some regular gima carto
 
 Dis is some *italic gima carto* and some **bold gima carto** and some regular gima carto
 

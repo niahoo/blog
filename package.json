@@ -33,6 +33,6 @@
   },
   "scripts": {
     "dev": "node run-dev.js --clean --watch --serve",
-    "build": "node run-dev.js --clean --no-drafts"
+    "build": "node run-dev.js --prod --clean --no-drafts"
   }
 }

@@ -6,58 +6,58 @@ heading-color = #333
 
 /* font choice */
 
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i&subset=latin-ext');
-@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&subset=latin-ext');
-@import url('https://fonts.googleapis.com/css?family=Tinos:700');
+// @import url('https://fonts.googleapis.com/css?family=Merriweather:300,300i,700,700i&subset=latin-ext');
+@import url('https://code.cdn.mozilla.net/fonts/fira.css');
+@import url(fonts/fonts.css);
 
 fonts = {
 	body: {
-		family: 'Source Sans Pro'\, sans-serif,
-		weight: 400,
+		family: 'Merriweather'\, sans-serif,
+		weight: 300,
 		style: normal
 	},
 	h1: {
-		family: 'Tinos'\, serif,
-		weight: 700,
+		family: 'Fira Sans'\, serif,
+		weight: 300,
 		style: normal
 	},
 	h2: {
-		family: 'Tinos'\, serif,
-		weight: 700,
+		family: 'Fira Sans'\, serif,
+		weight: 300,
 		style: normal
 	},
 	h4: {
-		family: 'Tinos'\, serif,
-		weight: 700,
+		family: 'Fira Sans'\, serif,
+		weight: 300,
 		style: normal
 	},
 	th: {
-		family: 'Source Sans Pro'\, sans-serif,
-		weight: 700,
+		family: 'Merriweather'\, sans-serif,
+		weight: 300,
 		style: normal,
 	},
 	blockquote: {
-		family: 'Source Sans Pro'\, sans-serif,
-		weight: 400,
+		family: 'Merriweather'\, sans-serif,
+		weight: 300,
 		style: italic,
 	},
 	code: {
-		family: 'Source Code Pro'\, monospace,
+		family: 'Fira Mono'\, monospace,
 		weight: 400,
 		style: normal,
 	},
-	// metadata: {
-	// 	family: ______________,
-	// 	weight: ______________,
-	// 	style: ______________,
-	// },
-	// navbar: {
-	// 	family: ______________,
-	// 	weight: ______________,
-	// 	style: ______________,
-	// },
+	metadata: {
+		family: 'Fira Sans'\, monospace,
+		weight: 600,
+		style: normal,
+	},
+	navbar: {
+		family: 'Fira Sans'\, monospace,
+		weight: 400,
+		style: normal,
+	},
 	headref: {
-		family: 'Source Code Pro'\, monospace,
+		family: 'Fira Sans'\, monospace,
 		weight: 400,
 		style: normal,
 	}
@@ -386,8 +386,9 @@ ol.toc li span::before {
 }
 
 .toc-wrapper
-	border-left 5px solid #8959a8
-	padding-left 0.5em
+	border-left 1px solid #818181
+	padding-left 1em
+	margin-left 1em
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#8959a8+1,ffffff+8 */
 
 
@@ -585,7 +586,7 @@ typography(row)
 @media only screen and (min-width 768px)
 	// content width 720px
 	body, pre, blockquote, h4, h1.paragraph
-		font-size 2.0rem
+		font-size 1.8rem
 	pre code[class*="language-"]
 		font-size 1.6rem
 	h1, .h1
