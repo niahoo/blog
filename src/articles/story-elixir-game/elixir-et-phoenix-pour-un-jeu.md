@@ -82,5 +82,5 @@ Mix et Hex permettent de gérer, télécharger et compiler des dépendances Erla
 
 Bon, tout ça fait beaucoup d'informations à digérer d'un bloc. Je reviendrai en détail sur chacun de ces aspects au cours du développement du projet.
 
-Je vous suggère de jetter un coup d'oeil à l'excellent Phoenix via les pages [Installing](http://www.phoenixframework.org/docs/installation) puis la page [Up And Running](http://www.phoenixframework.org/docs/up-and-running).
+Je vous suggère de jetter un coup d'oeil à l'excellent Phoenix via les pages [Installing](http://www.phoenixframework.org/docs/installation) et [Up And Running](http://www.phoenixframework.org/docs/up-and-running).
 
