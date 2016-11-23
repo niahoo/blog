@@ -4,31 +4,34 @@
 table-border-color = #dfdfdf
 heading-color = #333
 
+line-height-la = 33
+line-height-md = 27
+line-height-sm = 22
+
 /* font choice */
 
-// @import url('https://fonts.googleapis.com/css?family=Merriweather:300,300i,700,700i&subset=latin-ext');
 @import url('https://code.cdn.mozilla.net/fonts/fira.css');
 @import url(fonts/fonts.css);
 
 fonts = {
 	body: {
 		family: 'Merriweather'\, sans-serif,
-		weight: 300,
+		weight: 400,
 		style: normal
 	},
 	h1: {
 		family: 'Fira Sans'\, serif,
-		weight: 300,
+		weight: 400,
 		style: normal
 	},
 	h2: {
 		family: 'Fira Sans'\, serif,
-		weight: 300,
+		weight: 400,
 		style: normal
 	},
 	h4: {
 		family: 'Fira Sans'\, serif,
-		weight: 300,
+		weight: 400,
 		style: normal
 	},
 	th: {
@@ -238,7 +241,7 @@ label.bt-menu::after {
 
 body {
 	webfont body
-	color: #333;
+	color: #464646;
 }
 h1, .h1 {
 	webfont h1
@@ -563,7 +566,7 @@ typography(row)
 		font-size 5.6rem
 		line-height .9
 		color rgba(0,0,0,.3)
-	typography(20)
+	typography(line-height-sm)
 
 // Extra Small Devices, Phones
 @media only screen and (min-width 480px)
@@ -571,7 +574,7 @@ typography(row)
 	body, pre code[class*="language-"], pre, blockquote, h4, h1.paragraph
 		font-size 1.5rem
 	h1, .h1
-		font-size 5.4rem
+		font-isze 5.4rem
 	h2
 		font-size 3.5rem
 	h3
@@ -580,7 +583,7 @@ typography(row)
 		font-size 8rem
 		line-height .9
 		color rgba(0,0,0,.3)
-	typography(24)
+	typography(line-height-md)
 
 // Small Devices, Tablets
 @media only screen and (min-width 768px)
@@ -599,7 +602,7 @@ typography(row)
 		font-size 9rem
 		line-height .9
 		color rgba(0,0,0,.3)
-	typography(28)
+	typography(line-height-la)
 
 
 
@@ -620,19 +623,19 @@ typography(row)
 
 @media only screen and (min-width 20px)
 	body.dev .container
-		background url('http://basehold.it/i/20') left top repeat transparent
+		background url('http://basehold.it/i/' + line-height-sm) left top repeat transparent
 		&:active
 			background-image none
 
 @media only screen and (min-width 480px)
 	body.dev .container
-		background url('http://basehold.it/i/24') left top repeat transparent
+		background url('http://basehold.it/i/' + line-height-md) left top repeat transparent
 		&:active
 			background-image none
 
 @media only screen and (min-width 768px)
 	body.dev .container
-		background url('http://basehold.it/i/28') left top repeat transparent
+		background url('http://basehold.it/i/' + line-height-la) left top repeat transparent
 		&:active
 			background-image none
 
