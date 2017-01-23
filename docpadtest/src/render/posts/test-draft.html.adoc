@@ -1,0 +1,8 @@
+---
+title: "Test Draft"
+date: 2017-01-23
+draft: true
+---
+
+*hello-draft*
+

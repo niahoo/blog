@@ -1,0 +1,21 @@
+{
+  "name": "no-skeleton.docpad",
+  "version": "0.1.0",
+  "description": "New DocPad project without using a skeleton",
+  "dependencies": {
+    "asciidoctor.js": "1.5.5-2",
+    "docpad": "~6.79.0",
+    "docpad-plugin-asciidoc": "~2.1.0",
+    "docpad-plugin-eco": "~2.1.0",
+    "docpad-plugin-stylus": "~2.11.0"
+  },
+  "main": "node_modules/.bin/docpad-server",
+  "scripts": {
+    "start": "node_modules/.bin/docpad-server",
+    "dev": "node_modules/.bin/docpad run --env development",
+    "build": "npm run clean && npm run generate",
+    "generate": "node_modules/.bin/docpad generate --env static",
+    "clean": "rm out/static -rf"
+  },
+  "devDependencies": {}
+}
