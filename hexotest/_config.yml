@@ -39,9 +39,9 @@ relative_link: false
 future: true
 highlight:
   enable: true
+  wrap: false
   line_number: true
-  auto_detect: false
-  tab_replace:
+  autoDetect: true
 
 # Category & Tag
 default_category: uncategorized

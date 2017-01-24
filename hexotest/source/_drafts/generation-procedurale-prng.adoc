@@ -1,0 +1,127 @@
+---
+title: "Génération procédurale de cartes réalistes"
+date: 2017-01-24
+draft: true
+// user_scripts: ['https://d3js.org/d3.v4.min.js', 'js/mapgen/maptest.js']
+---
+
+Pour la création d'un petit jeu incrémental sur lequel je travaille en
+ce moment, basé sur des tuiles hexagonales, j'avais envie d'afficher
+au joueur une carte assez élaborée respectant les critères suivants :
+
+- La carte doit être générée de façon procédurale à partir d'une
+  graine (_seed_ en Anglais), c'est à dire un simple nombre aléatoire,
+  afin d'avoir une carte différente à chaque partie ;
+- La carte générée à partir d'un même nombre doit toujours être la
+  même, parce-que je ne la sauvegarde pas avec le jeu, je la régénère
+  au chargement du jeu, seule la _seed_ est sauvegardée.
+- La zone de jeu doit être suffisament étendue : le nombre de tuiles disponibles
+  au joueur doit être suffisant pour le gameplay.
+- La carte doit répondre à certains élements de _level-design_ : on doit
+  retrouver les mêmes élements sur toutes les cartes : zones basses, montagnes,
+  déserts, etc.
+
+Les tutoriels suivant m'ont beaucoup aidé :
+
+- Gestion des coordonnées (@todo lien) ;
+- Génération de map procédurale (@todo lien) ;
+
+Je vous conseille vivement laa lecture du dernier qui est très complet ! Mon
+article est surtout là pour montrer comment j'ai choisi de répondre à chaque
+contrainte que je me suis imposée.
+
+== Génération procédurale à partir d'une graine
+
+Le principe de la génération procédurale, c'est de pouvoir générer un nombre
+quasi illimité de niveaux, cartes, personnages, voire des armes comme dans
+Borderlands. On est donc forcés de le faire aléatoirement, sinon il faudrait
+prévoir tous les cas et c'est justement ce qu'on souhaite s'épargner.
+
+Mais d'un autre côté, je souhaite que ma carte soit toujours la même à partir
+d'une même _seed_ pour pouvoir la régénérer au chargement de la sauvegarde. Et
+comme dans Banished, si une _seed_ donne une carte particulièrement
+intéressante, il est possible de communiquer cette _seed_ à d'autres joueurs
+pour qu'ils jouent la même carte. Ce qui est plutôt cool.
+
+Il nous faut donc de l'aléatoire prévisible … et là vous vous dites qu'on n'est pas rendus. Sauf si vous connaissez comme moi le principe des https://fr.wikipedia.org/wiki/Générateur_de_nombres_pseudo-aléatoires[générateurs de nombres pseudo aléatoires (link Wikipédia)].
+
+=== Pseudorandom number generators
+
+J'ai découvert ce principe en codant dans des langages incitant à utiliser des
+fonctions pures, comme Haskell ou Erlang. L'idée est d'avoir une fonction (ou un
+objet) qui donne un nombre _qui a l'air aléatoire_ en fonction d'une _seed_. Une
+fois qu'on a généré un nombre aléatoire, le générateur crée une autre _seed_
+automatiquement afin de pouvoir générer des nombres différents.
+
+Cette nouvelle _seed_ est également toujours la même en fonction de la _seed_
+précédente, nous assurant de retrouver toujours la même suite de nombre à partir
+d'une même _seed_.
+
+Et c'est uniquement à ça que sert la seed ne notre carte !
+
+=== Implémentation en Javascript
+
+Voici comment j'ai mis ça en place en javascript. Premièrement j'ai testé
+plusieurs modules et fini par trouver celui qui me convenait :
+https://www.npmjs.com/package/random-js[`random-js`].
+
+[source,shell]
+----
+npm install --save random-js
+----
+
+Le module permet de créer un générateur puis d'appeler les fonctions comme
+`integer(min, max)` en leur passant le générateur. J'ai donc créé une fonction
+initialisant le générateur à partir de la _seed_ et renvoyant une API pratique à
+utiliser :
+
+[source,javascript]
+----
+import Random from 'random-js'
+
+function getRnd(seed) {
+    let randomGen = Random.engines.mt19937()
+    randomGen.seed(seed)
+    return {
+        integer: (min, max) => Random.integer(min, max)(randomGen),
+        pick: (array, begin, end) => Random.pick(randomGen, array, begin, end),
+        real: (min, max, inclusive) => Random.real(min, max, inclusive)(randomGen)
+    }
+}
+----
+
+Mon API dispose donc de 3 fonctions :
+
+- `integer` permettant de tirer un simple nombre entre deux bornes incluses ;
+- `pick` permettant de tirer un élément au hasard dans un `Array` ;
+- et `real` renvoyant, comme `Math.random`, un nombre entre 0 inclus et 1
+  exclus.
+
+Voici un code de test montrant qu'avec une même _seed_ on obtient les mêmes résultats :
+
+
+[source,javascript]
+----
+let seed = 1664
+let random1 = getRnd(seed)
+console.log(
+    random1.integer(0, 10),
+    random1.integer(0, 10),
+    random1.integer(0, 10)
+)
+let random2 = getRnd(seed)
+console.log(
+    random2.integer(0, 10),
+    random2.integer(0, 10),
+    random2.integer(0, 10)
+)
+----
+
+Si vous exécutez ce fichier avec Nodefootnote:[Avec l'aide de Babel ou d'un autre préprocesseur !], vous obtiendrez ce résultat :
+
+[source,shell]
+----
+9 2 10
+9 2 10
+----
+
