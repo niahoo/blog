@@ -1,0 +1,7 @@
+---
+title: {{ title }}
+date: {{ date }}
+tags:
+---
+
+Hello, this is a test post !
