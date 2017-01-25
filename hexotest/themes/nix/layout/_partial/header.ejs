@@ -1,0 +1,20 @@
+<header id="header">
+  <div id="blog-title"><%-config.title%></div>
+  <% if (config.subtitle) {%>
+    <div id="subtitle"><%- config.subtitle %></div>
+  <% } %>
+  </div>
+  <nav id="sub-nav">
+    <% if (theme.rss){ %>
+      <a id="nav-rss-link" class="nav-icon" href="<%- theme.rss %>" title="RSS Feed"></a>
+    <% } %>
+    <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+  </nav>
+  <nav class="site-nav">
+    <ul>
+      <% for (var i in theme.menu) if (theme.menu.hasOwnProperty(i)) { %>
+        <li><a href="<%- url_for(theme.menu[i]) %>"><%= i %></a></li>
+      <% } %>
+    </ul>
+  </nav>
+</header>

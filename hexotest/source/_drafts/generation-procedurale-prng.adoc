@@ -1,9 +1,18 @@
 ---
-title: "Génération procédurale de cartes réalistes"
+title: "Génération procédurale : prédire l'aléatoire"
 date: 2017-01-24
 draft: true
+tags: [javascript, level-design]
 // user_scripts: ['https://d3js.org/d3.v4.min.js', 'js/mapgen/maptest.js']
 ---
+
+Cet article est le premier d'une série traitant de la génération procédurale
+dans les jeux par navigateur. On commence par la génération de nombre aléatoires
+prédictibles !
+
+++++
+<!-- more -->
+++++
 
 Pour la création d'un petit jeu incrémental sur lequel je travaille en
 ce moment, basé sur des tuiles hexagonales, j'avais envie d'afficher
@@ -43,7 +52,7 @@ comme dans Banished, si une _seed_ donne une carte particulièrement
 intéressante, il est possible de communiquer cette _seed_ à d'autres joueurs
 pour qu'ils jouent la même carte. Ce qui est plutôt cool.
 
-Il nous faut donc de l'aléatoire prévisible … et là vous vous dites qu'on n'est pas rendus. Sauf si vous connaissez comme moi le principe des https://fr.wikipedia.org/wiki/Générateur_de_nombres_pseudo-aléatoires[générateurs de nombres pseudo aléatoires (link Wikipédia)].
+Il nous faut donc de l'aléatoire prévisible … et là vous vous dites qu'on n'est pas rendus. Sauf si vous connaissez comme moi le principe des https://fr.wikipedia.org/wiki/Générateur_de_nombres_pseudo-aléatoires[générateurs de nombres pseudo aléatoires (Wikipédia)].
 
 === Pseudorandom number generators
 
