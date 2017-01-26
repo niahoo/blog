@@ -1,87 +1,96 @@
 ---
-title: "Génération procédurale : prédire l'aléatoire"
+title: "Génération procédurale : prenez-en de la graine !"
 date: 2017-01-24
 draft: true
 tags: [javascript, level-design]
 // user_scripts: ['https://d3js.org/d3.v4.min.js', 'js/mapgen/maptest.js']
 ---
 
-Cet article est le premier d'une série traitant de la génération procédurale
-dans les jeux par navigateur. On commence par la génération de nombre aléatoires
-prédictibles !
+Cet article explique comment générer du contenu de façon aléatoire à partir
+d'une « graine » et comment générer le même contenu à partir de la même graine ;
+avec un soupçon de _functional programming_. Cette technique est utilisée par de
+nombreux jeux pour créer des cartes (Banished, Civilization, …), des armes
+(Borderlands) ou encore des mondes complets (No Man's Sky). Et c'est tout simple
+!
 
 ++++
 <!-- more -->
 ++++
 
-Pour la création d'un petit jeu incrémental sur lequel je travaille en
-ce moment, basé sur des tuiles hexagonales, j'avais envie d'afficher
-au joueur une carte assez élaborée respectant les critères suivants :
+Pour la création d'un petit jeu incrémental sur lequel je travaille en ce
+moment, basé sur des tuiles hexagonales, j'ai envie d'afficher au joueur une
+carte assez élaborée respectant deux critères importants :
 
-- La carte doit être générée de façon procédurale à partir d'une
-  graine (_seed_ en Anglais), c'est à dire un simple nombre aléatoire,
-  afin d'avoir une carte différente à chaque partie ;
-- La carte générée à partir d'un même nombre doit toujours être la
-  même, parce-que je ne la sauvegarde pas avec le jeu, je la régénère
-  au chargement du jeu, seule la _seed_ est sauvegardée.
-- La zone de jeu doit être suffisament étendue : le nombre de tuiles disponibles
-  au joueur doit être suffisant pour le gameplay.
-- La carte doit répondre à certains élements de _level-design_ : on doit
-  retrouver les mêmes élements sur toutes les cartes : zones basses, montagnes,
-  déserts, etc.
+- La carte doit être générée de façon aléatoire, afin de proposer une quasi-
+  infinité de cartes différentes.
+- On doit être capable d'obtenir de manière certaine une carte spécifique.
 
-Les tutoriels suivant m'ont beaucoup aidé :
+J'ai donc suivi deux principes simples en réponse à ces critères :
 
-- Gestion des coordonnées (@todo lien) ;
-- Génération de map procédurale (@todo lien) ;
+Premièrement, le principe de base de la génération procédurale : je donne un
+cadre à l'algorithme, par exemple une altitude maximale pour les montagnes, un
+nombre restreint d'environnements possibles (les fameux biomes – nous y
+reviendrons), et évidemment une taille de carte. Il serait possible de faire une
+carte infinie mais pour le moment ça reste beaucoup plus simple de pouvoir la
+générer en entier au chargement. Ensuite, l'algorithme tire tout au hasard dans
+les limites données, et le résultat sera toujours différent.
 
-Je vous conseille vivement laa lecture du dernier qui est très complet ! Mon
-article est surtout là pour montrer comment j'ai choisi de répondre à chaque
-contrainte que je me suis imposée.
+Ensuite, et c'est la technique principale discutée ici, j'utilise une « graine
+», une petite information unique qui donne toujours la même carte quand on lance
+l'algorithme avec la même graine. Les données les plus simples en informatique
+étant les nombres, la plupart des outils disponibles utilisent des nombres comme
+graines, et nous ne ferons pas exception. Mais on pourrait théoriquement
+utiliser n'importe quoi.
 
-== Génération procédurale à partir d'une graine
+L'idée est simple : au lieu de sauvegarder la carte dans les données du jeu (par
+exemple dans `window.localStorage`), on se contente de sauvegarder la graine, ce
+qui est beaucoup plus léger. En contrepartie, on doit re-générer la carte, c'est
+un peu plus long au chargement.
 
-Le principe de la génération procédurale, c'est de pouvoir générer un nombre
-quasi illimité de niveaux, cartes, personnages, voire des armes comme dans
-Borderlands. On est donc forcés de le faire aléatoirement, sinon il faudrait
-prévoir tous les cas et c'est justement ce qu'on souhaite s'épargner.
+Autre avantage, si une graine donne une carte particulièrement intéressante, il
+est possible de communiquer cette graine à d'autres joueurs pour qu'ils jouent
+la même carte, ou de recommencer une partie sur la même carte pour tirer profit
+de notre connaissance du terrain. Ce qui est plutôt cool.
 
-Mais d'un autre côté, je souhaite que ma carte soit toujours la même à partir
-d'une même _seed_ pour pouvoir la régénérer au chargement de la sauvegarde. Et
-comme dans Banished, si une _seed_ donne une carte particulièrement
-intéressante, il est possible de communiquer cette _seed_ à d'autres joueurs
-pour qu'ils jouent la même carte. Ce qui est plutôt cool.
+Alors, comment plante-t'on cette graine ?
 
-Il nous faut donc de l'aléatoire prévisible … et là vous vous dites qu'on n'est pas rendus. Sauf si vous connaissez comme moi le principe des https://fr.wikipedia.org/wiki/Générateur_de_nombres_pseudo-aléatoires[générateurs de nombres pseudo aléatoires (Wikipédia)].
+== Les générateurs de nombres pseudo-aléatoires
 
-=== Pseudorandom number generators
+Il nous faut donc d'un côté un algorithme qui calcule tout aléatoirement, mais
+d'un autre côté être sûr qu'à partir d'une graine on ait le même résultat – de
+l'aléatoire prévisible donc … et là vous vous dites qu'on n'est pas rendus. Sauf
+si vous connaissez comme moi le principe des
++
+https://fr.wikipedia.org/wiki/Générateur_de_nombres_pseudo-aléatoires[générateurs de nombres pseudo aléatoires (Wikipédia)].
 
-J'ai découvert ce principe en codant dans des langages incitant à utiliser des
-fonctions pures, comme Haskell ou Erlang. L'idée est d'avoir une fonction (ou un
-objet) qui donne un nombre _qui a l'air aléatoire_ en fonction d'une _seed_. Une
-fois qu'on a généré un nombre aléatoire, le générateur crée une autre _seed_
-automatiquement afin de pouvoir générer des nombres différents.
+L'idée est d'avoir une fonction (ou un objet) qui donne un nombre _qui a l'air
+aléatoire_ en fonction de la graine. Une fois qu'on a généré un nombre
+aléatoire, le générateur crée une autre graine automatiquement afin de pouvoir
+générer des nombres différents.
 
-Cette nouvelle _seed_ est également toujours la même en fonction de la _seed_
+Cette nouvelle graine est également toujours la même en fonction de la graine
 précédente, nous assurant de retrouver toujours la même suite de nombre à partir
-d'une même _seed_.
+d'une même graine.
 
-Et c'est uniquement à ça que sert la seed ne notre carte !
+Et c'est uniquement à ça que servira notre graine !
 
-=== Implémentation en Javascript
+
+== Implémentation en Javascript
 
 Voici comment j'ai mis ça en place en javascript. Premièrement j'ai testé
 plusieurs modules et fini par trouver celui qui me convenait :
-https://www.npmjs.com/package/random-js[`random-js`].
+https://www.npmjs.com/package/random-js[random-js].
+
 
 [source,shell]
 ----
+# Petit copier-coller gratuit ;)
 npm install --save random-js
 ----
 
 Le module permet de créer un générateur puis d'appeler les fonctions comme
 `integer(min, max)` en leur passant le générateur. J'ai donc créé une fonction
-initialisant le générateur à partir de la _seed_ et renvoyant une API pratique à
+initialisant le générateur à partir de la graine et renvoyant une API pratique à
 utiliser :
 
 [source,javascript]
@@ -106,7 +115,7 @@ Mon API dispose donc de 3 fonctions :
 - et `real` renvoyant, comme `Math.random`, un nombre entre 0 inclus et 1
   exclus.
 
-Voici un code de test montrant qu'avec une même _seed_ on obtient les mêmes résultats :
+Voici un code de test montrant qu'avec une même graine on obtient les mêmes résultats :
 
 
 [source,javascript]
