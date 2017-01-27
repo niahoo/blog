@@ -8,19 +8,20 @@
       <%- partial('post/category') %>
     </div>
   </header>
-  <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.excerpt && index){ %>
-      <%- post.excerpt %>
-      <% if (theme.excerpt_link){ %>
-        <p class="article-more-link">
-          <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-        </p>
-      <% } %>
-    <% } else { %>
-      <%- post.content %>
+  <%- partial('post/gallery') %>
+  <% if (post.excerpt && index){ %>
+    <%- post.excerpt %>
+    <% if (theme.excerpt_link){ %>
+      <p class="article-more-link">
+        <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+      </p>
     <% } %>
-  </div>
+  <% } else { %>
+    <div class="chapo">
+      <%- post.excerpt %>
+    </div>
+    <%- post.more %>
+  <% } %>
   <footer class="article-footer">
     <%- partial('post/tag') %>
   </footer>

@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <%- partial('_partial/head') %>
-<body>
+<%- console.log('env') %>
+<%- console.log(env) %>
+<body class="<%= env.env %>">
   <div id="container">
     <%- partial('_partial/header', null, {cache: !config.relative_link}) %>
     <section id="main"><%- body %></section>
     <%- partial('_partial/footer', null, {cache: !config.relative_link}) %>
     <%- partial('_partial/after-footer') %>
+    <div class="width-debug width-debug-xs">xs</div>
+    <div class="width-debug width-debug-sm">sm</div>
+    <div class="width-debug width-debug-md">md</div>
+    <div class="width-debug width-debug-la">la</div>
   </div>
 </body>
