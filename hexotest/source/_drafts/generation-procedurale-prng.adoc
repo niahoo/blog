@@ -65,9 +65,8 @@ L'idée est d'avoir une fonction (ou un objet) qui donne un nombre _qui a l'air
 aléatoire_, en fonction de la graine. Une fois qu'on a généré un nombre
 aléatoire, le générateur crée une autre graine automatiquement afin de pouvoir
 générer des nombres différents. Cette nouvelle graine est également toujours la
-même en fonction de la graine précédente, nous assurant de retrouver toujours la
-même suite de nombres à partir de la graine initiale (celle qu'on donne au
-générateur).
+même en fonction de la graine précédente, nous assurant de retrouver toujours
+la même suite de nombres à partir de la graine initiale donnée au générateur).
 
 Au final, notre graine n'aura servi qu'une seule fois, lors de l'initialisation
 du générateur. Ensuite, c'est lui qui s'occupe du reste, on peu s'en servir
