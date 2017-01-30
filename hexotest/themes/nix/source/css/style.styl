@@ -7,9 +7,6 @@ sup.footnote
 		visibility visible
 
 
-div#footnotes
-	font-size 0.9em
-
 pre
 	max-width 100%
 	overflow auto
@@ -104,8 +101,8 @@ webfont(scope)
 		fscope = fonts[body]
 		scope: scope;
 		// &::before
-		// 	content: '' + scope + ' ' + '' ;
-		// 	color: red
+		//  content: '' + scope + ' ' + '' ;
+		//  color: red
 	font-family: fscope.family;
 	font-weight: fscope.weight;
 	font-style: fscope.style;
@@ -119,6 +116,29 @@ webfont(scope)
 html, body {
 	background: $body-background;
 }
+
+
+
+/****************************************************************/
+
+
+#container
+	margin auto
+
+#container > header > nav
+	display flex
+	margin-left -1em // cancel leftmost link padding
+	a
+		color $color-accent
+		// font-weight 700
+		line-height 50px
+		height 50px
+		vertical-align middle
+		padding 0 1em
+	a:hover
+		background-color $color-accent
+		color $color-background
+
 
 #container::before,
 #container::after
@@ -140,10 +160,8 @@ body {
 	webfont body
 	color: #464646;
 }
-header {
+#header, #footer, .article-footer
 	webfont ui
-	color: #464646;
-}
 h1, .h1 {
 	webfont h1
 	color: heading-color;
@@ -201,38 +219,63 @@ p code {
 	padding:0 3px;
 }
 
-a:link, a:visited, a:hover, a:active
+underline($underline-color)
 	text-decoration none
-	border-bottom-width 1px
-	border-bottom-style solid
-a:link
+	background-size 1px 1em
+	display inline
+	text-shadow -1px -1px $color-background,
+		-1px 1px $color-background,
+		1px  -1px $color-background,
+		1px  1px  $color-background
+	box-shadow:
+		inset 0 -0.1em $color-background,
+		inset 0 -0.15em $underline-color;
+
+a
+	text-decoration none
+
+a:link, a:visited
 	color $color-link
-	border-bottom-color $color-link
-a:visited,
-.article .article-footer a:visited
-.article .article-meta a:visited
-	color $color-link
-	border-bottom-color $color-link
-.article a:visited
-	color $color-link-visited
-	border-bottom-color $color-link-visited
 a:hover
 	color $color-link-hover
-	border-bottom-color $color-link-hover
 a:active
 	color $color-link-active
-	border-bottom-color $color-link-active
+
+.article-content
+	a:link
+		underline($color-link)
+	a:visited
+		color $color-link-visited
+		underline($color-link-visited)
+	a:hover
+		underline($color-link-hover)
+	a:active
+		underline($color-link-active)
 
 
-.article-meta {
+
+
+.article-meta
 	webfont metadata
-	color:#bbb;
-	text-transform: uppercase;
-}
+	color $color-light
+	ul, li
+		display inline
+		margin 0
+		padding 0
+	li::after
+		content ', '
+	li:last-child::after
+		content '.'
+	a:link, a:visited
+		color $color-light
+		underline($color-light)
+	a:hover
+		color $color-text
+
 
 pre[class*="language-"]::selection,
 code[class*="language-"]::selection,
-pre[class*="language-"]	::selection,
+pre[class*="language-"] ::selection,
 code[class*="language-"] ::selection {
 	background-color:#ddd;
 	color:inherit;
@@ -241,6 +284,8 @@ code[class*="language-"] ::selection {
 	background-color:#00a4db;
 	color:white;
 }
+pre.highlight
+	overflow hidden
 
 /* Typography sizes */
 
@@ -300,13 +345,9 @@ h1, .h1, h2, h3, h4
 
 .toc-date
 	color #aaa
-/****************************************************************
 
+/****************************************************************/
 
-
-
-
-****************************************************************/
 
 /**
  * For the typography we define a big mixin that handles only font-sizes
@@ -363,7 +404,7 @@ typography(row)
 
 	h1, .h1
 		line-height row-3(row)
-		margin row-2(row) 0 row-2(row)
+		margin row-2(row) 0 row-1(row)
 
 	h2
 		line-height row-2(row) /* 2 rows */
@@ -399,18 +440,6 @@ typography(row)
 			height row-m(1.5, row) - 0.1
 			padding 1px 6px 0
 
-
-
-		// tr
-
-		//	&:last-child
-		//		// &:nth-child(odd)
-		//		td:last-child
-		//			margin-bottom row-1(row)
-		//		// &:nth-child(even)
-		//		td:last-child
-		//			margin-bottom row-m(1.5, row)
-
 	blockquote
 		position relative
 		padding 0 row-m(1.5, row)
@@ -428,10 +457,16 @@ typography(row)
 		line-height 0
 		font-size 0.7em
 
-
-#container
-	margin auto
-
+	#footnotes
+		border-top 1px solid $color-light
+		padding-top row-1(row*0.5 - 1)
+		margin-top row-1(row*1.5)
+		margin-bottom row-1(row)
+		font-size 0.9em
+		hr
+			display none
+	.article-content
+		margin-bottom row-2(row)
 
 
 
@@ -484,7 +519,7 @@ typography(row)
 	code, pre
 		font-size ($font-size-md - 0.1)
 	h1, .h1
-		font-isze 5.4rem
+		font-size 5.4rem
 	h2
 		font-size 3.5rem
 	h3
@@ -544,25 +579,25 @@ typography(row)
 //*
 
 @media only screen and (min-width $min-width-xs)
-	body.development #container:active
+	body.development #main:active
 		background url('http://basehold.it/image.php?height=' + $line-height-xs) left top repeat transparent
 	.width-debug.width-debug-xs
 		display block
 
 @media only screen and (min-width $min-width-sm)
-	body.development #container:active
+	body.development #main:active
 		background url('http://basehold.it/image.php?height=' + $line-height-sm) left top repeat transparent
 	.width-debug.width-debug-sm
 		display block
 
 @media only screen and (min-width $min-width-md)
-	body.development #container:active
+	body.development #main:active
 		background url('http://basehold.it/image.php?height=' + $line-height-md) left top repeat transparent
 	.width-debug.width-debug-md
 		display block
 
 @media only screen and (min-width $min-width-la)
-	body.development #container:active
+	body.development #main:active
 		background url('http://basehold.it/image.php?height=' + $line-height-la) left top repeat transparent
 	.width-debug.width-debug-la
 		display block

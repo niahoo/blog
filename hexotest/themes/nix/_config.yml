@@ -1,10 +1,9 @@
 # Header
 menu:
-  Home: /
-  Tags: /tags
+  "RSS": /feed.xml
 
 # Content
-excerpt_link: Lire
+excerpt_link: Lire la suite
 
 widgets:
 

@@ -6,13 +6,13 @@
 title: "niahoo's devlog"
 subtitle:
 description:
-author: John Doe
-language:
+author: niahoo
+language: fr-FR
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://ooha.in
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -24,7 +24,7 @@ tag_dir: tags
 archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
-i18n_dir: :lang
+i18n_dir: :languages
 skip_render:
 
 # Writing
@@ -72,3 +72,10 @@ deploy:
 
 # Simple files copy
 static_dir: static
+
+feed:
+  type: atom
+  path: feed.xml
+  limit: 20
+  hub:
+  content:
