@@ -1,4 +1,5 @@
 @require "_variables"
+@import '../../../../node_modules/jeet'
 
 /** hide the footnotes brackets **/
 sup.footnote
@@ -154,7 +155,24 @@ li > * {
 	margin-bottom:0 !important;
 }
 
-/* Type & colors */
+.archive-year-wrap
+	display none
+
+.archives-wrap
+	.archives
+		.archive-article-date
+			column(1/4)
+			margin 0 !important
+			color $color-light
+		.archive-article-entry
+			column(3/4)
+			h3, .h3
+				margin 0 !important
+
+#main
+	min-height 100vh
+
+/** Type & colors ***********************************************************/
 
 body {
 	webfont body
@@ -166,7 +184,7 @@ h1, .h1 {
 	webfont h1
 	color: heading-color;
 }
-h2, h3 {
+h2, h3, .h3 {
 	webfont h2
 	color: heading-color;
 }
@@ -327,7 +345,7 @@ ol.toc li span::before {
 
 
 
-h1, .h1, h2, h3, h4
+h1, .h1, h2, h3, .h3, h4
 	&:hover
 		.headref
 			webfont headref
@@ -376,6 +394,8 @@ typography(row)
 	/**
 		-- TYPOGRAPHY --------------------
 	 */
+	#main
+		margin-top row-2(row)
 	body, code, pre, blockquote, h1.paragraph
 		line-height row-1(row)
 	h4
@@ -410,7 +430,7 @@ typography(row)
 		line-height row-2(row) /* 2 rows */
 		margin row-m(1.5, row) 0 row-m(.5, row) /* 1.5 row, .5 row*/
 
-	h3
+	h3, .h3
 		line-height row-m(1.5, row) /* 1.5 rows */
 		margin row-1(row) 0 row-m(.5, row) /* 1row, .5row */
 
@@ -481,7 +501,7 @@ typography(row)
 		font-size 4.5rem
 	h2
 		font-size 3rem
-	h3
+	h3, .h3
 		font-size 2.2rem
 	blockquote::before
 		font-size 5.6rem
@@ -502,7 +522,7 @@ typography(row)
 		font-size 4.5rem
 	h2
 		font-size 3rem
-	h3
+	h3, .h3
 		font-size 2.2rem
 	blockquote::before
 		font-size 5.6rem
@@ -522,7 +542,7 @@ typography(row)
 		font-size 5.4rem
 	h2
 		font-size 3.5rem
-	h3
+	h3, .h3
 		font-size 2.6rem
 	blockquote::before
 		font-size 8rem
@@ -542,7 +562,7 @@ typography(row)
 		font-size $font-size-la * 3
 	h2
 		font-size 4.1rem
-	h3
+	h3, .h3
 		font-size 3rem
 	blockquote::before
 		font-size 9rem

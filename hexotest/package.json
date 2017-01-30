@@ -23,5 +23,8 @@
   "scripts": {
     "build": "hexo clean && hexo generate",
     "dev": "hexo server --drafts"
+  },
+  "devDependencies": {
+    "jeet": "^7.1.0"
   }
 }

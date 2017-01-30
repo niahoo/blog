@@ -1,6 +1,6 @@
 <article class="archive-article archive-type-<%= post.layout %>">
   <header class="archive-article-header">
-    <%- partial('post/date', {class_name: 'archive-article-date', date_format: 'MMM D'}) %>
-    <%- partial('post/title', {class_name: 'archive-article-title'}) %>
+    <%- partial('post/date', {class_name: 'archive-article-date h3', date_format: 'DD MMMM'}) %>
+    <%- partial('post/entry', {class_name: 'archive-article-entry'}) %>
   </header>
 </article>

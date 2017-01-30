@@ -1,0 +1,14 @@
+<div class="<%= class_name %>">
+  <h3 itemprop="name">
+    <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+  </h3>
+  <div>
+    <%- post.excerpt %>
+    <% if (theme.excerpt_link){ %>
+      <p class="article-more-link">
+        <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+      </p>
+    <% } %>
+  </div>
+</div>
+
