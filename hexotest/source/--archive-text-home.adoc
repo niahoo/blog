@@ -6,9 +6,9 @@ id: home-content
 
 Ceci est mon devlog.
 
-Ici je parle principalement de développement de jeux vidéos mais cela
-me permet d'aborder des techniques utilisée dans n'importe quel
-domaine du développement.
+Ici je parle principalement de développement de jeux vidéos pour
+mobiles et navigateurs mais cela me permet d'aborder des techniques
+utilisées dans n'importe quel domaine du développement web.
 
 Je code principalement en Elixir/Erlang et Javascript.
 
