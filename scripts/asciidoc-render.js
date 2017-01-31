@@ -24,8 +24,8 @@ function renderer(data, locals) {
   });
 
   return $.html()
-             .replace(/{/g, '&#123;')
-             .replace(/}/g, '&#125;');
+    // .replace(/{/g, '&#123;')
+    // .replace(/}/g, '&#125;');
 }
 
 hexo.extend.renderer.register('ad', 'html', renderer, true);

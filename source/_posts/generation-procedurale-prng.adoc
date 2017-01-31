@@ -2,7 +2,6 @@
 title: "Génération procédurale : prenez-en de la graine !"
 date: 2017-01-24
 tags: [javascript, level-design]
-# user_scripts: ['https://d3js.org/d3.v4.min.js', 'js/mapgen/maptest.js']
 ---
 
 Cet article explique comment générer du contenu de façon aléatoire à partir
