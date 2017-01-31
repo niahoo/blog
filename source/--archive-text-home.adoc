@@ -6,10 +6,9 @@ id: home-content
 
 Ceci est mon devlog.
 
-Ici je parle principalement de développement de jeux vidéos pour
-mobiles et navigateurs mais cela me permet d'aborder des techniques
-utilisées dans n'importe quel domaine du développement web.
-
-Je code principalement en Elixir/Erlang et Javascript.
+Pour le moment c'est assez vide, comme je recrée un blog tous les ans … Vous y
+trouverez des articles concernant la programmation en général, le développement
+de deux vidéos sur navigateurs et le _game-design_, même si je suis simple
+amateur sur ce dernier point !
 
 == Articles

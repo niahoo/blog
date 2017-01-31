@@ -95,13 +95,19 @@ utiliser :
 import Random from 'random-js'
 
 function getRnd(seed) {
-    let randomGen = Random.engines.mt19937()
-    randomGen.seed(seed)
-    return {
-        integer: (min, max) => Random.integer(min, max)(randomGen),
-        pick: (array, begin, end) => Random.pick(randomGen, array, begin, end),
-        real: (min, max, inclusive) => Random.real(min, max, inclusive)(randomGen)
+  let randomGen = Random.engines.mt19937()
+  randomGen.seed(seed)
+  return {
+    integer: function(min, max) {
+      return Random.integer(min, max)(randomGen)
+    },
+    pick: function(array, begin, end) {
+      return Random.pick(randomGen, array, begin, end)
+    },
+    real: function(min, max, inclusive) {
+      return Random.real(min, max, inclusive)(randomGen)
     }
+  }
 }
 ----
 
@@ -109,8 +115,9 @@ Mon API dispose donc de 3 fonctions :
 
 - `integer` permettant de tirer un simple nombre entre deux bornes incluses ;
 - `pick` permettant de tirer un élément au hasard dans un `Array` ;
-- et `real` renvoyant, comme `Math.random`, un nombre entre 0 inclus et 1 exclu
-  (si `inclusive` est `false` (par défaut), ou inclu si `inclusive` est `true`).
+- et `real` renvoyant, comme `Math.random`, un nombre entre `0` inclus et `1`
+  exclu (si `inclusive` est `false` (par défaut), ou inclu si `inclusive` est
+  `true`).
 
 Voici un code de test montrant qu'avec une même graine on obtient les mêmes résultats :
 
@@ -119,15 +126,15 @@ Voici un code de test montrant qu'avec une même graine on obtient les mêmes r�
 let seed = 1664
 let random1 = getRnd(seed)
 console.log(
-    random1.integer(0, 10),
-    random1.integer(0, 10),
-    random1.integer(0, 10)
+  random1.integer(0, 10),
+  random1.integer(0, 10),
+  random1.integer(0, 10)
 )
 let random2 = getRnd(seed)
 console.log(
-    random2.integer(0, 10),
-    random2.integer(0, 10),
-    random2.integer(0, 10)
+  random2.integer(0, 10),
+  random2.integer(0, 10),
+  random2.integer(0, 10)
 )
 ----
 

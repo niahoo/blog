@@ -1,4 +1,5 @@
 @require "_variables"
+@import "_highlight"
 @import '../../../../node_modules/jeet'
 
 /** hide the footnotes brackets **/
@@ -18,9 +19,6 @@ pre
 
 
 /* font choice */
-
-@import url('https://code.cdn.mozilla.net/fonts/fira.css');
-@import url(fonts/fonts.css);
 
 fonts = {
 	body: {
@@ -126,6 +124,11 @@ html, body {
 #container
 	margin auto
 
+#container::before,
+#container::after
+	content " "
+	display table
+
 #container > header > nav
 	display flex
 	margin-left -1em // cancel leftmost link padding
@@ -140,11 +143,9 @@ html, body {
 		background-color $color-accent
 		color $color-background
 
-
-#container::before,
-#container::after
-	content " "
-	display table
+#container > footer
+	text-align center
+	font-size 0.9em
 
 *, pre, ul, ol, li {
 	padding: 0;
@@ -305,8 +306,9 @@ code[class*="language-"] ::selection {
 	background-color:#00a4db;
 	color:white;
 }
-pre.highlight
-	overflow hidden
+
+// pre.highlight
+// 	overflow hidden
 
 /* Typography sizes */
 
