@@ -1,0 +1,15 @@
+---
+id: home-content
+---
+
+== Hello :)
+
+Ceci est mon devlog.
+
+Ici je parle principalement de développement de jeux vidéos mais cela
+me permet d'aborder des techniques utilisée dans n'importe quel
+domaine du développement.
+
+Je code principalement en Elixir/Erlang et Javascript.
+
+== Articles

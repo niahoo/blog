@@ -1,3 +1,9 @@
+<% if (typeof archive_text_id !== 'undefined'){
+  var query_text_content = site.pages.find({id: archive_text_id})
+  if (query_text_content.length) { %>
+    <%- query_text_content.data[0].content %>
+  <% }
+} %>
 <% if (pagination == 2){ %>
   <% page.posts.each(function(post){ %>
 

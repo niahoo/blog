@@ -1,4 +1,8 @@
 <%-
 	// partial('_partial/archive', {pagination: 2, index: true})
-	partial('_partial/archive', {pagination: config.archive, index: true})
+	partial('_partial/archive', {
+		pagination: config.archive,
+		index: true,
+		archive_text_id: 'home-content'
+	})
 %>

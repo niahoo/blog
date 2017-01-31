@@ -167,7 +167,7 @@ li > * {
 		.archive-article-entry
 			column(3/4)
 			h3, .h3
-				margin 0 !important
+				margin-top 0 !important
 
 #main
 	min-height 100vh
@@ -284,9 +284,12 @@ a:active
 		content ', '
 	li:last-child::after
 		content '.'
+	li.article-tag-list-item
+		a:link, a:visited
+			color $color-light
+			underline($color-light)
 	a:link, a:visited
 		color $color-light
-		underline($color-light)
 	a:hover
 		color $color-text
 

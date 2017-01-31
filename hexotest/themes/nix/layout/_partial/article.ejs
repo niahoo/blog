@@ -5,7 +5,8 @@
     <% } %>
     <div class="article-meta">
       <%= __('posted_on') %>
-      <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+      <%- partial('post/date', {class_name: 'article-date', date_format: 'DDD MMM YYYY'}) %>
+
       <%= __('into') %>
       <%- partial('post/category') %>
       <%- partial('post/tag') %>
