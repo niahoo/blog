@@ -5,7 +5,6 @@
     <%- partial('_partial/header', null, {cache: !config.relative_link}) %>
     <section id="main"><%- body %></section>
     <%- partial('_partial/footer', null, {cache: !config.relative_link}) %>
-    <%- partial('_partial/after-footer') %>
     <% if (env.env === 'development') { %>
         <div class="width-debug width-debug-xs">xs</div>
         <div class="width-debug width-debug-sm">sm</div>

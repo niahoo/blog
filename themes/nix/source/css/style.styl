@@ -28,27 +28,27 @@ fonts = {
 	},
 	h1: {
 		family: $font-family-headings,
-		weight: 400,
+		weight: 700,
 		style: normal
 	},
 	h2: {
 		family: $font-family-headings,
-		weight: 400,
+		weight: 700,
 		style: normal
 	},
 	h3: {
 		family: $font-family-headings,
-		weight: 400,
+		weight: 700,
 		style: normal
 	},
 	h4: {
 		family: $font-family-headings,
-		weight: 400,
+		weight: 700,
 		style: normal
 	},
 	h5: {
 		family: $font-family-headings,
-		weight: 400,
+		weight: 700,
 		style: normal
 	},
 	h6: {
@@ -161,14 +161,15 @@ li > * {
 
 .archives-wrap
 	.archives
+		h3, .h3, time
+			margin-top 0 !important
+			font-weight 400
 		.archive-article-date
 			column(1/4)
 			margin 0 !important
 			color $color-light
 		.archive-article-entry
 			column(3/4)
-			h3, .h3
-				margin-top 0 !important
 
 #main
 	min-height 100vh

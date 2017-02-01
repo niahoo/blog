@@ -2,6 +2,7 @@
 title: "Comment jouer encore moins dans un incremental-game"
 date: 2017-01-31
 tags: [javascript, incremental-games]
+uscripts: ['js/incremental-games-autoclicker.js']
 ---
 
 La triche c'est mal m'voyez ? Mais voici quand même un petit script permettant
@@ -158,34 +159,3 @@ var loop = looper.async(function(n){
 loop(Infinity + 1)
 ----
 
-++++
-<script>
-
-function looper(callback) {
-  return function loop(x, i) {
-    for (i = 0; i < x; i++) {
-      callback(i)
-    }
-  }
-}
-
-looper.async = function(callback, timeout) {
-  timeout = timeout || 1
-  return function loop(x, i) {
-    i = i || 0
-    if (i < x){
-      setTimeout(function(){
-        callback(i)
-        loop(x, i + 1)
-      }, timeout)
-    }
-  }
-}
-
-console.log("Hello !")
-console.log("Le looper est déjà défini dans la console,")
-console.log("mais n'hésitez pas à redéfinir la variable")
-console.log("avec les exemples de l'article.")
-
-</script>
-++++
