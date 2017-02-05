@@ -11,4 +11,8 @@ trouverez des articles concernant la programmation en général, le développeme
 de deux vidéos sur navigateurs et le _game-design_, même si je suis simple
 amateur sur ce dernier point !
 
+Les sources du blog sont hébergées sur https://github.com/niahoo/blog[Github].
+Si vous voyez une faute ou un problème avec le code du blog, n'hésitez pas à
+m'en faire part https://github.com/niahoo/blog/issues[ici] !
+
 == Articles

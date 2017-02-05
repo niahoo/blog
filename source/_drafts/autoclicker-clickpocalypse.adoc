@@ -1,0 +1,31 @@
+---
+title: "Autoclickers partie II – Clickpocalypse !"
+date: 2017-02-05
+tags: [javascript, incremental-games]
+uscripts: ['js/incremental-games-autoclicker.js']
+---
+
+Seconde partie de ma série d'articles sur les _autoclickers_ avec un exemple :
+CLICKPOCALYPSE 2.
+
+++++
+<!-- more -->
+++++
+
+== @todo
+
+
+Pour les jeux plus sympathiques comme Trimps ou Clickpocalypse, les autoclicker
+permettent de rendre le jeu presque totalement _idle_. Pourquoi faire ?
+
+Disons que les éléments sur lesquels on doit cliquer représentent parfois des
+choix évidents. Par exemple, dans Clickpocalypse, la barre de gauche contient
+les récompenses et les loot des donjons que l'on farme. Cliquer dessus permet de
+récupérer ces récompenses et ne-pas cliquer dessus n'a aucun intérêt (mis à part
+les boutons « Attack Castle » qu'il faudra tâcher d'ignorer).
+
+Autre exemple, les boutons permettant d'utiliser les parchemins sont désactivés
+quand il n'y a pas d'ennemis. Le clic n'est donc possible que quand le parchemin
+est utile (un ennemi est présent). C'est donc une bonne idée de mettre un
+_autoclicker_ dessus.
+

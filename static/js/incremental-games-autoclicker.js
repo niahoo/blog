@@ -20,7 +20,7 @@ looper.async = function(callback, timeout) {
   }
 }
 
-console.log("Hello !")
+console.log("Hello :)")
 console.log("Le looper est déjà défini dans la console,")
 console.log("mais n'hésitez pas à redéfinir la variable")
 console.log("avec les exemples de l'article.")

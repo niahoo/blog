@@ -1,5 +1,5 @@
 ---
-title: "Comment jouer encore moins dans un incremental-game"
+title: "Créer un simple autoclicker pour un incremental game"
 date: 2017-01-31
 tags: [javascript, incremental-games]
 uscripts: ['js/incremental-games-autoclicker.js']
@@ -26,8 +26,8 @@ augmentant le nombre d'éléments de l'interface ou d'actions possibles.
 
 Voici quelques exemples que je trouve sympathiques :
 
-- http://jhollands.co.uk/spaceplan/[SPACEPLAN]
-- http://minmaxia.com/c2/[CLICKPOCALYPSE 2]
+- http://jhollands.co.uk/spaceplan/[Spaceplan]
+- http://minmaxia.com/c2/[Clickpocalypse 2]
 - https://trimps.github.io/[Trimps]
 - http://cirri.al/sharks/[Shark Game: Shark of Darkness]
 - http://candies.aniwey.net/[Candy box !]
@@ -63,32 +63,64 @@ existe).
 
 == Autoclicker
 
-Pour les jeux plus sympathiques comme Trimps ou Clickpocalypse, les autoclicker
-permettent de rendre le jeu presque totalement _idle_. Pourquoi faire ?
+Pour clicker à l'infini sur le même bouton, on va donc avoir besoin d'une
+fonction javascript qui effectue le clic sur ce bouton, et d'une boucle infinie
+qui répète cette fonction.
 
-Disons que les éléments sur lesquels on doit cliquer représentent parfois des
-choix évidents. Par exemple, dans Clickpocalypse, la barre de gauche contient
-les récompenses et les loot des donjons que l'on farme. Cliquer dessus permet de
-récupérer ces récompenses et ne-pas cliquer dessus n'a aucun intérêt (mis à part
-les boutons « Attack Castle » qu'il faudra tâcher d'ignorer).
+Commençons par le clic. Il n'est pas toujours facile d'exécuter un évènement
+javascript sur un élément du DOM, mais voici une méthode qui fonctionne dans de
+nombreux jeux. Tout d'abord, il faut pouvoir sélectionner l'élément, par exemple
+via `document.getElementById`. Ensuite, on peut directement appeler la fonction
+`click` ou `onclick` de cet élément. Avec un peu de chances, l'une des deux
+fonctionnera.
 
-Autre exemple, les boutons permettant d'utiliser les parchemins sont désactivés
-quand il n'y a pas d'ennemis. Le clic n'est donc possible que quand le parchemin
-est utile (un ennemi est présent). C'est donc une bonne idée de mettre un
-_autoclicker_ dessus.
+Voici un simple bouton :
 
-=== Version synchrone
+++++
+<p>
+  <button id="simple-click"><span id="simple-click-count">0 clic !</span></button>
+</p>
+<script>
+(function(){
+  var count = 0
+  document.getElementById('simple-click').addEventListener('click', function(){
+    document.getElementById('simple-click-count').innerHTML = (
+      ++count + ' clic' + (count > 1 ? 's' : '') + ' !'
+    )
+  })
+}())
+</script>
+++++
 
-Un _autoclicker_ fonctionne est une boucle qui va exécuter `n` fois la même
-fonction, généralement sélectionner un bouton à cliquer, et lancer le clic.
+La commande suivante permet d'exécuter un clic depuis la console javascript :
 
-Voici donc une fonction qui permet de créer une telle boucle :
+[source,javascript]
+----
+document.getElementById('simple-click').click()
+----
+
+
+Enfin, il arrive également que certains jeux appellent une fonction directement
+dans le code HTML :
+
+[source,xml]
+----
+<button onclick="addResource()">Click !</button>
+----
+
+Dans ce cas, il est possible d'appeler directement la fonction `addResource`
+plutôt que d'utiliser le DOM.
+
+=== Boucle synchrone
+
+Pour lancer une boucle, on peut se contenter d'une boucle `for`. La fonction
+`looper` permet de créer une boucle répétant `n` fois notre fonction de clic :
 
 [source,javascript]
 ----
 function looper(callback) {
-  return function loop(x, i) {
-    for (i = 0; i < x; i++) {
+  return function loop(n, i) {
+    for (i = 0; i < n; i++) {
       callback(i)
     }
   }
@@ -100,8 +132,7 @@ Et voici comment on s'en sert :
 [source,javascript]
 ----
 var loop = looper(function(n){
-  // Ici on implémentera les clics
-  console.log("Boucle n°%s", n)
+  document.getElementById('simple-click').click()
 })
 
 loop(10) // on lance la boucle 10 fois
@@ -109,49 +140,51 @@ loop(10) // on lance la boucle 10 fois
 
 Malheureusement, cette version synchrone pose une problème majeur : durant
 l'exécution, le navigateur est « freezé », et l'exécution du script fait tourner
-le processeur de votre PC (ou l'un de ses coeurs) à 100%. Certains navigateurs
-que je ne nommerai pas ne permettront même pas qu'on ferme ou recharge la page,
-et il faudra les fermer de force.
+le processeur de votre PC (ou l'un de ses coeurs) à 100%. Le jeu ne répondra pas
+à la souris ou au clavier et votre navigateur ne permettra pas de recharger ou
+fermer l'onglet avant la fin de l'exécution (ou avant la fin du temps maximum
+autorisé – qui est plutôt long).
 
 Impossible donc de lancer une boucle 10 000 fois tout en continuant de jouer,
 d'autant plus si le jeu exécute lui-même de nombreuses opérations lors d'un
 unique clic. Et c'est le but, on ne fait pas tout ça pour des clics qui ne font
 rien !
 
-=== Version Asynchrone
+=== Boucle asynchrone
 
 Voici une version asynchrone qui relègue chaque itération de la boucle à
-l'itération suivante du gestionnaire d'évènements du moteur Javascript. Le
-navigateur se comportera normalement et la boucle agira comme une sorte de tâche
-de fond.
+l'itération suivante de l'_event loop_ du moteur Javascript. Le navigateur se
+comportera normalement et la boucle agira comme une sorte de tâche de fond.
 
 Le temps entre chaque itération sera beaucoup plus long, et ne
 pourra de toutes façons pas être inférieur à
 https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout#Reasons_for_delays_longer_than_specified[4 millisecondes].
 
 Ce n'est généralement pas un problème, et en contrepartie on peut lancer la
-boucle à l'infini (et au delà) !
+boucle à l'infini (et au delà) ! Mais si le temps d'exécution est vraiment
+important, la librairie https://github.com/YuzuJS/setImmediate[setImmediate]
+peut remplacer `setTimeout` pour accélérer les choses.
 
-Vous pouvez l'essayer dans la console sans crainte. Pour l'arrêter il suffit de
-recharger la page.
+Vous pouvez essayer cette boucle infinie dans la console sans crainte. Pour
+l'arrêter il suffit de recharger la page.
 
 [source,javascript]
 ----
 looper.async = function(callback, timeout) {
   timeout = timeout || 1
-  return function loop(x, i) {
+  return function loop(n, i) {
     i = i || 0
-    if (i < x){
+    if (i < n){
       setTimeout(function(){
         callback(i)
-        loop(x, i + 1)
+        loop(n, i + 1)
       }, timeout)
     }
   }
 }
 
 var loop = looper.async(function(n){
-  console.log("Boucle n°%s", n)
+  document.getElementById('simple-click').click()
 })
 
 // N'ayons pas peur et lançons la boucle
@@ -159,3 +192,12 @@ var loop = looper.async(function(n){
 loop(Infinity + 1)
 ----
 
+== Conclusion
+
+Cet article était plutôt destiné aux débutants, avec une recette simple, créer
+une fonction de clic, puis la lancer autant de fois que voulu via la console.
+
+Dans un prochain article, je montrerai comment injecter automatiquement le
+script dans la page et l'exécuter au chargement. Nous verrons aussi comment
+implémenter une simple IA qui joue à notre place en prenant un vrai jeu comme
+exemple.

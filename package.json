@@ -27,7 +27,7 @@
   },
   "scripts": {
     "build": "hexo clean && hexo generate",
-    "dev": "hexo clean && hexo server --drafts",
+    "dev": "hexo server --drafts",
     "deploy": "hexo clean && cross-env NODE_ENV=production hexo generate && node run-deploy.js"
   }
 }
