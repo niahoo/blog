@@ -14,6 +14,7 @@ CLICKPOCALYPSE 2.
 
 == @todo
 
+include::source/_includes/autoclicker-toc.adoc[]
 
 Pour les jeux plus sympathiques comme Trimps ou Clickpocalypse, les autoclicker
 permettent de rendre le jeu presque totalement _idle_. Pourquoi faire ?
