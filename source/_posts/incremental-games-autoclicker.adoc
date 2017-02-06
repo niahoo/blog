@@ -192,6 +192,16 @@ var loop = looper.async(function(n){
 loop(Infinity + 1)
 ----
 
+=== Pourquoi pas setInterval
+
+`setInterval` permet de spécifier un temps entre deux itérations de la boucle.
+Notre fonction `looper.async` permet de spécifier un temps entre la fin d'une
+boucle et le début de la suivante. Cela nous offre plus de contrôle : en
+laissant 1 par défaut, on exécute chaque boucle dès que la suivante est
+terminée. Avec `setInterval`, on perd du temps entre deux boucles si celles-ci
+s'exécutent plus rapidement que l'intervalle donnée. Mais si cela vous convient,
+après tout la méthode n'est pas mauvaise en soi !
+
 == Conclusion
 
 Cet article était plutôt destiné aux débutants, avec une recette simple, créer
@@ -200,4 +210,4 @@ une fonction de clic, puis la lancer autant de fois que voulu via la console.
 Dans un prochain article, je montrerai comment injecter automatiquement le
 script dans la page et l'exécuter au chargement. Nous verrons aussi comment
 implémenter une simple IA qui joue à notre place en prenant un vrai jeu comme
-exemple.
+exemple, et comment avoir un meilleur contrôle sur l'exécution de notre boucle.
