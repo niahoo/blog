@@ -20,7 +20,9 @@ var cheerio_load_option = {
   decodeEntities: false
 }
 
-function renderer(data, locals) {
+// var evilTags = require('./_evil-tags')(hexo)
+
+function renderer(data, _renderOpts) {
   var html = processor.convert(data.text, options)
   var $ = cheerio.load(html, cheerio_load_option)
 
