@@ -35,3 +35,41 @@ compétences des personnages, très utile puisque quand on « prestige », ceux-
 commencent avec toujours plus de points de compétences ; et la récupération
 automatique des récompenses : _farms_, niveaux d'ennemis, ventes d'objets et
 bien entendu le _loot_ !
+
+
+== Setup
+
+J'ai développé cet autoclicker dans Chromium avec
+https://tampermonkey.net/[Tampermonkey], disponible également pour Chrome et
+Vivaldi. Il existe également pour Firefox mais je conseille plutôt
+https://addons.mozilla.org/fr/firefox/addon/greasemonkey/[Greasemonkey].
+
+Ces outils permettent d'ajouter automatiquement un ou plusieurs scripts sur une
+page web, chargés automatiquement au démarrage de la page. Plus besoin de lancer
+les scripts depuis la console comme on le faisait pour notre premier
+autoclicker.
+
+Cependant, ces scripts s'exécutent dans une _sandbox_, c'est à dire un contexte
+javascript différent de celui de la page web. Il faut donc leur donner
+explicitement l'accès à notre objet `window` afin de pouvoir interagir avec la
+page. Cela se fait via `@grant unsafeWindow` dans le _header_ de notre script.
+Ensuite, on déclare nos variables `window` et `document`, notre code aura l'air
+plus « habituel » et surtout, on pourra le tester directement dans la console.
+
+[source,javascript]
+----
+// ==UserScript==
+// @name         Clickpocalypse 2 Autoclicker
+// @grant        unsafeWindow
+// ==/UserScript==
+'use strict'
+
+var window = unsafeWindow
+var document = window.document
+----
+
+
+Attente du chargement
+Récupération des liens & boutons
+Lecture des points de compétence disponibles
+Orchestration

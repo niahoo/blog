@@ -68,6 +68,8 @@ Pour clicker à l'infini sur le même bouton, on va donc avoir besoin d'une
 fonction javascript qui effectue le clic sur ce bouton, et d'une boucle infinie
 qui répète cette fonction.
 
+=== Simuler un clic
+
 Commençons par le clic. Il n'est pas toujours facile d'exécuter un évènement
 javascript sur un élément du DOM, mais voici une méthode qui fonctionne dans de
 nombreux jeux. Tout d'abord, il faut pouvoir sélectionner l'élément, par exemple
@@ -75,7 +77,7 @@ via `document.getElementById`. Ensuite, on peut directement appeler la fonction
 `click` ou `onclick` de cet élément. Avec un peu de chances, l'une des deux
 fonctionnera.
 
-Voici un simple bouton :
+Voici un simple bouton sur lequel exécuter les tests.
 
 ++++
 <p>
@@ -93,13 +95,31 @@ Voici un simple bouton :
 </script>
 ++++
 
+
 La commande suivante permet d'exécuter un clic depuis la console javascript :
+
+==== Appel direct
 
 [source,javascript]
 ----
 document.getElementById('simple-click').click()
 ----
 
+==== Créer un objet Event
+
+Quand ni `click` ni `onclick` n'est disponible, il est possible de créer
+directement un objet évènement et de le lancer sur le bouton :
+
+[source,javascript]
+----
+var evt = new Event('click', {
+  bubbles: true,
+  cancelable: true
+})
+document.getElementById('simple-click').dispatchEvent(evt)
+----
+
+==== Appeler directement le handler
 
 Enfin, il arrive également que certains jeux appellent une fonction directement
 dans le code HTML :
@@ -114,8 +134,10 @@ plutôt que d'utiliser le DOM.
 
 === Boucle synchrone
 
-Pour lancer une boucle, on peut se contenter d'une boucle `for`. La fonction
-`looper` permet de créer une boucle répétant `n` fois notre fonction de clic :
+On sait maintenant simuler le clic. Reste à le faire dans une boucle.
+
+On peut se contenter d'une boucle `for`. La fonction `looper` permet de créer
+une boucle répétant `n` fois notre fonction de clic :
 
 [source,javascript]
 ----
