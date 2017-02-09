@@ -68,7 +68,60 @@ var window = unsafeWindow
 var document = window.document
 ----
 
+== Définir les actions de l'autoclicker
 
+Il faut maitenant récupérer toutes les fonctions de clic que l'on souhaite
+utiliser.
+
+=== Afficher les onglets
+
+Lorsque notre autolicker va acheter de nouvelles compétences pour nos
+personnages, on va d'abord cliquer sur l'onglet de ce personnage, afin de
+pouvoir visualiser les compétences qu'on achète. D'abord, c'est plus sympa, mais
+surtout ça nous permet de voir facilement si notre code fonctionne !
+
+Aussi, quand il n'y a rien de disponible à acheter, on affichera le jeu plutôt
+que de rester sur le dernier onglet utilisé.
+
+Malheureusement, les `<a />` qui constituent ces onglets n'ont pas d'attribut
+`id` ou `class` individuels pour les sélectionner facilement. Il faut donc lire
+leur contenu (le texte du bouton) pour savoir à quoi correspond notre onglet.
+
+On parcourt donc les onglets dans une boucle. Pour ceux qui nous intéressent,
+c'est à dire l'onglet « Game » permettant d'afficher le jeu, et les feuilles de
+personnages, on stocke une référence vers la fonction de clic.
+
+Les onglets personnages affichent un nombre quand le personnage dispose de
+points de compétences. Par exemple, l'onglet du rogue contiendra `'Rogue 5'`
+dans ce cas, et simplement `'Rogue'` si aucun point de compétences n'est
+disponible. Par conséquent on utilise une expression régulière pour trouver
+notre onglet. Cela nous permet également de stocker une fonction renvoyant le
+nombre de points de compétences disponibles pour notre personnage, que l'on
+utilisera plus tard pour décider si on doit aller acheter ces points.
+
+[source,javascript]
+----
+var tabs = document.querySelectorAll('.__TABS_WRAPPER_CLASS a')
+  .reduce(function(tabs, a) {
+    if (a.innerHTML === 'Game') {
+      tabs.game = return {type: 'game', click: a.onclick}
+    } else if (a.innerHTML.match(/(Pyro|Druid|Rogue|King|__TODO__)( [0-9]+)?/)) {
+      tabs.characters.push({
+        click: a.onclick,
+        skillpoints: function() {
+          var match = a.innerHTML.match(/([0-9]+)/)
+          return match ? Number(match[0]) : 0
+        }
+      })
+    }
+    return tabs
+  }, {characters: []})
+----
+
+
+
+== @todo
+skills utilisent mouseup()
 Attente du chargement
 Récupération des liens & boutons
 Lecture des points de compétence disponibles
