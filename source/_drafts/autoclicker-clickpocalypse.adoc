@@ -59,7 +59,12 @@ plus « habituel » et surtout, on pourra le tester directement dans la console.
 [source,javascript]
 ----
 // ==UserScript==
-// @name         Clickpocalypse 2 Autoclicker
+// @name         Clickpocalypse 2 autoclick
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        http://minmaxia.com/c2/
 // @grant        unsafeWindow
 // ==/UserScript==
 'use strict'
@@ -68,7 +73,31 @@ var window = unsafeWindow
 var document = window.document
 ----
 
+
+
+
 == Définir les actions de l'autoclicker
+
+Je vais commencer par écrire ce que notre autoclicker pourra faire pour se
+renseigner sur l'état du jeu et interagir avec le jeu. Dans un second temps je
+décrirai comment mettre tout ça en place dans une boucle intelligente, une mini
+intelligence artificielle.
+
+=== Attendre le chargement
+
+Si une sauvegarde du jeu est présente dans le cache du navigateur, le jeu
+calculer tout ce qui s'est passé dans les 16h au maximum suivant la sauvegarde.
+Pour ne pas interrompre ce processus, on va lancer notre autoclicker au sein
+d'une fonction `main` que l'on lancera une fois le chargement fini.
+
+Pour savoir si le chargement est en cours, on peut tester la présence d'un `div.offlineProgressBarContainer`.
+
+[source,javascript]
+----
+function isGameReady() {
+  return document.querySelector('.offlineProgressBarContainer') === null
+}
+----
 
 Il faut maitenant récupérer toutes les fonctions de clic que l'on souhaite
 utiliser.
