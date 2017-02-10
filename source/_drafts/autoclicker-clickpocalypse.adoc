@@ -118,7 +118,14 @@ var tabs = document.querySelectorAll('.__TABS_WRAPPER_CLASS a')
   }, {characters: []})
 ----
 
+=== Acheter des compétences
 
+On sait maintenant afficher les feuilles de personnages en cliquant sur ces
+onglets. Reste à interagir avec.
+
+Commençons par établir un lien entre nos onglets `characters` et les tableaux
+de compétences disponibles en jeu. L'onglet « Skills » est affiché par défaut
+donc on ne va pas rajouter une étape de clic dessus.
 
 == @todo
 skills utilisent mouseup()
