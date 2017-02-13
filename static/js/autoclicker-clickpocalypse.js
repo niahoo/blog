@@ -22,6 +22,16 @@ function toArray(collection) {
   return Array.prototype.slice.call(collection)
 }
 
+function simpleSort(a, b) {
+  return a < b ? -1 : a > b ? 1 : 0
+}
+
+function sortBy(fn) {
+  return function(a, b) {
+    return simpleSort(fn(a), fn(b))
+  }
+}
+
 function getGameTabs() {
   var tabs = toArray(document.querySelectorAll('#gameTabMenu a'))
     .reduce(function(tabs, a) {
@@ -52,7 +62,11 @@ function getGameTabs() {
     console.log('skillsTable', skillsTable)
     tab.availableSkills = function() {
       var buttons = toArray(skillsTable.querySelectorAll('.upgradeButton'))
-      // SORT BY Math.abs(parseInt(document.querySelector('.adventurerSkillTreeTable').querySelector('.disabledUpgradeButton').parentNode.getAttribute('id').match(/[0-9]$/)[0]) - 2)
+      buttons.sort(sortBy(function(button){
+          var column = button.parentNode.getAttribute('id').match(/[0-9]$/)[0]
+          return column === '2' ? 0 : Number(column)
+        }))
+      return buttons
     }
   })
   return tabs
