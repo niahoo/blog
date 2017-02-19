@@ -14,69 +14,29 @@
 var window = unsafeWindow
 var document = window.document
 
-function isGameReady() {
-  return document.querySelector('.offlineProgressBarContainer') === null
-}
 
-function toArray(collection) {
-  return Array.prototype.slice.call(collection)
-}
-
-function simpleSort(a, b) {
-  return a < b ? -1 : a > b ? 1 : 0
-}
-
-function sortBy(fn) {
-  return function(a, b) {
-    return simpleSort(fn(a), fn(b))
-  }
-}
-
-function getGameTabs() {
-  var tabs = toArray(document.querySelectorAll('#gameTabMenu a'))
-    .reduce(function(tabs, a) {
-      if (a.innerHTML === 'Game') {
-        tabs.game = {
-          type: 'game',
-          click: a.onclick
-        }
-      } else if (a.innerHTML.match(/(Fighter|Priest|Ranger|Pyro|Rogue|Druid|King|Necro|Barbarian|__TODO__)( [0-9]+)?/)) {
-        tabs.characters.push({
-          showCharacterSheet: a.onclick,
-          skillpoints: function() {
-            var match = a.innerHTML.match(/([0-9]+)/)
-            return match ? Number(match[0]) : 0
-          }
-        })
+function loop(step) {
+  // console.log('LOOP %s', step.fn.name)
+  setTimeout(function() {
+    try {
+      var nextStep = step.fn.apply(void 0, step.args)
+      if (nextStep) {
+        loop(nextStep)
+      } else {
+        console.log('LOOP END')
       }
-      return tabs
-    }, {
-      characters: []
-    })
-  console.log('tabs', tabs)
-
-  tabs.characters.forEach(function(tab, index){
-    var characterSheet = document.querySelector('#characterTabContainer' + index)
-    var skillsTable = characterSheet.querySelector('.adventurerSkillTreeTable')
-    tab.skillsTable = skillsTable
-    console.log('skillsTable', skillsTable)
-    tab.availableSkills = function() {
-      var buttons = toArray(skillsTable.querySelectorAll('.upgradeButton'))
-      buttons.sort(sortBy(function(button){
-          var column = button.parentNode.getAttribute('id').match(/[0-9]$/)[0]
-          return column === '2' ? 0 : Number(column)
-        }))
-      return buttons
+    } catch (e) {
+      onError(e)
     }
-  })
-  return tabs
+  }, step.time)
 }
+
 
 function next(time, fn) {
   var args
   if (typeof time === 'function') {
     fn = time
-    time = 1
+    time = 100
     args = Array.prototype.slice.call(arguments, 1)
   } else {
     args = Array.prototype.slice.call(arguments, 2)
@@ -93,51 +53,104 @@ function onError(e) {
   return next(1, window.__TODO__)
 }
 
-function loop(step) {
-  // console.log('LOOP %s', step.fn.name)
-  setTimeout(function() {
-      var nextStep = step.fn.apply(void 0, step.args)
-      if (nextStep) {
-        loop(nextStep)
-      } else {
-        console.log('LOOP END')
-      }
-    try {
-    } catch (e) {
-      onError(e)
-    }
-  }, step.time)
+
+// ---------------------------------------------------------------------------
+
+
+function toArray(collection) {
+  return Array.prototype.slice.call(collection)
 }
 
+function simpleSort(a, b) {
+  return a < b ? -1 : a > b ? 1 : 0
+}
 
-loop(next(500, waitGameReady))
+function sortBy(fn) {
+  return function(a, b) {
+    return simpleSort(fn(a), fn(b))
+  }
+}
+
+// ---------------------------------------------------------------------------
 
 var state = {}
 
+
 function waitGameReady() {
-  if (isGameReady()) {
+  if (document.querySelector('.offlineProgressBarContainer') === null) {
+    console.log("Game is ready !")
     return next(initialize)
   } else {
-    return next(500, waitGameReady)
+    console.log("Waiting for fast-forward to terminate.")
+    return next(100, waitGameReady)
   }
 }
+
+var characterTabNameRe = /(Fighter|Priest|Ranger|Pyro|Rogue|Druid|King|Necro|Barbarian|__TODO__)( [0-9]+)?/
 
 function initialize() {
-  state.tabs = getGameTabs()
-  state.charCount = state.tabs.characters.length
-  return next(decision)
+  console.log("Initializing state.")
+  state.characters = []
+  state.mapVisible = true
+  state.charCount = 0
+  var tabMatch, characterClass
+  toArray(document.querySelectorAll('#gameTabMenu a')).forEach(a => {
+    if (a.innerHTML === 'Game') {
+      console.log("Game tab found.")
+      state.gameTab = {show: a.onclick}
+    } else if (tabMatch = a.innerHTML.match(characterTabNameRe)) {
+      characterClass = tabMatch[1]
+      console.log("%s tab found.", characterClass)
+      state.characters.push({
+        showCharacterSheet: a.onclick,
+        characterClass: characterClass,
+        skillpoints: function() {
+          var match = a.innerHTML.match(/([0-9]+)/)
+          return match ? Number(match[0]) : 0
+        }
+      })
+    }
+  })
+
+  state.charCount = state.characters.length
+
+  state.characters.forEach(function(character, index){
+    var characterSheet = document.querySelector('#characterTabContainer' + index)
+    var skillsTable = characterSheet.querySelector('.adventurerSkillTreeTable')
+    character.availableSkills = function() {
+      var buttons = toArray(skillsTable.querySelectorAll('.upgradeButton'))
+      buttons.sort(sortBy(function(button){
+          var column = button.parentNode.getAttribute('id').match(/[0-9]$/)[0]
+          return column === '2' ? 0 : Number(column) + 1
+        }))
+      return buttons
+    }
+  })
+
+  state.upgradesContainer = document.getElementById('upgradeButtonContainer')
+  console.log('state', state)
+  return next(mainLoop)
 }
 
-function decision() {
-  var cs = state.tabs.characters
+function mainLoop(nothingWasDone) {
+  var chars = state.characters
   for (var i = 0; i < state.charCount; i++) {
-    var c = cs[i]
-    if (c.skillpoints()) {
-      return next(manageCharacter, c)
+    var char = chars[i]
+    if (char.skillpoints()) {
+      console.log("Character upgrade : %s .", char.characterClass)
+      return next(manageCharacter, char)
     }
   }
-  state.tabs.game.click()
-  return next(10000, decision)
+  if (getAvailableUpgrades().length) {
+    console.log("Upgrades available")
+    state.gameTab.show()
+    return next(purchaseAllUpgrades)
+  }
+  console.log("Nothing to do.")
+  if (!nothingWasDone) {
+    state.gameTab.show()
+  }
+  return next(1000, mainLoop, true)
 }
 
 function manageCharacter(character) {
@@ -145,11 +158,11 @@ function manageCharacter(character) {
   if (character.skillpoints()) {
     return next(buySkills, character)
   } else {
-    return next(decision)
+    return next(mainLoop)
   }
 }
 
-function activateSkillButton(button) {
+function mouseupButton(button) {
   var evt = new Event('mouseup', {
     bubbles: true,
     cancelable: true
@@ -160,8 +173,45 @@ function activateSkillButton(button) {
 function buySkills(character) {
   var skills = character.availableSkills()
   if (skills.length) {
-    activateSkillButton(skills[0])
+    mouseupButton(skills[0])
     return next(100, buySkills, character)
   }
   return next(manageCharacter, character)
 }
+
+function getAvailableUpgrades() {
+  var divs = state.upgradesContainer.querySelectorAll('.upgradeButton')
+  return toArray(divs).filter(div => {
+    return div.innerHTML.indexOf("Attack Castle") === -1
+           && div.style.display === 'block'
+           && div.innerHTML.indexOf("Assessment: Very Tough!") === -1
+           && div.innerHTML.indexOf("Assessment: TOO HARD!") === -1
+  })
+}
+
+function getTopUpgrade() {
+  var availables = getAvailableUpgrades()
+  return availables.length ? availables[0] : false
+}
+
+function purchaseAllUpgrades() {
+  var upgrade = getTopUpgrade()
+  if (upgrade) {
+    console.log("Buy upgrade : %s", upgrade.innerText)
+    mouseupButton(upgrade)
+    return next(purchaseAllUpgrades)
+  } else {
+    return next(mainLoop)
+  }
+}
+
+// ---------------------------------------------------------------------------
+
+// var title = document.querySelector('.gameTitleContainer')
+// title.onclick = function() {
+//   loop(next(mainLoop, false))
+// }
+// title.style.cursor = 'pointer'
+// title.style.color = 'red'
+
+loop(next(1000, waitGameReady))
