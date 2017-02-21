@@ -1,5 +1,5 @@
 ---
-off_title: "Autoclickers partie II – Clickpocalypse !"
+OFF_title: "Autoclickers partie II – Clickpocalypse !"
 title: "A"
 date: 2017-02-05
 tags: [javascript, incremental-games, intelligence-artificielle]
@@ -22,20 +22,41 @@ Dans le link:/2017/01/31/incremental-games-autoclicker/[premier article] de
 cette série nous avons fait un prototype de boucle qui exécutait une simple
 action.
 
-Pour http://minmaxia.com/c2/[Clickpocalypse 2], le jeu nous offre plein de
-possibilités, mais comme le jeu doit être mis à jour à chaque action du joueur,
-nous ne pouvons exécuter que l'une d'entre elles à chaque tour.
+Clickpocalypse 2 nous offre beaucoup plus de possibilités de gameplay (plein de
+boutons à cliquer !) . Mais l'état du jeu et l'interface doivent être mis à jour
+après chaque action du joueur, ne serait-ce que pour avoir un rafraîchissement
+correct de la carte.
 
-Notre algorithme va donc être séparé en deux parties : D'abord, décider l'action
-à entreprendre selon certaines priorités. Ensuite, exécuter cette action.
+Notre autoclicker va donc opérer en deux étapes : Dans une boucle principale,
+décider de l'action à entreprendre selon certaines priorités ; puis exécuter
+cette action dans une boucle secondaire.
 
-Il ne s'agît pas ici de tricher, mais simplement de rendre le jeu encore plus
-_idle_. Nous allons donc seulement implémenter l'achat automatique des
-compétences des personnages, très utile puisque quand on « prestige », ceux-ci
-commencent avec toujours plus de points de compétences ; et la récupération
-automatique des récompenses : _farms_, niveaux d'ennemis, ventes d'objets et
-bien entendu le _loot_ !
+Cela nécessite un système de boucle infinie plus avancé et c'est surtout pour
+expliquer cela que j'écrit cet article. Le niveau attendu du lecteur sera plus
+élevé, mais rien de bien méchant : comprendre l'utilisation de `setTimeout` et
+notament l'ordre d'exécution du code ; savoir utiliser un sélecteur CSS avec
+`querySelector` et `querySelectorAll` et enfin savoir utiliser la récursion.
 
+Si vous comprenez la première partie, j'aurais transmis ce dont j'ai envie, la
+suite n'est que du bonus.
+
+link:/js/autoclicker-clickpocalypse.js[L'autoclicker complet pour Clickpocalypse 2 est disponible ici].
+
+Je vous suggère de le lire ou du moins de l'avoir à disposition pour suivre
+l'article, je n'expliquerai que certaines parties du code.
+
+
+== Mais c'est de la triche !
+
+Certes.
+
+Mais pas tant que ça ; il s'agît plutôt de rendre le jeu encore plus _idle_.
+Nous allons seulement implémenter l'achat automatique des compétences des
+personnages, très utile puisque quand on « prestige », ceux-ci commencent avec
+toujours plus de points de compétences ; et la récupération automatique des
+récompenses : _farms_, niveaux d'ennemis, ventes d'objets et bien entendu le
+_loot_ ! Ce sont des choix de gameplay évidents : il n'y a aucun intérêt à ne
+pas cliquer sur ces boutons pour le joueur, donc autant l'automatiser.
 
 == Setup
 
@@ -49,12 +70,22 @@ page web, chargés automatiquement au démarrage de la page. Plus besoin de lanc
 les scripts depuis la console comme on le faisait pour notre premier
 autoclicker.
 
-Cependant, ces scripts s'exécutent dans une _sandbox_, c'est à dire un contexte
+L'éditeur de code de Tampermonkey n'est pas des plus pratiques, on préfèrera
+donc charger le script depuis le disque dur. Pour cela il faudra autoriser
+l'accès au disque pour Tampermonkey dans la gestion des extensions du navigateur
+: cocher « Autoriser l'accès aux URL de fichier ».
+
+Ensuite il faudra quand même créer un script Tampermonkey, contenant simplement
+une instruction pour charger le fichier depuis le disque.
+
+Enfin, ces scripts s'exécutent dans une _sandbox_, c'est à dire un contexte
 javascript différent de celui de la page web. Il faut donc leur donner
 explicitement l'accès à notre objet `window` afin de pouvoir interagir avec la
 page. Cela se fait via `@grant unsafeWindow` dans le _header_ de notre script.
 Ensuite, on déclare nos variables `window` et `document`, notre code aura l'air
 plus « habituel » et surtout, on pourra le tester directement dans la console.
+
+Voici le script Tampermonkey. Notez l'instruction `@require`.
 
 [source,javascript]
 ----
@@ -67,11 +98,109 @@ plus « habituel » et surtout, on pourra le tester directement dans la console.
 // @match        http://minmaxia.com/c2/
 // @grant        unsafeWindow
 // ==/UserScript==
+----
+
+Voici le header de notre fichier javascript présent sur le disque dur. Il est
+important de saisir là aussi le header UserScript.
+
+[source,javascript]
+----
+// ==UserScript==
+// @name         Clickpocalypse 2 autoclick
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        http://minmaxia.com/c2/
+// @grant        unsafeWindow
+// @require      /Chemin/absolu/vers/votre autoclicker.js
+// ==/UserScript==
 'use strict'
 
 var window = unsafeWindow
 var document = window.document
 ----
+
+Si vous ne souhaitez pas utiliser un fichier depuis le disque, il suffit de
+sauver tout le contenu du fichier js dans le script Tampermonkey et d'enlever
+l'instruction `@require`.
+
+
+== Une boucle infinie universelle.
+
+On sait faire une boucle infinie à l'aide de `setTimeout`. On pourrait donc
+implémenter notre autoclicker dans une seule fonction, qu'on exécuterait en
+boucle.
+
+Mais pour corser un peu les choses, on va se donner des contraintes
+supplémentaires :
+
+* Avant d'acheter les compétences des personnages, on affiche la fiche de
+  personnage ;
+* Tant qu'un personnage a des compétences disponibles, on reste sur sa fiche et
+  on les achète toutes ;
+* Tant qu'on peut acheter des upgrades, on les achète tous.
+
+Pour implémenter ça dans une boucle simple, je ferais probablement une
+succession de _checks_ visant à déterminer où j'en suis dans le code :
+
+* Le jeu est-il démarré ? Oui.
+* Le premier personnage a t'il des compétences à acheter ? Non.
+* Le second personnage ? Oui.
+* La fiche de personnage est-elle visible ? Non.
+* Dans ce cas on l'affiche et on termine la boucle courante.
+
+L'itération suivante effectuerait le même chemin, mais en allant plus loin :
+
+* …
+* La fiche de personnage est-elle visible ? Oui.
+* Dans ce cas, on achète la première compétence disponible et on termine la
+  boucle courante.
+
+Le seul problème est que si on active un upgrade augmentant le niveau de notre
+personnage, on va passer en achat de compétences pour ce personnage. Puis pareil
+avec le personnage suivant. Le jeu va beaucoup « clignoter ». C'est pour cela
+qu'on a défini nos trois contraintes au-dessus. Il nous faut une autre solution.
+
+En vrai, cela me sert surtout de prétexte pour cet article. Une telle
+implémentation serait parfaitement valide. À vous de tester !
+
+=== Looper Next
+
+Nous allons utiliser une méthode opposée. Au lieu d'avoir une seule boucle, nous
+allons créer un mécanisme permettant d'utiliser une récursion infinie.
+
+Par exemple :
+
+* Une fonction `mainLoop` qui regarde si des compétences sont disponibles, et
+  qui, dans ce cas, appelle `buySkills`.
+* Une fonction `buySkills` qui achète une compétence puis s'appelle elle-même
+  récusivement tant qu'il y a des compétences à acheter.
+* Ensuite, elle ne sait plus trop quoi faire, donc elle appelle `mainLoop` !
+
+Cette approche est intéressante car elle permet de créer de petites
+intelligences artificielles.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -106,8 +235,8 @@ utiliser.
 
 Lorsque notre autolicker va acheter de nouvelles compétences pour nos
 personnages, on va d'abord cliquer sur l'onglet de ce personnage, afin de
-pouvoir visualiser les compétences qu'on achète. D'abord, c'est plus sympa, mais
-surtout ça nous permet de voir facilement si notre code fonctionne !
+pouvoir visualiser les compétences qu'on achète. C'est plus sympa, mais surtout
+ça nous permet de voir facilement si notre code fonctionne !
 
 Aussi, quand il n'y a rien de disponible à acheter, on affichera le jeu plutôt
 que de rester sur le dernier onglet utilisé.

@@ -16,17 +16,17 @@ var document = window.document
 
 
 function loop(step) {
-  // console.log('LOOP %s', step.fn.name)
   setTimeout(function() {
+    var nextStep
     try {
-      var nextStep = step.fn.apply(void 0, step.args)
-      if (nextStep) {
-        loop(nextStep)
-      } else {
-        console.log('LOOP END')
-      }
+      nextStep = step.fn.apply(void 0, step.args)
     } catch (e) {
-      onError(e)
+      nextStep = onError(e)
+    } 
+    if (nextStep) {
+      loop(nextStep)
+    } else {
+      console.log('LOOP END')
     }
   }, step.time)
 }
