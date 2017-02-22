@@ -35,9 +35,9 @@ function loop(step) {
 function next(time, fn) {
   var args
   if (typeof time === 'function') {
+    args = Array.prototype.slice.call(arguments, 1)
     fn = time
     time = 100
-    args = Array.prototype.slice.call(arguments, 1)
   } else {
     args = Array.prototype.slice.call(arguments, 2)
   }
