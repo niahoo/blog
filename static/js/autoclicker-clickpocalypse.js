@@ -91,8 +91,6 @@ var characterTabNameRe = /(Fighter|Priest|Ranger|Pyro|Rogue|Druid|King|Necro|Bar
 function initialize() {
   console.log("Initializing state.")
   state.characters = []
-  state.mapVisible = true
-  state.charCount = 0
   var tabMatch, characterClass
   toArray(document.querySelectorAll('#gameTabMenu a')).forEach(a => {
     if (a.innerHTML === 'Game') {
