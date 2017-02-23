@@ -13,6 +13,11 @@ de créer facilement des _autoclicker_ via la console du navigateur.
 <!-- more -->
 ++++
 
+Cet article est destiné aux débutants, avec une recette simple : créer une
+fonction de clic, puis la lancer autant de fois que voulu via la console. Vous
+devez donc savoir ouvrir la console du navigateur et avoir des notions de base
+d'algorithmie.
+
 == Les incremental games
 
 Vous connaissez sûrement le principe de _incremental games_, mais un petit
@@ -227,10 +232,6 @@ après tout la méthode n'est pas mauvaise en soi !
 
 == Conclusion
 
-Cet article était plutôt destiné aux débutants, avec une recette simple, créer
-une fonction de clic, puis la lancer autant de fois que voulu via la console.
-
-Dans un prochain article, je montrerai comment injecter automatiquement le
-script dans la page et l'exécuter au chargement. Nous verrons aussi comment
-implémenter une simple IA qui joue à notre place en prenant un vrai jeu comme
-exemple, et comment avoir un meilleur contrôle sur l'exécution de notre boucle.
+Voilà, vous savez cliquer en boucle depuis la console. Je vous sauve donc la vie
+en vous permettant de finir ces jeux beaucoup plus rapidement que prévu, et de
+passer à autre chose de plus intéressant !

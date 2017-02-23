@@ -1,5 +1,5 @@
 ---
-off_title: "Autoclickers partie II – Clickpocalypse !"
+OFF_title: "Autoclickers partie II – Clickpocalypse !"
 title: "A"
 date: 2017-02-05
 tags: [javascript, incremental-games, intelligence-artificielle]
@@ -22,19 +22,253 @@ Dans le link:/2017/01/31/incremental-games-autoclicker/[premier article] de
 cette série nous avons fait un prototype de boucle qui exécutait une simple
 action.
 
-Pour http://minmaxia.com/c2/[Clickpocalypse 2], le jeu nous offre plein de
-possibilités, mais comme le jeu doit être mis à jour à chaque action du joueur,
-nous ne pouvons exécuter que l'une d'entre elles à chaque tour.
+Clickpocalypse 2 nous offre beaucoup plus de possibilités de gameplay (plein de
+boutons à cliquer !). Mais l'état du jeu et l'interface doivent être mis à jour
+après chaque action du joueur, ne serait-ce que pour avoir un rafraîchissement
+correct de la carte.
 
-Notre algorithme va donc être séparé en deux parties : D'abord, décider l'action
-à entreprendre selon certaines priorités. Ensuite, exécuter cette action.
+Notre autoclicker va donc opérer en deux étapes : Dans une boucle principale,
+décider de l'action à entreprendre selon certaines priorités ; puis exécuter
+cette action dans une boucle secondaire.
 
-Il ne s'agît pas ici de tricher, mais simplement de rendre le jeu encore plus
-_idle_. Nous allons donc seulement implémenter l'achat automatique des
-compétences des personnages, très utile puisque quand on « prestige », ceux-ci
-commencent avec toujours plus de points de compétences ; et la récupération
-automatique des récompenses : _farms_, niveaux d'ennemis, ventes d'objets et
-bien entendu le _loot_ !
+Cela nécessite un système de boucle infinie plus avancé et c'est surtout pour
+expliquer cela que j'écrit cet article. Le niveau attendu du lecteur sera plus
+élevé, mais rien de bien méchant : comprendre l'utilisation de `setTimeout` et
+notamment l'ordre d'exécution du code ; savoir utiliser un sélecteur CSS avec
+`querySelector` et `querySelectorAll` et enfin savoir utiliser la récursion.
+
+Si vous comprenez le fonctionnement du couple `loop`/`next` présenté  en
+première partie, j'aurais transmis ce dont j'ai envie, la suite n'est que du
+bonus.
+
+link:/js/autoclicker-clickpocalypse.js[L'autoclicker complet pour Clickpocalypse 2 est disponible ici].
+
+Je vous suggère de le lire ou du moins de l'avoir à disposition pour suivre
+l'article, je n'expliquerai que certaines parties du code.
+
+
+== Mais c'est de la triche !
+
+Certes.
+
+Mais pas tant que ça ; il s'agît plutôt de rendre le jeu encore plus _idle_.
+Nous allons seulement implémenter l'achat automatique des compétences des
+personnages, très utile puisque quand on « prestige », ceux-ci commencent avec
+toujours plus de points de compétences ; et la récupération automatique des
+récompenses : _farms_, niveaux d'ennemis, ventes d'objets et bien entendu le
+_loot_ ! Ce sont des choix de gameplay évidents : il n'y a aucun intérêt à ne
+pas cliquer sur ces boutons pour le joueur, donc autant l'automatiser.
+
+
+== Une boucle infinie universelle.
+
+On sait faire une boucle infinie à l'aide de `setTimeout`. On pourrait donc
+implémenter notre autoclicker dans une seule fonction, qu'on exécuterait en
+boucle.
+
+Mais pour corser un peu les choses, on va se donner des contraintes
+supplémentaires :
+
+* Avant d'acheter les compétences des personnages, on affiche la fiche de
+  personnage ;
+* Tant qu'un personnage a des compétences disponibles, on reste sur sa fiche et
+  on les achète toutes ;
+* Tant qu'on peut acheter des upgrades, on les achète tous.
+
+Pour implémenter ça dans une boucle simple, je ferais probablement une
+succession de _checks_ visant à déterminer où j'en suis dans le code :
+
+* Le jeu est-il démarré ? Oui.
+* Le premier personnage a t'il des compétences à acheter ? Non.
+* Le second personnage ? Oui.
+* La fiche de personnage est-elle visible ? Non.
+* Dans ce cas on l'affiche et on termine la boucle courante.
+
+L'itération suivante effectuerait le même chemin, mais en allant plus loin :
+
+* …
+* La fiche de personnage est-elle visible ? Oui.
+* Dans ce cas, on achète la première compétence disponible et on termine la
+  boucle courante.
+
+Le seul problème est que si on active un upgrade augmentant le niveau de notre
+personnage, on va passer en achat de compétences pour ce personnage. Puis pareil
+avec le personnage suivant. Le jeu va beaucoup « clignoter ». C'est pour cela
+qu'on a défini nos trois contraintes au-dessus. Il nous faut une autre solution.
+
+En vrai, cela me sert surtout de prétexte pour cet article. Une telle
+implémentation serait parfaitement valide et vous la préféreriez peut-être. À
+vous de tester !
+
+=== Looper Next
+
+Nous allons utiliser une autre méthode. Au lieu d'avoir une seule boucle, nous
+allons créer un mécanisme permettant d'utiliser une récursion infinie.
+
+Par exemple :
+
+* Une fonction `mainLoop` qui regarde si des compétences sont disponibles, et
+  qui, dans ce cas, appelle `buySkills`.
+* Une fonction `buySkills` qui achète une compétence puis s'appelle elle-même
+  récursivement tant qu'il y a des compétences à acheter.
+* Ensuite, parvenue à un état stable (plus de compétences disponibles), elle
+  revient à `mainLoop`.
+
+Je trouve cette approche plus intéressante parce qu'elle permet d'avoir des
+variables locales au sein de boucles, plutôt que de devoir tout stocker dans un
+objet géant. Utilisées avec Redux par exemple, cela permet de limiter le store
+aux données à persister.
+
+Cela permet aussi de pouvoir effectuer simplement une séquence d'actions sans
+devoir multiplier les variables pour savoir où on en est.
+
+Enfin, on peut régler le timeout (en millisecondes) à chaque « saut » de
+fonction. C'est principalement cosmétique, ça permet de rendre l'action plus
+lisible. En termes de performances il sera toujours plus intéressant de garder
+le timeout minimum (`1`) ou d'utiliser `setImmediate`.
+
+==== Structure de données : itération de boucle
+
+Pour commencer, on définit une structure de données décrivant la prochaine
+itération de la boucle. Cela se fait grâce à une fonction `next` :
+
+[source,javascript]
+----
+function next(time, fn) {
+  var args
+  if (typeof time === 'function') {
+    args = Array.prototype.slice.call(arguments, 1)
+    fn = time
+    time = 100
+  } else {
+    args = Array.prototype.slice.call(arguments, 2)
+  }
+  return {
+    time: time,
+    fn: fn,
+    args: args
+  }
+}
+----
+
+La structure créée contient les propriétés suivantes :
+
+* `time` : indique le timeout qui sera passé à `setTimeout` ;
+* `fn` : contient la fonction à exécuter ;
+* `args` : contient un tableau d'arguments avec lesquels la fonction sera appelée.
+
+La fonction s'appelle de différentes manières, le timeout et les arguments de la
+fonction étant optionnels :
+
+* `next(myFn)` : appellera `myFn` avec le timeout par défaut ;
+* `next(10, myFn)` : appellera `myFn` avec un timeout de 10 millisecondes ;
+* `next(myFn, 'hello', 'world')` : appellera `myFn` avec le timeout par défaut et deux arguments, `'hello'` et `'world'` ;
+* `next(10, myFn, 'hello', 'world')` : idem avec un timeout de 10 millisecondes ;
+
+À noter :
+
+* J'ai volontairement omis la gestion du contexte (`this`) pour l'appel de la
+  fonction. On peut le rajouter facilement si nécessaire.
+* Le timeout est placé avant la fonction pour ne pas pouvoir le confondre avec un
+argument.
+* Dans mon implémentation, le timeout par défaut est `100`, afin de mieux voir
+  ce que fait l'autoclicker. Comme je l'ai dit, le code s'exécutera beaucoup
+  plus vite s'il est défini à `1`.
+
+
+==== Itérateur
+
+La structure de données étant définie, nous pouvons donc effectuer des actions
+avec. On va se contenter d'une seule action : exécuter la fonction dans un
+`setTimeout`.
+
+[source,javascript]
+----
+function loop(step) {
+  setTimeout(function() {
+    var nextStep
+    try {
+      nextStep = step.fn.apply(void 0, step.args)
+    } catch (e) {
+      nextStep = onError(e)
+    }
+    if (nextStep) {
+      loop(nextStep)
+    } else {
+      console.log('LOOP END')
+    }
+  }, step.time)
+}
+----
+
+La fonction `loop` prend un argument, `step`, qui est notre structure de données
+renvoyée par `next`. Elle lance `setTimeout` avec le timeout souhaité. Dans la
+fonction de rappel de `setTimeout` (donc au début de l'itération suivante !),
+elle exécute la fonction souhaitée avec les bons arguments.
+
+L'exécution se passe au sein d'un bloc `try/catch` afin de ne jamais arrêter la
+boucle infinie en cas d'erreurs. Personnellement, pendant le développement,
+j'enlève ce bloc afin de pouvoir corriger plus simplement les erreurs.
+
+La fonction exécutée doit également renvoyer une structure de données décrivant
+l'itération suivante (tout comme la fonction `onError`) afin de pouvoir lancer
+l'itération suivante.
+
+Enfin, `loop` est appelée récursivement avec cette prochaine étape.
+
+==== Exemple de boucle
+
+Voici un exemple de compteur qui compte jusqu'à 10 puis effectue une pause, à
+l'infini :
+
+[source,javascript]
+----
+function printCount(n) {
+  if (n > 10) {
+    return next(pause)
+  } else {
+    console.log('n = %s', n)
+    return next(printCount, n + 1)
+  }
+}
+
+function pause() {
+  console.log('Pause !')
+  return next(1000, printCount, 1)
+}
+
+loop(next(printCount, 1))
+----
+
+Il est important de remarquer que chaque « état » de notre boucle, c'est à dire
+chaque fonction que l'on passe à `next`, **doit** retourner une itération pour
+que la boucle continue.
+
+On pourrait directement appeler `loop(next(...))` à la fin de nos fonctions.
+D'ailleurs, on utiliserait une fonction `loopNext` à la place. Mais en
+s'obligeant à utiliser `return`, on s'assure de ne pas pouvoir lancer plusieurs
+boucles en parallèle en appelant `loopNext` plusieurs fois accidentellement au
+sein d'une même fonction.
+
+De plus, utiliser des _data structures_ est plus intéressant puisqu'on peut les
+manipuler de différentes manières au lieu d'appeler directement le code qui
+exécute notre itération suivante. Par exemple, on peut générer une liste de ces
+structures à partir d'un tableau contenant des tâches à exécuter. Le timeout
+traduit l'urgence de la tâche. Et on n'exécute que la tâche la plus urgente
+avant de recommencer. Bref, plein de choses sont possibles en la matière.
+
+==== En résumé
+
+Mon explication était assez longue … Nous avons défini une structure de données
+décrivant « la prochaine fonction à appeler pour l'exécution de notre
+autoclicker ». Nous avons ensuite créé un algorithme pour exploiter cette
+structure de données, en mettant en place la récursion infinie grâce à
+`setTimeout`.
+
+Mais maintenant, c'est fait. Il n'y a plus à se préoccuper de cet aspect là du
+problème. Juste se souvenir d'utiliser `return next(…)` pour poursuivre
+l'exécution de l'autoclicker.
+
 
 
 == Setup
@@ -49,12 +283,22 @@ page web, chargés automatiquement au démarrage de la page. Plus besoin de lanc
 les scripts depuis la console comme on le faisait pour notre premier
 autoclicker.
 
-Cependant, ces scripts s'exécutent dans une _sandbox_, c'est à dire un contexte
+L'éditeur de code de Tampermonkey n'est pas des plus pratiques, on préfèrera
+donc charger le script depuis le disque dur. Pour cela il faudra autoriser
+l'accès au disque pour Tampermonkey dans la gestion des extensions du navigateur
+: cocher « Autoriser l'accès aux URL de fichier ».
+
+Ensuite il faudra quand même créer un script Tampermonkey, contenant simplement
+une instruction pour charger le fichier depuis le disque.
+
+Enfin, ces scripts s'exécutent dans une _sandbox_, c'est à dire un contexte
 javascript différent de celui de la page web. Il faut donc leur donner
 explicitement l'accès à notre objet `window` afin de pouvoir interagir avec la
 page. Cela se fait via `@grant unsafeWindow` dans le _header_ de notre script.
 Ensuite, on déclare nos variables `window` et `document`, notre code aura l'air
 plus « habituel » et surtout, on pourra le tester directement dans la console.
+
+Voici le script Tampermonkey. Notez l'instruction `@require`.
 
 [source,javascript]
 ----
@@ -67,98 +311,127 @@ plus « habituel » et surtout, on pourra le tester directement dans la console.
 // @match        http://minmaxia.com/c2/
 // @grant        unsafeWindow
 // ==/UserScript==
+----
+
+Voici le header de notre fichier javascript présent sur le disque dur. Il est
+important de saisir là aussi le header UserScript.
+
+[source,javascript]
+----
+// ==UserScript==
+// @name         Clickpocalypse 2 autoclick
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        http://minmaxia.com/c2/
+// @grant        unsafeWindow
+// @require      /Chemin/absolu/vers/votre autoclicker.js
+// ==/UserScript==
 'use strict'
 
 var window = unsafeWindow
 var document = window.document
 ----
 
+Si vous ne souhaitez pas utiliser un fichier depuis le disque, il suffit de
+sauver tout le contenu du fichier js dans le script Tampermonkey et d'enlever
+l'instruction `@require`.
 
 
 
-== Définir les actions de l'autoclicker
 
-Je vais commencer par écrire ce que notre autoclicker pourra faire pour se
-renseigner sur l'état du jeu et interagir avec le jeu. Dans un second temps je
-décrirai comment mettre tout ça en place dans une boucle intelligente, une mini
-intelligence artificielle.
 
-=== Attendre le chargement
 
-Si une sauvegarde du jeu est présente dans le cache du navigateur, le jeu
-calculer tout ce qui s'est passé dans les 16h au maximum suivant la sauvegarde.
-Pour ne pas interrompre ce processus, on va lancer notre autoclicker au sein
-d'une fonction `main` que l'on lancera une fois le chargement fini.
 
-Pour savoir si le chargement est en cours, on peut tester la présence d'un `div.offlineProgressBarContainer`.
 
-[source,javascript]
-----
-function isGameReady() {
-  return document.querySelector('.offlineProgressBarContainer') === null
-}
-----
 
-Il faut maitenant récupérer toutes les fonctions de clic que l'on souhaite
-utiliser.
 
-=== Afficher les onglets
 
-Lorsque notre autolicker va acheter de nouvelles compétences pour nos
-personnages, on va d'abord cliquer sur l'onglet de ce personnage, afin de
-pouvoir visualiser les compétences qu'on achète. D'abord, c'est plus sympa, mais
-surtout ça nous permet de voir facilement si notre code fonctionne !
 
-Aussi, quand il n'y a rien de disponible à acheter, on affichera le jeu plutôt
-que de rester sur le dernier onglet utilisé.
+// == Définir les actions de l'autoclicker
 
-Malheureusement, les `<a />` qui constituent ces onglets n'ont pas d'attribut
-`id` ou `class` individuels pour les sélectionner facilement. Il faut donc lire
-leur contenu (le texte du bouton) pour savoir à quoi correspond notre onglet.
+// Je vais commencer par écrire ce que notre autoclicker pourra faire pour se
+// renseigner sur l'état du jeu et interagir avec le jeu. Dans un second temps je
+// décrirai comment mettre tout ça en place dans une boucle intelligente, une mini
+// intelligence artificielle.
 
-On parcourt donc les onglets dans une boucle. Pour ceux qui nous intéressent,
-c'est à dire l'onglet « Game » permettant d'afficher le jeu, et les feuilles de
-personnages, on stocke une référence vers la fonction de clic.
+// === Attendre le chargement
 
-Les onglets personnages affichent un nombre quand le personnage dispose de
-points de compétences. Par exemple, l'onglet du rogue contiendra `'Rogue 5'`
-dans ce cas, et simplement `'Rogue'` si aucun point de compétences n'est
-disponible. Par conséquent on utilise une expression régulière pour trouver
-notre onglet. Cela nous permet également de stocker une fonction renvoyant le
-nombre de points de compétences disponibles pour notre personnage, que l'on
-utilisera plus tard pour décider si on doit aller acheter ces points.
+// Si une sauvegarde du jeu est présente dans le cache du navigateur, le jeu
+// calculer tout ce qui s'est passé dans les 16h au maximum suivant la sauvegarde.
+// Pour ne pas interrompre ce processus, on va lancer notre autoclicker au sein
+// d'une fonction `main` que l'on lancera une fois le chargement fini.
 
-[source,javascript]
-----
-var tabs = document.querySelectorAll('.__TABS_WRAPPER_CLASS a')
-  .reduce(function(tabs, a) {
-    if (a.innerHTML === 'Game') {
-      tabs.game = return {type: 'game', click: a.onclick}
-    } else if (a.innerHTML.match(/(Pyro|Druid|Rogue|King|__TODO__)( [0-9]+)?/)) {
-      tabs.characters.push({
-        click: a.onclick,
-        skillpoints: function() {
-          var match = a.innerHTML.match(/([0-9]+)/)
-          return match ? Number(match[0]) : 0
-        }
-      })
-    }
-    return tabs
-  }, {characters: []})
-----
+// Pour savoir si le chargement est en cours, on peut tester la présence d'un `div.offlineProgressBarContainer`.
 
-=== Acheter des compétences
+// [source,javascript]
+// ----
+// function isGameReady() {
+//   return document.querySelector('.offlineProgressBarContainer') === null
+// }
+// ----
 
-On sait maintenant afficher les feuilles de personnages en cliquant sur ces
-onglets. Reste à interagir avec.
+// Il faut maitenant récupérer toutes les fonctions de clic que l'on souhaite
+// utiliser.
 
-Commençons par établir un lien entre nos onglets `characters` et les tableaux
-de compétences disponibles en jeu. L'onglet « Skills » est affiché par défaut
-donc on ne va pas rajouter une étape de clic dessus.
+// === Afficher les onglets
 
-== @todo
-skills utilisent mouseup()
-Attente du chargement
-Récupération des liens & boutons
-Lecture des points de compétence disponibles
-Orchestration
+// Lorsque notre autolicker va acheter de nouvelles compétences pour nos
+// personnages, on va d'abord cliquer sur l'onglet de ce personnage, afin de
+// pouvoir visualiser les compétences qu'on achète. C'est plus sympa, mais surtout
+// ça nous permet de voir facilement si notre code fonctionne !
+
+// Aussi, quand il n'y a rien de disponible à acheter, on affichera le jeu plutôt
+// que de rester sur le dernier onglet utilisé.
+
+// Malheureusement, les `<a />` qui constituent ces onglets n'ont pas d'attribut
+// `id` ou `class` individuels pour les sélectionner facilement. Il faut donc lire
+// leur contenu (le texte du bouton) pour savoir à quoi correspond notre onglet.
+
+// On parcourt donc les onglets dans une boucle. Pour ceux qui nous intéressent,
+// c'est à dire l'onglet « Game » permettant d'afficher le jeu, et les feuilles de
+// personnages, on stocke une référence vers la fonction de clic.
+
+// Les onglets personnages affichent un nombre quand le personnage dispose de
+// points de compétences. Par exemple, l'onglet du rogue contiendra `'Rogue 5'`
+// dans ce cas, et simplement `'Rogue'` si aucun point de compétences n'est
+// disponible. Par conséquent on utilise une expression régulière pour trouver
+// notre onglet. Cela nous permet également de stocker une fonction renvoyant le
+// nombre de points de compétences disponibles pour notre personnage, que l'on
+// utilisera plus tard pour décider si on doit aller acheter ces points.
+
+// [source,javascript]
+// ----
+// var tabs = document.querySelectorAll('.__TABS_WRAPPER_CLASS a')
+//   .reduce(function(tabs, a) {
+//     if (a.innerHTML === 'Game') {
+//       tabs.game = return {type: 'game', click: a.onclick}
+//     } else if (a.innerHTML.match(/(Pyro|Druid|Rogue|King|__TODO__)( [0-9]+)?/)) {
+//       tabs.characters.push({
+//         click: a.onclick,
+//         skillpoints: function() {
+//           var match = a.innerHTML.match(/([0-9]+)/)
+//           return match ? Number(match[0]) : 0
+//         }
+//       })
+//     }
+//     return tabs
+//   }, {characters: []})
+// ----
+
+// === Acheter des compétences
+
+// On sait maintenant afficher les feuilles de personnages en cliquant sur ces
+// onglets. Reste à interagir avec.
+
+// Commençons par établir un lien entre nos onglets `characters` et les tableaux
+// de compétences disponibles en jeu. L'onglet « Skills » est affiché par défaut
+// donc on ne va pas rajouter une étape de clic dessus.
+
+// == @todo
+// skills utilisent mouseup()
+// Attente du chargement
+// Récupération des liens & boutons
+// Lecture des points de compétence disponibles
+// Orchestration
