@@ -23,7 +23,7 @@ cette série nous avons fait un prototype de boucle qui exécutait une simple
 action.
 
 Clickpocalypse 2 nous offre beaucoup plus de possibilités de gameplay (plein de
-boutons à cliquer !) . Mais l'état du jeu et l'interface doivent être mis à jour
+boutons à cliquer !). Mais l'état du jeu et l'interface doivent être mis à jour
 après chaque action du joueur, ne serait-ce que pour avoir un rafraîchissement
 correct de la carte.
 
@@ -34,11 +34,12 @@ cette action dans une boucle secondaire.
 Cela nécessite un système de boucle infinie plus avancé et c'est surtout pour
 expliquer cela que j'écrit cet article. Le niveau attendu du lecteur sera plus
 élevé, mais rien de bien méchant : comprendre l'utilisation de `setTimeout` et
-notament l'ordre d'exécution du code ; savoir utiliser un sélecteur CSS avec
+notamment l'ordre d'exécution du code ; savoir utiliser un sélecteur CSS avec
 `querySelector` et `querySelectorAll` et enfin savoir utiliser la récursion.
 
-Si vous comprenez le fonctionnement du couple `loop`/`next` présenté ici,
-j'aurais transmis ce dont j'ai envie, la suite n'est que du bonus.
+Si vous comprenez le fonctionnement du couple `loop`/`next` présenté  en
+première partie, j'aurais transmis ce dont j'ai envie, la suite n'est que du
+bonus.
 
 link:/js/autoclicker-clickpocalypse.js[L'autoclicker complet pour Clickpocalypse 2 est disponible ici].
 
@@ -57,73 +58,6 @@ toujours plus de points de compétences ; et la récupération automatique des
 récompenses : _farms_, niveaux d'ennemis, ventes d'objets et bien entendu le
 _loot_ ! Ce sont des choix de gameplay évidents : il n'y a aucun intérêt à ne
 pas cliquer sur ces boutons pour le joueur, donc autant l'automatiser.
-
-== Setup
-
-J'ai développé cet autoclicker dans Chromium avec
-https://tampermonkey.net/[Tampermonkey], disponible également pour Chrome et
-Vivaldi. Il existe également pour Firefox mais je conseille plutôt
-https://addons.mozilla.org/fr/firefox/addon/greasemonkey/[Greasemonkey].
-
-Ces outils permettent d'ajouter automatiquement un ou plusieurs scripts sur une
-page web, chargés automatiquement au démarrage de la page. Plus besoin de lancer
-les scripts depuis la console comme on le faisait pour notre premier
-autoclicker.
-
-L'éditeur de code de Tampermonkey n'est pas des plus pratiques, on préfèrera
-donc charger le script depuis le disque dur. Pour cela il faudra autoriser
-l'accès au disque pour Tampermonkey dans la gestion des extensions du navigateur
-: cocher « Autoriser l'accès aux URL de fichier ».
-
-Ensuite il faudra quand même créer un script Tampermonkey, contenant simplement
-une instruction pour charger le fichier depuis le disque.
-
-Enfin, ces scripts s'exécutent dans une _sandbox_, c'est à dire un contexte
-javascript différent de celui de la page web. Il faut donc leur donner
-explicitement l'accès à notre objet `window` afin de pouvoir interagir avec la
-page. Cela se fait via `@grant unsafeWindow` dans le _header_ de notre script.
-Ensuite, on déclare nos variables `window` et `document`, notre code aura l'air
-plus « habituel » et surtout, on pourra le tester directement dans la console.
-
-Voici le script Tampermonkey. Notez l'instruction `@require`.
-
-[source,javascript]
-----
-// ==UserScript==
-// @name         Clickpocalypse 2 autoclick
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        http://minmaxia.com/c2/
-// @grant        unsafeWindow
-// ==/UserScript==
-----
-
-Voici le header de notre fichier javascript présent sur le disque dur. Il est
-important de saisir là aussi le header UserScript.
-
-[source,javascript]
-----
-// ==UserScript==
-// @name         Clickpocalypse 2 autoclick
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        http://minmaxia.com/c2/
-// @grant        unsafeWindow
-// @require      /Chemin/absolu/vers/votre autoclicker.js
-// ==/UserScript==
-'use strict'
-
-var window = unsafeWindow
-var document = window.document
-----
-
-Si vous ne souhaitez pas utiliser un fichier depuis le disque, il suffit de
-sauver tout le contenu du fichier js dans le script Tampermonkey et d'enlever
-l'instruction `@require`.
 
 
 == Une boucle infinie universelle.
@@ -168,7 +102,7 @@ vous de tester !
 
 === Looper Next
 
-Nous allons utiliser une méthode opposée. Au lieu d'avoir une seule boucle, nous
+Nous allons utiliser une autre méthode. Au lieu d'avoir une seule boucle, nous
 allons créer un mécanisme permettant d'utiliser une récursion infinie.
 
 Par exemple :
@@ -176,13 +110,13 @@ Par exemple :
 * Une fonction `mainLoop` qui regarde si des compétences sont disponibles, et
   qui, dans ce cas, appelle `buySkills`.
 * Une fonction `buySkills` qui achète une compétence puis s'appelle elle-même
-  récusivement tant qu'il y a des compétences à acheter.
+  récursivement tant qu'il y a des compétences à acheter.
 * Ensuite, parvenue à un état stable (plus de compétences disponibles), elle
   revient à `mainLoop`.
 
 Je trouve cette approche plus intéressante parce qu'elle permet d'avoir des
 variables locales au sein de boucles, plutôt que de devoir tout stocker dans un
-objet géant. Utilsées avec Redux par exemple, cela permet de limiter le store
+objet géant. Utilisées avec Redux par exemple, cela permet de limiter le store
 aux données à persister.
 
 Cela permet aussi de pouvoir effectuer simplement une séquence d'actions sans
@@ -233,8 +167,8 @@ fonction étant optionnels :
 
 À noter :
 
-* J'ai vonlontairement omis la gestion du contexte (`this`) pour l'appel
-de la fonction. On peut le rajouter facilement si nécessaire.
+* J'ai volontairement omis la gestion du contexte (`this`) pour l'appel de la
+  fonction. On peut le rajouter facilement si nécessaire.
 * Le timeout est placé avant la fonction pour ne pas pouvoir le confondre avec un
 argument.
 * Dans mon implémentation, le timeout par défaut est `100`, afin de mieux voir
@@ -323,7 +257,86 @@ structures à partir d'un tableau contenant des tâches à exécuter. Le timeout
 traduit l'urgence de la tâche. Et on n'exécute que la tâche la plus urgente
 avant de recommencer. Bref, plein de choses sont possibles en la matière.
 
+==== En résumé
 
+Mon explication était assez longue … Nous avons défini une structure de données
+décrivant « la prochaine fonction à appeler pour l'exécution de notre
+autoclicker ». Nous avons ensuite créé un algorithme pour exploiter cette
+structure de données, en mettant en place la récursion infinie grâce à
+`setTimeout`.
+
+Mais maintenant, c'est fait. Il n'y a plus à se préoccuper de cet aspect là du
+problème. Juste se souvenir d'utiliser `return next(…)` pour poursuivre
+l'exécution de l'autoclicker.
+
+
+
+== Setup
+
+J'ai développé cet autoclicker dans Chromium avec
+https://tampermonkey.net/[Tampermonkey], disponible également pour Chrome et
+Vivaldi. Il existe également pour Firefox mais je conseille plutôt
+https://addons.mozilla.org/fr/firefox/addon/greasemonkey/[Greasemonkey].
+
+Ces outils permettent d'ajouter automatiquement un ou plusieurs scripts sur une
+page web, chargés automatiquement au démarrage de la page. Plus besoin de lancer
+les scripts depuis la console comme on le faisait pour notre premier
+autoclicker.
+
+L'éditeur de code de Tampermonkey n'est pas des plus pratiques, on préfèrera
+donc charger le script depuis le disque dur. Pour cela il faudra autoriser
+l'accès au disque pour Tampermonkey dans la gestion des extensions du navigateur
+: cocher « Autoriser l'accès aux URL de fichier ».
+
+Ensuite il faudra quand même créer un script Tampermonkey, contenant simplement
+une instruction pour charger le fichier depuis le disque.
+
+Enfin, ces scripts s'exécutent dans une _sandbox_, c'est à dire un contexte
+javascript différent de celui de la page web. Il faut donc leur donner
+explicitement l'accès à notre objet `window` afin de pouvoir interagir avec la
+page. Cela se fait via `@grant unsafeWindow` dans le _header_ de notre script.
+Ensuite, on déclare nos variables `window` et `document`, notre code aura l'air
+plus « habituel » et surtout, on pourra le tester directement dans la console.
+
+Voici le script Tampermonkey. Notez l'instruction `@require`.
+
+[source,javascript]
+----
+// ==UserScript==
+// @name         Clickpocalypse 2 autoclick
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        http://minmaxia.com/c2/
+// @grant        unsafeWindow
+// ==/UserScript==
+----
+
+Voici le header de notre fichier javascript présent sur le disque dur. Il est
+important de saisir là aussi le header UserScript.
+
+[source,javascript]
+----
+// ==UserScript==
+// @name         Clickpocalypse 2 autoclick
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        http://minmaxia.com/c2/
+// @grant        unsafeWindow
+// @require      /Chemin/absolu/vers/votre autoclicker.js
+// ==/UserScript==
+'use strict'
+
+var window = unsafeWindow
+var document = window.document
+----
+
+Si vous ne souhaitez pas utiliser un fichier depuis le disque, il suffit de
+sauver tout le contenu du fichier js dans le script Tampermonkey et d'enlever
+l'instruction `@require`.
 
 
 

@@ -1,2 +1,3 @@
-link:/2017/01/31/incremental-games-autoclicker/[Partie I]
-link:/2017/02/05/autoclicker-clickpocalypse/[Partie II]
+@todo TOC
+// link:/2017/01/31/incremental-games-autoclicker/[Partie I]
+// link:/2017/02/05/autoclicker-clickpocalypse/[Partie II]
