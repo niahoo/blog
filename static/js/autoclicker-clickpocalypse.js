@@ -222,13 +222,5 @@ function purchaseAllUpgrades() {
 
 // ---------------------------------------------------------------------------
 
-// var title = document.querySelector('.gameTitleContainer')
-// title.onclick = function() {
-//   loop(next(mainLoop, false))
-// }
-// title.style.cursor = 'pointer'
-// title.style.color = 'red'
-
-
 loop(next(1000, waitGameReady))
 }())
