@@ -51,7 +51,7 @@ function next(time, fn) {
 
 function onError(e) {
   console.error(e)
-  return next(1, waitGameReady)
+  return next(1000, waitGameReady)
 }
 
 
@@ -71,9 +71,12 @@ function sortBy(fn) {
 // ---------------------------------------------------------------------------
 
 var state = {}
-var skillColumnPriority = {
+var skillColumnOrder = {
   Rogue: [2,3,0,1],
   Necro: [1,0,2,3],
+  Priest: [0,3,2,1],
+  Barbarian: [1,0,2,3],
+  Ninja: [0,2,3,1],
   _default: [0,1,2,3]
 }
 
@@ -87,7 +90,7 @@ function waitGameReady() {
   }
 }
 
-var characterTabNameRe = /(Fighter|Priest|Ranger|Pyro|Rogue|Druid|King|Necro|Barbarian|__TODO__)/
+var characterTabNameRe = /(Electro|Ninja|Fighter|Priest|Ranger|Pyro|Rogue|Druid|King|Necro|Barbarian|__TODO__)/
 
 function initialize() {
   console.log("Initializing state.")
@@ -120,11 +123,11 @@ function initialize() {
     var skillsTable = characterSheet.querySelector('.adventurerSkillTreeTable')
     character.availableSkills = function() {
       var buttons = Array.from(skillsTable.querySelectorAll('.upgradeButton'))
+      var priorities = skillColumnOrder[character.characterClass]
+                    || skillColumnOrder._default
       buttons.sort(sortBy(function(button) {
         var column = button.parentNode.getAttribute('id').match(/[0-9]$/)[0]
-        var priorities = skillColumnPriority[character.characterClass]
-                      || skillColumnPriority._default
-        return priorities[Number(column)]
+        return priorities.indexOf(Number(column))
       }))
       return buttons
     }
@@ -145,11 +148,11 @@ function mainLoop(nothingWasDone) {
     state.gameTab.show()
     return next(purchaseAllUpgrades)
   }
-  console.log("Nothing to do.")
+  console.log("Nothing to do, wait")
   if (!nothingWasDone) {
     state.gameTab.show()
   }
-  return next(1000, mainLoop, true)
+  return next(5000, mainLoop, true)
 }
 
 function manageCharacter(character) {
