@@ -1,5 +1,4 @@
 ---
-OFF_title: "AAAA!"
 title: "Autoclickers : récursion infinie en javascript"
 date: 2017-02-23
 tags: [javascript, incremental-games, intelligence-artificielle]
