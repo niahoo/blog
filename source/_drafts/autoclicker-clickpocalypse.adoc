@@ -1,18 +1,32 @@
 ---
 OFF_title: "Autoclickers partie II – Clickpocalypse !"
 title: "A"
-date: 2017-02-05
+date: 2017-04-28
 tags: [javascript, incremental-games, intelligence-artificielle]
 uscripts: ['js/incremental-games-autoclicker.js']
 ---
 
-Exemple d'autoclicker pour un *idle game* : CLICKPOCALYPSE II.
+Exemple d'autoclicker pour un _idle game_ : CLICKPOCALYPSE II.
 
 ++++
 <!-- more -->
 ++++
 
+Je vais utiliser le code présenté dans mon article sur la
+link:/2017/02/23/javascript-recursion-infinie/[récursion infinie en javascript]
+pour montrer l'implémentation d'un petit programme jouant tout seul à
+link:http://minmaxia.com/c2/[CLICKPOCKALYPSE 2], ou « c2 » pour les intimes.
 
+Je vous conseille donc de lire l'article si ce n'est pas déjà fait, et de
+démarrer une partie de c2 en parallèle si vous ne le conaissez pas. C'est un
+_idle game_ donc il n'y a quasiment pas de gameplay, on peut :
+
+- Rammasser des _loots_ ;
+- choisir de nouvelles compétences pour nos personnages ;
+- attaquer les chateaux quand les dongeons sont conquis ;
+- activer des potions et des parchemins pour nous faciliter la tâche.
+
+Nous allons automatiser les deux premières en guise d'exemple.
 
 == Setup
 
@@ -53,6 +67,7 @@ Voici le script Tampermonkey. Notez l'instruction `@require`.
 // @author       You
 // @match        http://minmaxia.com/c2/
 // @grant        unsafeWindow
+// @require      /Chemin/absolu/vers/votre autoclicker.js
 // ==/UserScript==
 ----
 
@@ -69,7 +84,6 @@ important de saisir là aussi le header UserScript.
 // @author       You
 // @match        http://minmaxia.com/c2/
 // @grant        unsafeWindow
-// @require      /Chemin/absolu/vers/votre autoclicker.js
 // ==/UserScript==
 'use strict'
 
@@ -77,9 +91,6 @@ var window = unsafeWindow
 var document = window.document
 ----
 
-Si vous ne souhaitez pas utiliser un fichier depuis le disque, il suffit de
-sauver tout le contenu du fichier js dans le script Tampermonkey et d'enlever
-l'instruction `@require`.
 
 
 

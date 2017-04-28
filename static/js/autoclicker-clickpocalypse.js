@@ -68,16 +68,24 @@ function sortBy(fn) {
   }
 }
 
+function mouseupButton(button) {
+  var evt = new Event('mouseup', {
+    bubbles: true,
+    cancelable: true
+  })
+  button.dispatchEvent(evt)
+}
+
 // ---------------------------------------------------------------------------
 
 var state = {}
 var skillColumnOrder = {
-  Rogue: [2,3,0,1],
-  Necro: [1,0,2,3],
-  Priest: [0,3,2,1],
+  Rogue:     [2,3,0,1],
+  Necro:     [1,0,2,3],
+  Priest:    [0,3,2,1],
   Barbarian: [1,0,2,3],
-  Ninja: [0,2,3,1],
-  _default: [0,1,2,3]
+  Ninja:     [0,2,3,1],
+  _default:  [0,1,2,3]
 }
 
 function waitGameReady() {
@@ -162,14 +170,6 @@ function manageCharacter(character) {
   } else {
     return next(mainLoop)
   }
-}
-
-function mouseupButton(button) {
-  var evt = new Event('mouseup', {
-    bubbles: true,
-    cancelable: true
-  })
-  button.dispatchEvent(evt)
 }
 
 function buySkills(character) {
