@@ -1,7 +1,7 @@
 ---
 title: "Génération procédurale : prenez-en de la graine !"
-date: 2017-01-24
 tags: [javascript, level-design]
+category: Dev
 ---
 
 Cet article explique comment générer du contenu de façon aléatoire à partir

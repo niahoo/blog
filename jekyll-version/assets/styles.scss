@@ -141,7 +141,7 @@ body {
   @include flex(0, 0, auto);
 }
 
-.content {
+.content-wrapper {
   @include breakpoint(break-1) {
     width: 62%;
   }

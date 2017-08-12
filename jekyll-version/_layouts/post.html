@@ -6,7 +6,7 @@ layout: default
 
 <main class="main  container">
 
-	<article class="article  article--post  content  typeset">
+	<article class="article  article--post  content-wrapper  typeset">
 
     <h1>{{ page.title }}</h1>
 		{% include post-meta.html %}
@@ -23,3 +23,7 @@ layout: default
 </main>
 
 {% include site-footer.html %}
+
+{% for uscript in page.uscripts %}
+	<script type="text/javascript" src="{{ '/assets/' | append: uscript | relative_url }}"></script>
+{% endfor %}

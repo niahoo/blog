@@ -30,13 +30,12 @@ $headingtype: (
 );
 
 $monospacetype: (
-  font-family: '"Fira Sans", monospace',
+  font-family: 'monospace',
   regular: 400,
   cap-height: 0.68
 );
 
 // Font import, if you're using a non-standard web font
-@import url("https://code.cdn.mozilla.net/fonts/fira.css");
 @font-face {
   font-family: 'Domine';
   font-style: normal;

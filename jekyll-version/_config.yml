@@ -32,7 +32,7 @@ plugins:
 - jemoji
 
 # 3. Gem settings
-paginate: 2 # jekyll-paginate > items per page
+paginate: 10 # jekyll-paginate > items per page
 paginate_path: blog/page:num # jekyll-paginate > blog page
 jekyll-mentions: https://twitter.com # jekyll-mentions > service used when @replying
 twitter:
@@ -50,7 +50,8 @@ social: # jekyll-seo-tag > social overrides
 # 4. Jekyll settings
 sass:
   style: compressed # Style compression
-permalink: pretty  # Permalink style (/YYYY/MM/DD/page-name/)
+permalink: /:year/:month/:day/:title.html
+
 excerpt_separator: <!-- more --> # Marks end of excerpt in posts
 timezone: Europe/London # Timezone for blog posts and alike
 
@@ -126,3 +127,9 @@ asciidoc:
   ext: asciidoc,adoc,ad
   page_attribute_prefix: jekyll
   require_front_matter_header: true
+
+asciidoctor:
+  attributes:
+    - source-highlighter=pygments
+    - pygments-stylesheet=assets/pygments-theme.css
+    - pygments-css=class
