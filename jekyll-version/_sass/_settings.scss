@@ -22,6 +22,13 @@ $bodytype: (
   italic: italic,
   cap-height: 0.75
 );
+$bodytype-fallback: (
+  font-family: 'Georgia, serif',
+  regular: 400,
+  bold: 700,
+  italic: italic,
+  cap-height: 0.75
+);
 
 $headingtype: (
   font-family: '"Arsenal", sans-serif',

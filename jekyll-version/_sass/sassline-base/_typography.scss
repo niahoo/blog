@@ -269,6 +269,8 @@ a {
   // Italic.
   em, i, .italic {
     font-style: map-get($bodytype, italic);
+    font-family: map-get($bodytype-fallback, font-family);
+    font-size: 1.12em;
   }
 
   // Caption and inline small text.
