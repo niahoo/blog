@@ -78,7 +78,7 @@ plusieurs modules et fini par trouver celui qui me convenait :
 https://www.npmjs.com/package/random-js[random-js].
 
 
-[source,shell]
+[source,bash]
 ----
 # Petit copier-coller gratuit ;)
 npm install --save random-js
@@ -139,7 +139,7 @@ console.log(
 
 Si vous exécutez ce fichier avec Nodefootnote:[Avec l'aide de Babel par exemple.], vous obtiendrez ce résultat :
 
-[source,shell]
+[source,bash]
 ----
 9 2 10
 9 2 10

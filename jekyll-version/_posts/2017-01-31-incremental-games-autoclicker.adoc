@@ -8,7 +8,7 @@ category: Dev
 ---
 
 La triche c'est mal m'voyez ? Mais voici quand même un petit script permettant
-de créer facilement des _autoclicker_ via la console du navigateur.
+de créer facilement des _autoclickers_ via la console du navigateur.
 
 ++++
 <!-- more -->
