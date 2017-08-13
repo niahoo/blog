@@ -3,12 +3,12 @@ $backgroundColour: #fefefe;
 $inlineCodeBackgroundColour: #f4f4f4;
 $blockCodeBackgroundColour: $backgroundColour;
 $featureBackgroundColour: #eeeeee;
-$accentColour: #0cb1c1;
+$accentColour: #388892;
 
 // Text colours
 $headingColour: #333333;
 $bodyColour: #555555;
-$linkColour: #0cb1c1;
+$linkColour: $accentColour;
 $hoverColour: #08737d;
 $focusColour: #fa407a;
 $captionColour: #aaaaaa;
@@ -73,3 +73,11 @@ $monospacetype: (
   font-weight: 700;
   src: local('Arsenal Bold Italic'), local('Arsenal-BoldItalic'), url("font/AnUIg26c0nuMZMpNWtsDF4nF5uFdDttMLvmWuJdhhgs.ttf") format('truetype');
 }
+
+$breakpoints: (
+  break-0: 0,     // 0px       Mobile first
+  break-1: 640,   // 640px   ~ Small tablet up
+  break-2: 800,   // 800px   ~ Large tablet up
+  // break-3: 1024,  // 1024px  ~ Desktop up
+  // break-4: 1600   // 1600px  ~ Large desktop up
+);
