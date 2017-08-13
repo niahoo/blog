@@ -46,6 +46,11 @@ body {
     }
   }
 }
+.header.feat-img {
+  background-size: cover;
+  background-position: center;
+  min-height: 360px;
+}
 
 .feature {
   padding-bottom: .4rem;
