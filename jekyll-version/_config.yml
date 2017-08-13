@@ -95,8 +95,6 @@ avatarurl: "https://www.gravatar.com/avatar/56f96ae4b18654d9d9d9bc403cdc5858" # 
 # 8. Site navigation
 navigation_header:
   Home: /
-  Elements: /elements/
-  Blog: /blog/
   Categories: /categories/
   Search: /search/
 
@@ -128,8 +126,5 @@ asciidoc:
   page_attribute_prefix: jekyll
   require_front_matter_header: true
 
-asciidoctor:
-  attributes:
-    - source-highlighter=pygments
-    - pygments-stylesheet=assets/pygments-theme.css
-    - pygments-css=class
+# asciidoctor:
+  # attributes:

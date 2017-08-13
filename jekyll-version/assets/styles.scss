@@ -10,10 +10,9 @@ title: false
 @import "syntax";
 @import "flex";
 
-
 // Structural elements
 body {
-  background: $backgroundColour;
+  // background: $backgroundColour;
   color: $bodyColour;
   height: 100%;
   display: flex;
@@ -367,7 +366,7 @@ select {
 }
 
 select {
-  background: $codeBackgroundColour;
+  background: $inlineCodeBackgroundColour;
 }
 
 textarea {

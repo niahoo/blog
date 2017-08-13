@@ -25,5 +25,12 @@ layout: default
 {% include site-footer.html %}
 
 {% for uscript in page.uscripts %}
-	<script type="text/javascript" src="{{ '/assets/' | append: uscript | relative_url }}"></script>
+	<script type="text/javascript" src="{{ '/assets/uscripts/' | append: uscript | relative_url }}"></script>
 {% endfor %}
+
+<script type="text/javascript" src="{{ "/assets/js/highlight.pack.js" | relative_url }}"></script>
+<script type="text/javascript">
+	document.querySelectorAll('pre.highlight code')
+		.forEach(hljs.highlightBlock)
+</script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" />

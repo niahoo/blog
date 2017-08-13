@@ -2,7 +2,7 @@
 title: "Autoclickers : récursion infinie en javascript"
 date: 2017-02-23
 tags: [javascript, incremental-games, intelligence-artificielle]
-uscripts: ['js/loop-next.js']
+uscripts: ['loop-next.js']
 category: Dev
 ---
 

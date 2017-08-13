@@ -2,7 +2,7 @@
 title: "Créer un simple autoclicker pour un incremental game"
 date: 2017-01-31
 tags: [javascript, incremental-games]
-uscripts: ['js/incremental-games-autoclicker.js']
+uscripts: ['incremental-games-autoclicker.js']
 id: "autocklicker-1"
 category: Dev
 ---

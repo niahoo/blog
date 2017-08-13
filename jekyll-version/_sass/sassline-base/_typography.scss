@@ -57,6 +57,34 @@ a {
     font-feature-settings: 'kern', 'onum', 'liga';
   }
 
+  // Code block.
+  code {
+    // @include fontsize(zeta, all);
+    line-height: 2rem;
+    background-color: $inlineCodeBackgroundColour;
+  }
+  code.hljs {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  pre.highlight, pre.highlight code {
+    background: $blockCodeBackgroundColour;
+  }
+  code, pre {
+    font-family: unquote(map-get($monospacetype, font-family));
+  }
+  pre {
+    display: block;
+    @include baseline($fontsize: zeta, $font: $bodytype, $lineheight: 2, $below: 2, $breakpoint: all);
+    // margin-bottom: 2rem;
+    // padding: 1rem;
+    white-space: pre;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+
+
   // Headings. OpenType ligatures, discretionary ligatures and lining figures enabled if available.
   h1, h2, h3, h4, h5, h6 {
     color: $headingColour;
@@ -313,28 +341,6 @@ a {
     margin: 0;
     padding-bottom: 3rem;
     padding-top: 3rem;
-  }
-
-  // Code block.
-  code, pre {
-    background-color: $codeBackgroundColour;
-    font-family: unquote(map-get($monospacetype, font-family));
-  }
-
-  pre {
-    display: block;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    white-space: pre;
-    white-space: pre-wrap;
-    word-break: break-all;
-    word-wrap: break-word;
-  }
-
-  code {
-    @include fontsize(theta, all);
-
-    line-height: 1rem;
   }
 
   // Letter space those capitals people, Jan Tschichold would be proud.
