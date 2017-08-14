@@ -1,6 +1,0 @@
-node_modules/
-build-prod/
-build/
-npm-debug.log
-.env
-hexotest/npm-debug.log*

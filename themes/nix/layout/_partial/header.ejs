@@ -1,8 +1,0 @@
-<header id="header">
-  <nav class="site-nav">
-      <a href="<%- url_for('/') %>"><%-config.title%></a>
-    <% for (var i in theme.menu) if (theme.menu.hasOwnProperty(i)) { %>
-      <a href="<%- url_for(theme.menu[i]) %>"><%= i %></a>
-    <% } %>
-  </nav>
-</header>
