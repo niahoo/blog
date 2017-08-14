@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "cross-env": "^3.1.4",
+    "colors": "^1.1.2",
+    "cross-env": "^5.0.5",
     "dotenv": "^4.0.0",
     "prompt": "^1.0.0",
     "scp2": "^0.5.0"
   },
   "scripts": {
-    "deploy": "hexo clean && cross-env NODE_ENV=production hexo generate && node run-deploy.js",
+    "deploy": "yarn build && node run-deploy.js",
     "build": "cd jekyll && bundle exec jekyll clean && bundle exec jekyll build"
   }
 }
