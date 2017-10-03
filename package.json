@@ -11,6 +11,7 @@
   },
   "scripts": {
     "deploy": "yarn build && node run-deploy.js",
-    "build": "cd jekyll && bundle exec jekyll clean && bundle exec jekyll build"
+    "build": "cd jekyll && bundle exec jekyll clean && bundle exec jekyll build",
+    "clean": "cd jekyll && bundle exec jekyll clean"
   }
 }
