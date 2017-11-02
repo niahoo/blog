@@ -300,6 +300,7 @@ var potionsActions = {
   'Item Gold Values': 'consume',
   'More Kills Per Farm': 'consume',
   'More Monsters': 'consume',
+  'Potions Last Longer': 'consume',
   'Random Boss Fights': 'consume',
   'Random Treasure Rooms': 'consume',
   'Scrolls Auto Fire': 'consume',
