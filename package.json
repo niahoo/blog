@@ -12,6 +12,7 @@
   "scripts": {
     "deploy": "yarn build && node run-deploy.js",
     "build": "cd jekyll && bundle exec jekyll clean && bundle exec jekyll build",
-    "dev": "cd jekyll && bundle exec jekyll clean && bundle exec jekyll serve --watch --drafts"
+    "dev": "cd jekyll && bundle exec jekyll clean && bundle exec jekyll serve --watch --drafts",
+    "clean": "cd jekyll && bundle exec jekyll clean"
   }
 }

@@ -52,6 +52,11 @@ body {
   min-height: 360px;
 }
 
+.header .container {
+  align-items: flex-start;
+}
+
+
 .feature {
   padding-bottom: .4rem;
   margin-bottom: 1.6rem;
