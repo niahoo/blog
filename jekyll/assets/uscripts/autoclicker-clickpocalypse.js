@@ -285,11 +285,12 @@ function getUsablePotions() {
 
 var potionsActions = {
   '____________': 'drop',
+  'Docile Monsters': 'drop',
+  'Frail Monsters': 'drop',
   'Infinite Scrolls': 'drop',
 
   '_____________': 'consume',
   '100% Item Drops': 'consume',
-  'Docile Monsters': 'consume',
   'Double Gold Drops': 'consume',
   'Double Gold': 'consume',
   'Double Item Drops': 'consume',
