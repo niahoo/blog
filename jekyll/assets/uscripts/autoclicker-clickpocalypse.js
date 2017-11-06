@@ -158,6 +158,11 @@ function initialize() {
 
 function mainLoop(loopSelf) {
   var char = getUpgradableCharacter()
+  if (getUsablePotions().length) {
+    console.log("Potions available")
+    state.gameTab.show()
+    return next(useOrDiscardPotions)
+  }
   if (char) {
     return next(manageCharacter, char)
   }
@@ -165,11 +170,6 @@ function mainLoop(loopSelf) {
     console.log("Upgrades available")
     state.gameTab.show()
     return next(purchaseAllUpgrades)
-  }
-  if (getUsablePotions().length) {
-    console.log("Potions available")
-    state.gameTab.show()
-    return next(useOrDiscardPotions)
   }
   if (! loopSelf) {
     // if loopSelf, we are coming in mainLoop from the previous mainLoop, not
@@ -255,28 +255,41 @@ function getUsablePotions() {
       var consumeButton = div.querySelector('.potionButton')
       var dropButton = div.querySelector('.dropPotionButton')
       var potionName = consumeButton.querySelector('tr td:last-child').innerText
+      var action = potionsActions[potionName]
+      if (! action) {
+        console.warn("Undef potion action for %s", potion.name)
+        prompt("Undef potion action : ", potion.name)
+        potionsActions[potionName] = 'consume' // do not re-prompt for the same potion
+      }
       return {
-        consume: function() {
-          console.log("Use potion %s", potionName)
-          mouseupButton(consumeButton)
-        },
-        drop: function() {
-          console.log("Drop potion %s", potionName)
-          mouseupButton(dropButton)
-        },
-        name: potionName
+        consumeButton: consumeButton,
+        dropButton: dropButton,
+        name: potionName,
+        action: action,
+        isMeta: potionName === 'Potions Last Longer'
       }
     })
-  // 'Potions Last Longer' is a meta potion, we want to use it only if there is
-  // another potion at least (@todo check for running potions ?)
-  if (potions.length === 1 && potions[0].name === 'Potions Last Longer') {
-    return []
+  // We will count the amount of regular and meta potions, and if there are only
+  // meta potions, we do not want to use them. Dropped potions don't count
+  var stats = potions.reduce(function (acc, potion) {
+    var group
+    if (potion.action === 'drop') {
+      group = 'drop'
+    }
+    group = potion.isMeta ? 'meta' : 'regular'
+    acc[group].push(potion)
+    return acc
+  }, {drop: [], meta: [], regular: []})
+  if (stats.meta.length > 0 && stats.regular.length === 0) {
+    // send only the ones to drop, keep meta potions unlisted
+    potions = potions.filter(function(potion){
+      return potion.action === 'drop'
+    })
   }
-  // If there is a meta potion but it is last in list, at one point it will be
-  // the only left element in list (when previous potions will be activated and
-  // will no more show in list). So we will be in the previous case, and not use
-  // it althoug there were potions in the same time.
-  // So we want to put it first in the list.
+  // Now, if meta potions are down the list, regular ones will be used first and
+  // we will go into the previous case where there is only meta potions to use.
+  // Then they will be preserved. We do not want that, so we send the meta
+  // potions first.
   return potions.sort(sortBy(function(potion){
     if (potion.name === 'Potions Last Longer') return 0 // top list
     else return 1
@@ -284,13 +297,15 @@ function getUsablePotions() {
 }
 
 var potionsActions = {
+  __default: 'consume',
+
   '____________': 'drop',
   'Docile Monsters': 'drop',
-  'Frail Monsters': 'drop',
   'Infinite Scrolls': 'drop',
 
   '_____________': 'consume',
   '100% Item Drops': 'consume',
+  'Double Experience': 'consume',
   'Double Gold Drops': 'consume',
   'Double Gold': 'consume',
   'Double Item Drops': 'consume',
@@ -298,6 +313,7 @@ var potionsActions = {
   'Fast Walking': 'consume',
   'Faster Farming': 'consume',
   'Faster Infestation': 'consume',
+  'Frail Monsters': 'drop',
   'Item Gold Values': 'consume',
   'More Kills Per Farm': 'consume',
   'More Monsters': 'consume',
@@ -305,7 +321,7 @@ var potionsActions = {
   'Random Boss Fights': 'consume',
   'Random Treasure Rooms': 'consume',
   'Scrolls Auto Fire': 'consume',
-  'Spells Cost Nothing': 'consume',
+  'Spells Cost Nothing': 'consume'
 }
 
 function useOrDiscardPotions() {
@@ -314,14 +330,9 @@ function useOrDiscardPotions() {
     return next(mainLoop)
   }
   var potion = potions[0]
-  var action = potionsActions[potion.name]
-  if (! action) {
-    console.warn("Undef potion action for %s", potion.name)
-    prompt("Undef potion action : ", potion.name)
-    potionsActions[potion.name] = 'consume' // do not re-prompt for the same potion
-    action = 'consume'
-  }
-  potion[action]()
+  var action = potion.action
+  console.log("%s potion %s", action, potion.name)
+  mouseupButton(potion[action + 'Button'])
   // we must re-read DOM at each time, because finished or dropped potions
   // change potions positions in the list
   return next(useOrDiscardPotions)
