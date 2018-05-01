@@ -1,5 +1,5 @@
 ---
-title: Hello :)
+title: "found in config.yml"
 layout: blog
 collectionpage: posts
 ---

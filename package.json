@@ -12,8 +12,9 @@
   "scripts": {
     "install": "cd jekyll && bundle install",
     "deploy": "yarn build && node run-deploy.js",
-    "build": "cd jekyll && bundle exec jekyll clean && bundle exec jekyll build",
-    "dev": "cd jekyll && bundle exec jekyll clean && bundle exec jekyll serve --watch --drafts",
+    "build": "cd jekyll && bundle exec jekyll clean && cross-env JEKYLL_ENV=production bundle exec jekyll build",
+    "serve": "yarn dev",
+    "dev": "cd jekyll && bundle exec jekyll serve --drafts --verbose --strict_front_matter --future --incremental",
     "clean": "cd jekyll && bundle exec jekyll clean"
   }
 }
