@@ -1,0 +1,33 @@
+<div class="box">
+    <a href="{{ post.url }}" class="post-link">
+        <article class="media">
+
+            <div class="media-content">
+                <div class="content">
+                    <strong class="title is-size-5">
+                        {{ post.title }}
+                    </strong>
+                    <div class="is-size-7">
+                    {% if post.header.intro %}
+                        {{ post.header.intro|markdown }}
+                    {% else %}
+                        {{ post.summary(120) }}
+                    {% endif %}
+                    </div>
+                    <small class="dateinfo has-text-grey-light">
+                        <abbr title="{{ post.header.date|date('Y-m-d') }}">{{ post.header.date|nicetime() }}</abbr>
+                    </small>
+                </div>
+            </div>
+
+            {% if post.header.featured_image %}
+                <div class="media-right">
+                    <figure class="image">
+                        {{ post.media[post.header.featured_image].cropZoom(160, 120).html('',post.title|escape)}}
+                    </figure>
+                </div>
+            {% endif %}
+
+        </article>
+    </a>
+</div>

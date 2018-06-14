@@ -1,0 +1,76 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+<div class="container">
+    <div class="columns is-centered">
+        <div class="column is-7-desktop is-10-tablet">
+
+            <h1 class="title is-1">{{ page.title }}</h1>
+
+            <small class="is-size-7 has-text-grey-light dateinfo">
+                Published <abbr title="{{ page.header.date|date('Y-m-d') }}">{{ page.header.date|nicetime() }}</abbr>
+            </small>
+
+
+            <div class="content">
+
+                {% if page.header.intro %}
+                    <div class="is-size-5">
+                        {{ page.header.intro|markdown }}
+                    </div>
+                {% endif %}
+
+                {% if page.header.featured_image %}
+                    <figure class="image is-4by3" style="margin-left: 0; margin-right: 0;">
+                        {{ page.media[page.header.featured_image].cropZoom(768, 576).html('',page.title|escape)}}
+                    </figure>
+                {% else %}
+                    <span class="is-size-7">&nbsp;</span>
+                {% endif %}
+
+                {{ page.content }}
+            </div>
+
+            {% if page.header.taxonomy.tag %}
+                <div class="tags">
+                    {% for tag in page.header.taxonomy.tag %}
+                        <span class="tag">
+                            {{ tag }}
+                        </span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+<script src="{{ url('theme://resources/highlight/highlight.pack.js') }}"></script>
+
+{% set highlightStyle = 'gruvbox-light' %}
+{% set highlightStyle = 'tomorrow' %}
+
+<link rel="stylesheet" type="text/css"
+    href="{{ url('theme://resources/highlight/styles/'~ highlightStyle ~'.css') }}">
+
+<script defer>hljs.initHighlightingOnLoad();</script>
+{#
+<script defer>
+if (document.querySelectorAll) {
+    console.log("Au menu :")
+    Array.prototype.slice.call(document.querySelectorAll('h1,h2,h3,h4,h5,h6'))
+        .map(function(el){
+            var level = parseInt(el.tagName.match(/H([0-9])/)[1])
+            var mdTitle = ' '.repeat((level - 1) * 2)
+                        + '#'.repeat(level)
+            console.log(mdTitle + ' ' + el.innerText)
+        })
+}
+ #}
+</script>
+{% if page.header.uscripts %}
+    {% for uscript in page.header.uscripts %}
+        <script type="text/javascript" src="{{ page.url(false) ~ '/' ~ uscript }}"></script>
+    {% endfor %}
+{% endif %}
+{% endblock %}

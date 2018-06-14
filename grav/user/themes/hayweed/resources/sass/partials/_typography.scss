@@ -1,0 +1,44 @@
+body {
+  font-family: 'Pt Serif', Georgia, $family-sans-serif;
+}
+
+$family-headings: 'Roboto', $family-sans-serif;
+
+button,
+input,
+label,
+select,
+textarea,
+.navbar a,
+.title,h1,h2,h3,h4,h5,h6 {
+  font-family: $family-headings;
+}
+
+.tags .tag,
+.navbar .navbar-brand a {
+  font-family: $family-monospace;
+}
+
+.dateinfo {
+  font-family: $family-sans-serif;
+  abbr {
+    text-decoration: none;
+  }
+}
+
+.content pre {
+  padding: 0 0 0 1em;
+  border-left: 5px solid #9a87a6;
+}
+
+a.post-link {
+  * {
+    color: $text;
+  }
+  &:link .title,  {
+    color: $link;
+  }
+  &:visited .title,  {
+    color: $link-visited;
+  }
+}
