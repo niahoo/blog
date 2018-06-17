@@ -12,7 +12,7 @@
                 {{ page.content }}
             </div>
 
-            {% for post in page.find('/blog').children.order('date', 'desc').slice(0, 3) %}
+            {% for post in page.find('/blog').children.order('date', 'desc').slice(0, 30) %}
                 {% include 'partials/post.html.twig' %}
             {% endfor %}
 

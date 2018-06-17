@@ -3,6 +3,7 @@
 import * as d3Selection from 'd3-selection'
 import * as d3Scale from 'd3-scale'
 import * as d3Array from 'd3-array'
+import qs from 'qs'
 
 var d3 = Object.assign({},
   d3Selection,
@@ -11,6 +12,15 @@ var d3 = Object.assign({},
 )
 
 require('./rng-challenge.css')
+
+const RNG_ITERATIONS = (function(){
+  let data = qs.parse(window.location.search.replace(/^\??/, ''))
+  console.log('query string', window.location.search.replace(/^\??/, ''))
+  console.log('data', data)
+  let is = parseInt(data.i)
+  return is || 10000
+}())
+console.info("Itérations du générateur : %s", RNG_ITERATIONS)
 
 function configure(container, opts) {
   var rect = container.getBoundingClientRect()
@@ -122,20 +132,20 @@ function renderUpdate(results) {
 }
 
 function rand5() {
-  return Math.floor(Math.random() * 5)
+  return Math.trunc(Math.random() * 5)
 }
 
 
 if (false) {
   // do not ship this code
-  var randBit = function() {
+  var randBit = function randBit() {
     var found = rand5()
     if (found > 1) return randBit()
     return found
   }
 
   // Ma solution
-  var rand7 = function() {
+  var rand7 = function rand7() {
     switch (rand5()) {
       case 0: return randBit()
       case 1: return 2 + randBit()
@@ -161,7 +171,7 @@ function castTo0(n) {
 
 function createData(randomGen) {
   var data = []
-  var iterations = 1e6, i
+  var iterations = RNG_ITERATIONS, i
   for (i = 0; i < iterations; i++) {
     // Here we must floor for our simple algorithm to work
     var rn = randomGen()
@@ -190,8 +200,8 @@ editor.session.setMode('ace/mode/javascript')
 
 function update() {
   var javascriptContent = editor.getValue()
-  eval(javascriptContent)
   try {
+    eval(javascriptContent)
     console.log('window.rand7Factory : ', window.rand7Factory)
     var randomGen = window.rand7Factory(rand5)
     checkRandomGen(randomGen)
@@ -204,14 +214,10 @@ function update() {
 
 update()
 
-// define a handler
-function xor(a, b) {
-  return a ? !b : b
-}
 function hotkeys(e) {
   if (e.keyCode === 83) {
     // S
-    if (xor(e.ctrlKey, e.shiftKey)) {
+    if (e.ctrlKey) {
       update()
       e.stopPropagation()
       e.preventDefault()

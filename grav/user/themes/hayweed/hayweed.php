@@ -21,7 +21,8 @@ class Hayweed extends Theme
 
         $this->enable([
             'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
-            'onPageInitialized' => ['onPageInitialized', 0]
+            'onPageInitialized' => ['onPageInitialized', 0],
+            'onPagesInitialized' => ['onPagesInitialized', 0],
         ]);
     }
 
@@ -46,17 +47,24 @@ class Hayweed extends Theme
 
     public function onPageInitialized()
     {
-        // Redirect to external_url if external page template
         $page = $this->grav['page'];
+        // Redirect to external_url if external page template
         $template = $page->template();
         if ($template === 'external' && isset($this->grav['page']->header()->external_url)) {
             $url = $this->grav['page']->header()->external_url;
             $this->grav->redirect($url);
         }
-        $this->maybeSetPagePublishDate($page);
     }
 
-    private function maybeSetPagePublishDate($page)
+    public function onPagesInitialized()
+    {
+        $pages = $this->grav['pages']->instances();
+        foreach ($pages as $page) {
+            $this->setPageDate($page);
+        }
+    }
+
+    private function setPageDate($page)
     {
         // Try to determine page date with the folder name
         $pattern = '/^([0-9]{4})([0-9]{2})([0-9]{2})\./u';

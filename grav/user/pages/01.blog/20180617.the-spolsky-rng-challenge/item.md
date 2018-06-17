@@ -45,19 +45,19 @@ Ici j'ai volontairement mis une fausse solution au chargment. Comme vous pouvez
 le voir, on a effectivement des nombres de `0` à `6` mais dont la répartition
 n'est pas équilibrée.
 
-Pour recharger le graphique avec le nouveau code, <kbd>Ctrl+S</kbd>, <kbd>Maj+S</kbd> ou cliquez sur le
-graphique.
+Pour recharger le graphique avec le nouveau code, <kbd>Ctrl+S</kbd>, ou cliquez
+sur le graphique.
 
 <div id="rng-challenge-app"></div>
 <div id="rng-challenge-editor">
 window.rand7Factory = function(rand5){
-  return function() {
-    // Ici, il faut retourner un nombre entier positif aléatoire x tel que :
-    //     0 ≤ x &lt; 7.
-    // Il est interdit d'utiliser Math.random() et il est nécessaire d'utiliser
-    // rand5(), qui renvoie un nombre aléatoire tel que :
-    //     0 ≤ x &lt; 5 
-    return Math.min(rand5() + rand5(), 6); 
-  } 
+    return function() {
+        // Ici, il faut retourner un nombre entier positif aléatoire x tel que :
+        //     0 ≤ x &lt; 7.
+        // Il est interdit d'utiliser Math.random() et il est nécessaire d'utiliser
+        // rand5(), qui renvoie un nombre aléatoire tel que :
+        //     0 ≤ x &lt; 5 
+        return Math.min(rand5() + rand5(), 6); 
+    } 
 }
 </div>
