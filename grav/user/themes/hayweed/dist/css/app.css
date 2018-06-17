@@ -10857,6 +10857,10 @@ textarea,
   border-left: 5px solid #9a87a6;
 }
 
+code {
+  padding: inherit;
+}
+
 a.post-link * {
   color: #4a4a4a;
 }

@@ -1,0 +1,21 @@
+#rng-challenge-app svg {
+  cursor: pointer;
+}
+#rng-challenge-app svg .bar rect {
+  fill: steelblue;
+}
+#rng-challenge-app {
+  font-family: monospace;
+}
+#rng-challenge-app svg .bar text {
+  fill: black;
+  font: 16px monospace;
+  text-anchor: start;
+}
+#rng-challenge-app svg .bar text.count {
+  text-anchor: end;
+}
+
+#rng-challenge-editor{
+  height: 300px;
+}

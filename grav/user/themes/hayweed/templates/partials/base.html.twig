@@ -17,6 +17,18 @@
     {% include 'partials/footer.html.twig' %}
 </div>
 
+{% if page.header.uscripts %}
+    <!-- uscripts -->
+    {% for uscript in page.header.uscripts %}
+        {% if uscript matches '@https?://@' %}
+            {{ assets.add(uscript, {'group': 'bottom'}) }}
+        {% else %}
+            {{ assets.add('page://01.blog/' ~ page.folder() ~ '/' ~ uscript, {'group': 'bottom'}) }}
+        {% endif %}
+    {% endfor %}
+{% endif %}
 {{ assets.js() }}
+{{ assets.css('bottom') }}
+{{ assets.js('bottom') }}
 </body>
 </html>

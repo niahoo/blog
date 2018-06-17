@@ -1,23 +1,20 @@
-title: "Autoclickers : récursion infinie en javascript"
-date: 2017-02-23
-tags: [javascript, incremental-games, intelligence-artificielle]
-uscripts: ['loop-next.js']
-category: Dev
+---
+title: 'Récursion infinie en javascript'
+intro: >-
+  Seconde partie de ma série d'articles sur les _autoclickers_ dans laquelle on
+  implémente une boucle infinie avec des fonctions récursives.
+taxonomy:
+    category: Dev
+    tag:
+        - javascript
+        - incremental-games
+        - intelligence-artificielle
+uscripts:
+  - 'loop-next.js'
+---
 
 
-
-Seconde partie de ma série d'articles sur les _autoclickers_ dans laquelle on
-implémente une boucle infinie avec des fonctions récursives.
-
-
-++++
-<!-- more -->
-++++
-
-
-// include::source/_includes/autoclicker-toc.adoc[]
-
-Dans le link:/2017/01/31/incremental-games-autoclicker/[premier article] de
+Dans le [premier article](../incremental-games-autoclicker) de
 cette série nous avons fait un prototype de boucle qui répétait une simple
 action à l'infini.
 
@@ -37,6 +34,11 @@ vérifier à nouveau qu'on peut faire quelque chose. Cela permet au script de ne
 pas tourner tout le temps et de respecter mon processeur. Il fait déjà assez
 chaud chez moi !
 
+En bref, un genre d'intelligence artificielle à l'ancienne qu'il faut coder
+entièrement à la main (on est loin du _deep learning_) mais qui doit en plus
+stopper son exécution continuellement pour libérer le _thread_ du navigateur, vu
+qu'on est en Javascript.
+
 J'ai donc mis en place un système de boucle infinie plus avancé permettant
 d'appeler différentes fonctions au sein de la boucle, ou d'effectuer des « sous-
 boucles » sur un aspect précis du jeu (cliquer plusieurs fois sur un certain
@@ -48,8 +50,7 @@ et comprendre l'ordre d'exécution du code quand on l'utilise. Pour résumer, le
 code dans la fonction passée à `setTimeout` est exécuté après l'appel à
 `setTimeout` et ce qui suit, et dans une autre pile d'appel. Exemple :
 
-[source,javascript]
-----
+```javascript
 console.log('1')
 setTimeout(function(){
   console.log('3')
@@ -59,22 +60,21 @@ console.log('2')
 // 1
 // 2
 // 3
-----
+```
 
-== Looper Next
+## Looper Next
 
 Le principe de base est simple : Dans notre boucle, on exécute une certaine
 fonction. Cette fonction effectue les actions qu'elle souhaite (simuler des
 clics sur des boutons, donc), puis indique la prochaine fonction à exécuter lors
 de la prochaine itération. Et ainsi de suite.
 
-=== Structure de données : itération de boucle
+### Structure de données : itération de boucle
 
 Pour commencer, on définit une structure de données décrivant une itération.
-Cela se fait grâce à une fonction `next` :
+Cela se fait grâce à une fonction `next` ("quoi faire ensuite"):
 
-[source,javascript]
-----
+```javascript
 function next(time, fn /*, ...args */) {
   var args
   if (typeof time === 'function') {
@@ -90,7 +90,7 @@ function next(time, fn /*, ...args */) {
     args: args
   }
 }
-----
+```
 
 La structure créée contient les propriétés suivantes :
 
@@ -117,30 +117,34 @@ supplémentaires  étant optionnels :
   défini à `1`.
 
 
-=== Itérateur
+### Itérateur
 
 La structure de données étant définie, on peut donc effectuer des actions avec.
 On va se contenter d'une seule action : exécuter la fonction dans un
 `setTimeout`.
 
-[source,javascript]
-----
-function loop(step) {
-  setTimeout(function() {
-    var nextStep
-    try {
-      nextStep = step.fn.apply(void 0, step.args)
-    } catch (e) {
-      nextStep = onError(e)
-    }
-    if (nextStep) {
-      loop(nextStep)
-    } else {
-      console.log('LOOP END')
-    }
-  }, step.time)
+```javascript
+function looper(onError) {
+  return function loop(step) {
+    setTimeout(function() {
+      var nextStep
+      try {
+        nextStep = step.fn.apply(void 0, step.args)
+      } catch (e) {
+        nextStep = onError(e)
+      }
+      if (nextStep) {
+        loop(nextStep)
+      } else {
+        console.log('LOOP END')
+      }
+    }, step.time)
+  }
 }
-----
+```
+
+La fonction `looper` permet de définir la fonction `loop` en passant le
+gestionnaire d'erreurs `onError`.
 
 La fonction `loop` prend un argument, `step`, qui est notre structure de données
 renvoyée par `next`. Elle lance `setTimeout` avec le timeout souhaité. Dans la
@@ -157,13 +161,12 @@ l'itération suivante.
 
 Enfin, `loop` est appelée récursivement avec cette prochaine étape.
 
-=== Exemple de boucle
+### Exemple de boucle
 
 Voici un exemple de compteur qui compte jusqu'à 10 puis effectue une pause, à
 l'infini :
 
-[source,javascript]
-----
+```javascript
 function printCount(n) {
   if (n > 10) {
     return next(pause)
@@ -178,15 +181,20 @@ function pause() {
   return next(1000, printCount, 1)
 }
 
+var loop = looper(function onError(err){
+  console.error(err)
+  throw err
+})
+
 loop(next(printCount, 1))
-----
+```
 
 Il est important de remarquer que chaque « état » de notre boucle, c'est à dire
 chaque fonction que l'on passe à `next`, **doit** retourner une itération pour
 que la boucle continue.
 
 On pourrait directement appeler `loop(next(...))` à la fin de nos fonctions.
-D'ailleurs, on utiliserait une fonction `loopNext` à la place. Mais en
+D'ailleurs, on créerait une fonction `loopNext` à la place. Mais en
 s'obligeant à utiliser `return`, on s'assure de ne pas pouvoir lancer plusieurs
 boucles en parallèle en appelant `loopNext` plusieurs fois accidentellement au
 sein d'une même fonction.
@@ -198,7 +206,7 @@ structures à partir d'un tableau contenant des tâches à exécuter. Le timeout
 traduit l'urgence de la tâche. Et on n'exécute que la tâche la plus urgente
 avant de recommencer. Bref, plein de choses sont possibles en la matière.
 
-=== Gestion des erreurs
+### Gestion des erreurs
 
 Je ne m'étendrai pas sur la gestion des erreurs car elle dépend vraiment de ce
 qu'on fait dans notre boucle.
@@ -210,26 +218,7 @@ affiché l'erreur dans la console.
 La seule règle à respecter est de retourner des données avec `return next(…)`,
 comme dans n'importe quelle autre fonction de boucle.
 
-Et pour avoir du code plus générique, on peut retrouver notre `looper` (_cf._
-article précédent) :
-
-[source,javascript]
-----
-function looper(onError) {
-  return function loop(step) {
-    // ... code masqué ...
-        nextStep = onError(e)
-    // ... code masqué ...
-  }
-}
-
-var loop = looper(function(err){
-  console.error(err)
-  return next(initialFun)
-})
-----
-
-== Conclusion
+## Conclusion
 
 Nous avons défini une structure de données décrivant « la prochaine fonction à
 appeler pour l'exécution de notre autoclicker ». Nous avons ensuite créé un
