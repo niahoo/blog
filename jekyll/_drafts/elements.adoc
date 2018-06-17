@@ -1,8 +1,0 @@
----
-title: "Elements draft"
-tags: [blog-meta]
-category: Meta
----
-
-
-Yo !
