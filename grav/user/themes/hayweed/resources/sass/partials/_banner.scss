@@ -1,0 +1,16 @@
+.page-banner {
+  min-height: 70vh;
+  &.is-featured-image {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    h1 {
+      color: white;
+    }
+  }
+
+  .hero-body {
+    // padding: 9rem 1.5rem 3em;
+  }
+
+}

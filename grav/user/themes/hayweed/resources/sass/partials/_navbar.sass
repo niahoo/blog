@@ -1,22 +1,14 @@
 
 // Navbar style
-.navbar
-    border-bottom: solid 1px $grey-lighter
+// .navbar
+//     border-bottom: solid 1px $grey-lighter
 
-// Hide the burger when navbar is active (targeted)
-.navbar:target .navbar-burger
-  display: none
+#main-navbar.is-active
+  @extend .is-light
 
-// Hide the crossed burger on normal, and reveal when navbar is active (targeted)
-.navbar .navbar-burger.target-alt
-  display: none
+.page-banner .navbar.is-active
+  background: whitesmoke
 
-.navbar:target .navbar-burger.target-alt
-  @extend .navbar-burger.is-active
-  +touch
-    display: inherit
-  +desktop
-    display: none
-
-.navbar:target .navbar-menu
-  @extend .navbar-menu.is-active
+.navbar-menu.is-active
+    position: absolute
+    width: 100%

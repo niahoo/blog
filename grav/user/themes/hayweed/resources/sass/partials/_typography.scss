@@ -14,8 +14,7 @@ textarea,
   font-family: $family-headings;
 }
 
-.tags .tag,
-.navbar .navbar-brand a {
+.tags .tag {
   font-family: $family-monospace;
 }
 
@@ -45,4 +44,8 @@ a.post-link {
   &:visited .title,  {
     color: $link-visited;
   }
+}
+
+.content h1 {
+  @extend .is-size-1;
 }

@@ -10,7 +10,14 @@
 
 {# Wrap content in #app to allow vue components #}
 <div id="app">
-    {% include 'partials/navbar.html.twig' %}
+        {% include 'partials/navbar.html.twig' %}
+    {% if page.header.featured_image %}
+        <div class="hero page-banner is-light is-featured-image" style="background-image: url({{ page.media[page.header.featured_image].url()}})">
+    {% else %}
+        <div class="hero page-banner is-warning">
+    {% endif %}
+        {% block banner_content %}{% endblock %}
+    </div>
     <section class="section">
         {% block content %}{% endblock %}
     </section>

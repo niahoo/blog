@@ -20,7 +20,7 @@ store.subscribe(function() {
   console.log('subscribe', store.getState())
 })
 
-// app.plug(navbarPlug)
+app.plug(navbarPlug)
 
 navbarViewListener(app, store)
 

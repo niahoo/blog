@@ -1,29 +1,23 @@
-<navbar inline-template>
-    <nav class="navbar" role="navigation" id="main-navbar" aria-label="main navigation">
-        <div class="container is-fluid">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="{{ base_url == '' ? '/' : base_url }}">
-                    {{ config.site.title }}
-                </a>
-
-                <a href="#main-navbar" class="navbar-burger" id="main-navbar-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </a>
-
-                <a href="#" class="navbar-burger target-alt">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </a>
-            </div>
-
-            <div class="navbar-menu" id="main-navbar-menu">
-                {% block header_navigation %}
-                    {% include 'partials/navigation.html.twig' %}
-                {% endblock %}
+<nav class="navbar" role="navigation" id="main-navbar" aria-label="main navigation">
+    <div class="container is-fluid">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{{ base_url == '' ? '/' : base_url }}">
+                <img src="{{ url('theme://images/logo.svg') }}">
+            </a>
+            <a class="navbar-item" href="{{ base_url == '' ? '/' : base_url }}">
+                {{ config.site.title }}
+            </a>
+            <div class="navbar-burger" id="main-navbar-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
-    </nav>
-</navbar>
+
+        <div class="navbar-menu" id="main-navbar-menu">
+            {% block header_navigation %}
+                {% include 'partials/navigation.html.twig' %}
+            {% endblock %}
+        </div>
+    </div>
+</nav>

@@ -17,7 +17,8 @@ export const view = (app, store) => {
     onChange: navbarVisible => {
       var navbarTogglableElements = [
         document.getElementById('main-navbar-toggle'),
-        document.getElementById('main-navbar-menu')
+        document.getElementById('main-navbar-menu'),
+        document.getElementById('main-navbar'),
       ]
       navbarTogglableElements.forEach(function(el){
         el.classList[navbarVisible ? 'add' : 'remove']('is-active')

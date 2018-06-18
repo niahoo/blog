@@ -819,7 +819,7 @@ store.subscribe(function () {
   console.log('subscribe', store.getState());
 });
 
-// app.plug(navbarPlug)
+app.plug(_navbar2.default);
 
 (0, _navbar.view)(app, store);
 
@@ -1033,7 +1033,7 @@ var view = exports.view = function view(app, store) {
   (0, _reduxOnchange2.default)(store, {
     selector: (0, _stateF.get)('navbarVisible'),
     onChange: function onChange(navbarVisible) {
-      var navbarTogglableElements = [document.getElementById('main-navbar-toggle'), document.getElementById('main-navbar-menu')];
+      var navbarTogglableElements = [document.getElementById('main-navbar-toggle'), document.getElementById('main-navbar-menu'), document.getElementById('main-navbar')];
       navbarTogglableElements.forEach(function (el) {
         el.classList[navbarVisible ? 'add' : 'remove']('is-active');
       });
