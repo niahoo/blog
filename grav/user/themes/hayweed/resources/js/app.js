@@ -14,12 +14,6 @@ const app = createPlugApp()
 
 const store = createStore(otherReducer, initialState, app.enhancer)
 
-console.log('store', store)
-console.log('-----------------------------', store)
-store.subscribe(function() {
-  console.log('subscribe', store.getState())
-})
-
 app.plug(navbarPlug)
 
 navbarViewListener(app, store)

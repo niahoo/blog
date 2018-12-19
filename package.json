@@ -12,13 +12,9 @@
     "scp2": "^0.5.0"
   },
   "scripts": {
-    "install": "echo @todo",
-    "deploy": "rm -rvf public\\user\\themes\\hayweed\\dist\\css\\fonts && node run-deploy.js",
-    "build": "concurrently -r --kill-others \"npm run serve\" \"npm run mirror\"",
-    "dev": "cd jekyll && bundle exec jekyll serve --drafts --verbose --strict_front_matter --future --incremental",
-    "serve": "cd grav && php -S 127.0.0.1:8000 system\\router.php",
-    "serveprod": "php -S 127.0.0.1:8000 -t public",
-    "mirror": "snap localhost:8000 --output public",
-    "clean": "rimraf public"
+    "serve": "cd grav && php -S 127.0.0.1:8000 system/router.php",
+    "serveprod": "php -S 127.0.0.1:8000 -t mirrored",
+    "mirror": "snap localhost:8000 --output mirrored",
+    "clean": "rimraf mirrored"
   }
 }

@@ -12,9 +12,18 @@
 /tests
 user/*.*
 user/accounts
+
 user/config/*.*
-user/data
-user/themes/antimatter
+!user/config/system.yaml
+!user/config/site.yaml
+
+/user/data
+
+/user/plugins
+
+/user/themes
+!user/themes/hayweed
+
 /vendor
 /webserver-configs
 

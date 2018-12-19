@@ -813,12 +813,6 @@ var app = (0, _newPlug.createPlugApp)();
 
 var store = (0, _redux.createStore)(otherReducer, _initialState2.default, app.enhancer);
 
-console.log('store', store);
-console.log('-----------------------------', store);
-store.subscribe(function () {
-  console.log('subscribe', store.getState());
-});
-
 app.plug(_navbar2.default);
 
 (0, _navbar.view)(app, store);
