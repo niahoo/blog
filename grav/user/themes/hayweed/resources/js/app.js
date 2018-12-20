@@ -1,22 +1,21 @@
+import domready from 'domready'
 
-import { createStore } from 'redux'
-import { createReducer, createPlugApp } from './new-plug'
-import navbarPlug, { view as navbarViewListener } from './plugs/navbar'
-import initialState from './initial-state'
+domready(function() {
+	const toggleNavbar = (function() {
+      let navbarVisible = false
+      let navbarTogglableElements = [
+        document.getElementById('main-navbar-toggle'),
+        document.getElementById('main-navbar-menu'),
+        document.getElementById('main-navbar'),
+      ]
+      return function() {
+        navbarVisible = !navbarVisible
+        navbarTogglableElements.forEach(function(el) {
+          el.classList[navbarVisible ? 'add' : 'remove']('is-active')
+        })
+      }
+    }())
 
-// const otherReducer = function(state, action) {
-//   console.log('otherReducer action', action)
-//   return state
-// }
-const otherReducer = null
-
-const app = createPlugApp()
-
-const store = createStore(otherReducer, initialState, app.enhancer)
-
-app.plug(navbarPlug)
-
-navbarViewListener(app, store)
-
-
-window.app = app
+  document.getElementById('main-navbar-toggle')
+    .addEventListener('click', toggleNavbar)
+})

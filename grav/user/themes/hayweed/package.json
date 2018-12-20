@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "babel-preset-env": "^1.7.0",
+    "domready": "^1.0.8",
     "domvm": "^3.3.3",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
